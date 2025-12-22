@@ -36,19 +36,24 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
 
         <FieldGroup className="mt-4">
           <Field>
-            <Button type="button">Login</Button>
+            <Button type="button" variant="default" className="w-full">
+              Login
+            </Button>
 
-            <FieldDescription className="px-6 text-center">
+            <FieldDescription className="px-6 text-center mt-2 text-muted-foreground">
               Don&apos;t have an account?{' '}
-              <a href="/register" className="text-blue-600 hover:underline">
+              <a
+                href="/register"
+                className="text-primary hover:underline transition-colors"
+              >
                 Sign up
               </a>
             </FieldDescription>
 
-            <FieldDescription className="px-6 text-center">
+            <FieldDescription className="px-6 text-center mt-1 text-muted-foreground">
               <a
                 href="/forget-password"
-                className="text-blue-600 hover:underline"
+                className="text-primary hover:underline transition-colors"
               >
                 Forgot password?
               </a>

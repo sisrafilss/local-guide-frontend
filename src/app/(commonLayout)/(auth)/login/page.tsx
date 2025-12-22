@@ -7,11 +7,11 @@ const LoginPage = async ({
 }) => {
   const params = (await searchParams) || {};
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="w-full max-w-md space-y-6 rounded-lg border p-8 shadow-lg">
+    <div className="flex min-h-screen items-center justify-center bg-background">
+      <div className="w-full max-w-md space-y-6 rounded-lg border border-border bg-card p-8 shadow-lg">
         <div className="space-y-2 text-center">
-          <h1 className="text-3xl font-bold">Welcome Back</h1>
-          <p className="text-gray-500">
+          <h1 className="text-3xl font-bold text-foreground">Welcome Back</h1>
+          <p className="text-sm text-muted-foreground">
             Enter your credentials to access your account
           </p>
         </div>
