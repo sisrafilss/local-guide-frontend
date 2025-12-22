@@ -2,92 +2,57 @@ import Link from 'next/link';
 
 function PublicFooter() {
   return (
-    <footer className="border-t bg-background">
+    <footer className="border-t border-border bg-background">
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+          {/* Brand */}
           <div>
-            <h3 className="font-bold mb-2">Local Guide</h3>
+            <h3 className="mb-2 font-bold text-foreground">Local Guide</h3>
             <p className="text-sm text-muted-foreground">
               Your trusted platform to find and connect with local tour guides
               around the world.
             </p>
           </div>
+
+          {/* Quick Links */}
           <div>
-            <h3 className="font-semibold mb-2">Quick Links</h3>
+            <h3 className="mb-2 font-semibold text-foreground">Quick Links</h3>
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  href="#"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Contact
-                </Link>
-              </li>
+              {['Home', 'About Us', 'Services', 'Contact'].map((item) => (
+                <li key={item}>
+                  <Link
+                    href="#"
+                    className="text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
+
+          {/* Support */}
           <div>
-            <h3 className="font-semibold mb-2">Support</h3>
+            <h3 className="mb-2 font-semibold text-foreground">Support</h3>
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  href="#"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Help Center
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Privacy Policy
-                </Link>
-              </li>
+              {['FAQ', 'Help Center', 'Terms of Service', 'Privacy Policy'].map(
+                (item) => (
+                  <li key={item}>
+                    <Link
+                      href="#"
+                      className="text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {item}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </div>
+
+          {/* Contact */}
           <div>
-            <h3 className="font-semibold mb-2">Contact Us</h3>
+            <h3 className="mb-2 font-semibold text-foreground">Contact Us</h3>
             <p className="text-sm text-muted-foreground">
               Email: contact@localguide.com
               <br />
@@ -97,11 +62,14 @@ function PublicFooter() {
             </p>
           </div>
         </div>
-        <div className="mt-8 border-t pt-4 text-center text-sm text-muted-foreground">
+
+        {/* Bottom Bar */}
+        <div className="mt-8 border-t border-border pt-4 text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} Local Guide. All Rights Reserved.
         </div>
       </div>
     </footer>
   );
 }
+
 export default PublicFooter;
