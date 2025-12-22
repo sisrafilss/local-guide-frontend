@@ -1,12 +1,24 @@
 'use client';
 
+import { loginUser } from '@/services/auth/loginUser';
+import { useActionState, useEffect } from 'react';
+import { toast } from 'sonner';
+import InputFieldError from './shared/InputFieldError';
 import { Button } from './ui/button';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from './ui/field';
 import { Input } from './ui/input';
 
 const LoginForm = ({ redirect }: { redirect?: string }) => {
+  const [state, formAction, isPending] = useActionState(loginUser, null);
+
+  useEffect(() => {
+    if (state && !state.success && state.message) {
+      toast.error(state.message);
+    }
+  }, [state]);
+
   return (
-    <form>
+    <form action={formAction}>
       {redirect && <input type="hidden" name="redirect" value={redirect} />}
 
       <FieldGroup>
@@ -20,6 +32,7 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
               type="email"
               placeholder="m@example.com"
             />
+            <InputFieldError field="email" state={state} />
           </Field>
 
           {/* Password */}
@@ -31,29 +44,26 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
               type="password"
               placeholder="Enter your password"
             />
+            <InputFieldError field="password" state={state} />
           </Field>
         </div>
 
         <FieldGroup className="mt-4">
           <Field>
-            <Button type="button" variant="default" className="w-full">
-              Login
+            <Button type="submit" disabled={isPending}>
+              {isPending ? 'Logging in...' : 'Login'}
             </Button>
 
-            <FieldDescription className="px-6 text-center mt-2 text-muted-foreground">
+            <FieldDescription className="px-6 text-center">
               Don&apos;t have an account?{' '}
-              <a
-                href="/register"
-                className="text-primary hover:underline transition-colors"
-              >
+              <a href="/register" className="text-blue-600 hover:underline">
                 Sign up
               </a>
             </FieldDescription>
-
-            <FieldDescription className="px-6 text-center mt-1 text-muted-foreground">
+            <FieldDescription className="px-6 text-center">
               <a
                 href="/forget-password"
-                className="text-primary hover:underline transition-colors"
+                className="text-blue-600 hover:underline"
               >
                 Forgot password?
               </a>
