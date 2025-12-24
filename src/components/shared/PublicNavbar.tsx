@@ -1,3 +1,4 @@
+import { getCookie } from '@/services/auth/tokenHandlers';
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
 import { ModeToggle } from '../ModeToggler';
@@ -7,13 +8,13 @@ import LogoutButton from './LogoutButton';
 
 const PublicNavbar = async () => {
   const navItems = [
-    { href: '#', label: 'Explore Tours' },
-    { href: '#', label: 'Become a Guide' },
-    { href: '#', label: 'About' },
-    { href: '#', label: 'Contact' },
+    { href: '/explore-tours', label: 'Explore Tours' },
+    { href: '/become-guide', label: 'Become a Guide' },
+    { href: '/about', label: 'About' },
+    { href: '/contact', label: 'Contact' },
   ];
 
-  const accessToken = null; // Placeholder
+  const accessToken = await getCookie('accessToken');
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
