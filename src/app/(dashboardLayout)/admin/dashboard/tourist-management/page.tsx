@@ -1,5 +1,5 @@
 const ManageUsersPage = () => {
-  return <div>ManageUsersPage</div>;
+  return <div>Manage Tourists</div>;
 };
 
 export default ManageUsersPage;
