@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import z from 'zod';
 
-export const registerPatientValidationZodSchema = z
+export const registerTouristValidationZodSchema = z
   .object({
     name: z.string().min(1, { message: 'Name is required' }),
     // address: z.string().optional(),

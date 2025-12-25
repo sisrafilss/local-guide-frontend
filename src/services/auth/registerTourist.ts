@@ -3,10 +3,10 @@
 
 import { serverFetch } from '@/lib/server-fetch';
 import { zodValidator } from '@/lib/zodValidator';
-import { registerPatientValidationZodSchema } from '@/zod/auth.validation';
+import { registerTouristValidationZodSchema } from '@/zod/auth.validation';
 import { loginUser } from './loginUser';
 
-export const registerPatient = async (
+export const registerTourist = async (
   _currentState: any,
   formData: any
 ): Promise<any> => {
@@ -20,15 +20,15 @@ export const registerPatient = async (
     };
 
     if (
-      zodValidator(payload, registerPatientValidationZodSchema).success ===
+      zodValidator(payload, registerTouristValidationZodSchema).success ===
       false
     ) {
-      return zodValidator(payload, registerPatientValidationZodSchema);
+      return zodValidator(payload, registerTouristValidationZodSchema);
     }
 
     const validatedPayload: any = zodValidator(
       payload,
-      registerPatientValidationZodSchema
+      registerTouristValidationZodSchema
     ).data;
 
     console.log('VALIDATED PAYLOAD', validatedPayload);

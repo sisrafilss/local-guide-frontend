@@ -1,7 +1,7 @@
 export type UserRole = 'ADMIN' | 'GUIDE' | 'TOURIST';
 
 // exact : ["/my-profile", "settings"]
-//   patterns: [/^\/dashboard/, /^\/patient/], // Routes starting with /dashboard/* /patient/*
+//   patterns: [/^\/dashboard/, /^\/tourist/], // Routes starting with /dashboard/* /tourist/*
 export type RouteConfig = {
   exact: string[];
   patterns: RegExp[];

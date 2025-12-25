@@ -1,6 +1,6 @@
 'use client';
 
-import { registerPatient } from '@/services/auth/registerPatient';
+import { registerTourist } from '@/services/auth/registerTourist';
 import { useActionState, useEffect } from 'react';
 import { toast } from 'sonner';
 import InputFieldError from './shared/InputFieldError';
@@ -9,7 +9,7 @@ import { Field, FieldDescription, FieldGroup, FieldLabel } from './ui/field';
 import { Input } from './ui/input';
 
 const RegisterForm = () => {
-  const [state, formAction, isPending] = useActionState(registerPatient, null);
+  const [state, formAction, isPending] = useActionState(registerTourist, null);
 
   useEffect(() => {
     if (state && !state.success && state.message) {

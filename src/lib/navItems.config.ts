@@ -39,7 +39,7 @@ export const getCommonNavItems = (role: UserRole): NavSection[] => {
 
 export const doctorNavItems: NavSection[] = [
   {
-    title: 'Patient Management',
+    title: 'Tourist Management',
     items: [
       {
         title: 'Appointments',
@@ -64,7 +64,7 @@ export const doctorNavItems: NavSection[] = [
   },
 ];
 
-export const patientNavItems: NavSection[] = [
+export const touristNavItems: NavSection[] = [
   {
     title: 'Appointments',
     items: [
@@ -159,7 +159,7 @@ export const getNavItemsByRole = (role: UserRole): NavSection[] => {
     case 'GUIDE':
       return [...commonNavItems, ...doctorNavItems];
     case 'TOURIST':
-      return [...commonNavItems, ...patientNavItems];
+      return [...commonNavItems, ...touristNavItems];
     default:
       return [];
   }
