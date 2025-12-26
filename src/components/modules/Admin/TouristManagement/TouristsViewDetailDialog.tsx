@@ -1,6 +1,5 @@
 import InfoRow from '@/components/shared/InoRow';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
 import {
   Dialog,
   DialogContent,
@@ -10,17 +9,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { formatDateTime, getInitials } from '@/lib/formatters';
 import { ITourist } from '@/types/tourist.interface';
-import {
-  Activity,
-  Calendar,
-  Droplet,
-  FileText,
-  Heart,
-  Mail,
-  MapPin,
-  Phone,
-  User,
-} from 'lucide-react';
+import { Calendar, Mail, Phone, User } from 'lucide-react';
 
 interface ITouristViewDialogProps {
   open: boolean;
@@ -37,7 +26,7 @@ const TouristViewDetailDialog = ({
     return null;
   }
 
-  const healthData = tourist.touristHealthData;
+  // const healthData = tourist.touristHealthData;
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -51,11 +40,11 @@ const TouristViewDetailDialog = ({
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 bg-linear-to-br from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 rounded-lg mb-6">
             <Avatar className="h-24 w-24 border-4 border-white shadow-lg">
               <AvatarImage
-                src={tourist?.profilePhoto || ''}
+                src={tourist?.profilePicUrl || ''}
                 alt={tourist?.name}
               />
               <AvatarFallback className="text-2xl">
-                {getInitials(tourist?.name || '')}
+                {getInitials(tourist.name || '')}
               </AvatarFallback>
             </Avatar>
             <div className="flex-1 text-center sm:text-left">
@@ -64,14 +53,14 @@ const TouristViewDetailDialog = ({
                 <Mail className="h-4 w-4" />
                 {tourist?.email}
               </p>
-              <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
+              {/* <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
                 <Badge
                   variant={tourist?.isDeleted ? 'destructive' : 'default'}
                   className="text-sm"
                 >
                   {tourist?.isDeleted ? 'Inactive' : 'Active'}
                 </Badge>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -84,13 +73,13 @@ const TouristViewDetailDialog = ({
                 <h3 className="font-semibold text-lg">Contact Information</h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/50 p-4 rounded-lg">
-                <div className="flex items-start gap-3">
+                {/* <div className="flex items-start gap-3">
                   <Phone className="h-4 w-4 mt-1 text-muted-foreground" />
                   <InfoRow
                     label="Contact Number"
                     value={tourist?.contactNumber || 'Not provided'}
                   />
-                </div>
+                </div> */}
                 <div className="flex items-start gap-3">
                   <Mail className="h-4 w-4 mt-1 text-muted-foreground" />
                   <InfoRow
@@ -98,18 +87,18 @@ const TouristViewDetailDialog = ({
                     value={tourist?.email || 'Not provided'}
                   />
                 </div>
-                <div className="flex items-start gap-3 md:col-span-2">
+                {/* <div className="flex items-start gap-3 md:col-span-2">
                   <MapPin className="h-4 w-4 mt-1 text-muted-foreground" />
                   <InfoRow
                     label="Address"
                     value={tourist?.address || 'Not provided'}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
 
             {/* Health Data */}
-            {healthData && (
+            {/* {healthData && (
               <>
                 <Separator />
                 <div>
@@ -228,10 +217,10 @@ const TouristViewDetailDialog = ({
                   </div>
                 </div>
               </>
-            )}
+            )} */}
 
             {/* Medical Reports */}
-            {tourist.medicalReport && tourist.medicalReport.length > 0 && (
+            {/* {tourist.medicalReport && tourist.medicalReport.length > 0 && (
               <>
                 <Separator />
                 <div>
@@ -269,7 +258,7 @@ const TouristViewDetailDialog = ({
                   </div>
                 </div>
               </>
-            )}
+            )} */}
 
             <Separator />
 

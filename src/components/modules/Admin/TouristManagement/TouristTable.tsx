@@ -2,7 +2,7 @@
 
 import DeleteConfirmationDialog from '@/components/shared/DeleteConfirmationDialog';
 import ManagementTable from '@/components/shared/ManagementTable';
-import { softDeleteTourist } from '@/services/admin/touristsManagement';
+import { deleteTourist } from '@/services/admin/touristsManagement';
 import { ITourist as ITourists } from '@/types/tourist.interface';
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
@@ -47,7 +47,7 @@ const TouristsTable = ({ tourists }: TouristsTableProps) => {
     if (!deletingTourist) return;
 
     setIsDeleting(true);
-    const result = await softDeleteTourist(deletingTourist.id!);
+    const result = await deleteTourist(deletingTourist.id!);
     setIsDeleting(false);
 
     if (result.success) {

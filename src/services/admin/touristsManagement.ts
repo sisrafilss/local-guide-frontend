@@ -15,6 +15,7 @@ export async function getTourists(queryString?: string) {
       `/tourist${queryString ? `?${queryString}` : ''}`
     );
     const result = await response.json();
+
     return result;
   } catch (error: any) {
     console.log(error);
