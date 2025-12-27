@@ -13,7 +13,9 @@ export const registerTourist = async (
   try {
     const payload = {
       name: formData.get('name'),
-      //   address: formData.get('address'),
+      address: formData.get('address'),
+      phone: formData.get('phone'),
+      gender: formData.get('gender'),
       email: formData.get('email'),
       password: formData.get('password'),
       confirmPassword: formData.get('confirmPassword'),
@@ -33,15 +35,15 @@ export const registerTourist = async (
 
     console.log('VALIDATED PAYLOAD', validatedPayload);
 
-    const registerData = {
-      name: validatedPayload.name,
-      email: validatedPayload.email,
-      password: validatedPayload.password,
-    };
+    // const registerData = {
+    //   name: validatedPayload.name,
+    //   email: validatedPayload.email,
+    //   password: validatedPayload.password,
+    // };
 
     const newFormData = new FormData();
 
-    newFormData.append('data', JSON.stringify(registerData));
+    newFormData.append('data', JSON.stringify(validatedPayload));
 
     if (formData.get('file')) {
       newFormData.append('file', formData.get('file') as Blob);
@@ -52,6 +54,8 @@ export const registerTourist = async (
     });
 
     const result = await res.json();
+
+    console.log('USER CREATION RESULT', result);
 
     if (result.success) {
       await loginUser(_currentState, formData);

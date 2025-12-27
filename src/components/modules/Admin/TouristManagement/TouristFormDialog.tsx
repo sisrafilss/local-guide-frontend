@@ -10,7 +10,7 @@ import { Field, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { updateTourist } from '@/services/admin/touristsManagement';
 import { ITourist } from '@/types/tourist.interface';
-import { useActionState, useEffect, useRef } from 'react';
+import { useActionState, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 interface ITouristFormDialogProps {
@@ -27,11 +27,13 @@ const TouristFormDialog = ({
   tourist,
 }: ITouristFormDialogProps) => {
   const formRef = useRef<HTMLFormElement>(null);
-
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [state, formAction, isPending] = useActionState(
     updateTourist.bind(null, tourist?.id as string),
     null
   );
+
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   // Handle success/error from server
   useEffect(() => {
@@ -50,6 +52,11 @@ const TouristFormDialog = ({
   const handleClose = () => {
     formRef.current?.reset();
     onClose();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setSelectedFile(file || null);
   };
 
   return (
@@ -85,12 +92,13 @@ const TouristFormDialog = ({
                 type="email"
                 placeholder="tourist@example.com"
                 defaultValue={state?.formData?.email || tourist?.email || ''}
-                disabled={isPending}
+                disabled
               />
               <InputFieldError field="email" state={state} />
             </Field>
+          </div>
 
-            <Field>
+          {/* <Field>
               <FieldLabel htmlFor="contactNumber">Contact Number</FieldLabel>
               <Input
                 id="contactNumber"
@@ -101,8 +109,8 @@ const TouristFormDialog = ({
                 }
               />
               <InputFieldError field="contactNumber" state={state} />
-            </Field>
-
+            </Field> */}
+          {/* 
             <Field>
               <FieldLabel htmlFor="address">Address</FieldLabel>
               <Input
@@ -114,8 +122,8 @@ const TouristFormDialog = ({
                 }
               />
               <InputFieldError field="address" state={state} />
-            </Field>
-          </div>
+            </Field> */}
+          {/* </div> */}
 
           {/* Form Actions */}
           <div className="flex justify-end gap-2 px-6 py-4 border-t bg-gray-50">

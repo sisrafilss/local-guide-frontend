@@ -16,6 +16,7 @@ const RegisterForm = () => {
       toast.error(state.message);
     }
   }, [state]);
+
   return (
     <form action={formAction} className="w-full max-w-lg mx-auto">
       <FieldGroup>
@@ -39,7 +40,7 @@ const RegisterForm = () => {
           </Field>
 
           {/* Address */}
-          {/* <Field>
+          <Field>
             <FieldLabel
               htmlFor="address"
               className="text-gray-900 dark:text-gray-100"
@@ -54,7 +55,7 @@ const RegisterForm = () => {
               className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
             />
             <InputFieldError field="address" state={state} />
-          </Field> */}
+          </Field>
 
           {/* Email */}
           <Field>
@@ -74,8 +75,57 @@ const RegisterForm = () => {
             <InputFieldError field="email" state={state} />
           </Field>
 
-          {/* Password */}
+          {/* Phone */}
+          <Field>
+            <FieldLabel
+              htmlFor="phone"
+              className="text-gray-900 dark:text-gray-100"
+            >
+              Phone
+            </FieldLabel>
+            <Input
+              id="phone"
+              name="phone"
+              type="tel"
+              placeholder="+1234567890"
+              className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+            />
+            <InputFieldError field="phone" state={state} />
+          </Field>
+
+          {/* Gender */}
           <Field className="md:col-span-2">
+            <FieldLabel className="text-gray-900 dark:text-gray-100">
+              Gender
+            </FieldLabel>
+
+            <div className="flex items-center gap-6 mt-2">
+              <label className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
+                <input
+                  type="radio"
+                  name="gender"
+                  value="MALE"
+                  className="accent-blue-600"
+                />
+                Male
+              </label>
+
+              <label className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
+                <input
+                  type="radio"
+                  name="gender"
+                  value="FEMALE"
+                  className="accent-blue-600"
+                />
+                Female
+              </label>
+            </div>
+
+            <InputFieldError field="gender" state={state} />
+          </Field>
+
+          {/* Password */}
+          <Field className="md:col-span-1">
             <FieldLabel
               htmlFor="password"
               className="text-gray-900 dark:text-gray-100"
@@ -92,7 +142,7 @@ const RegisterForm = () => {
           </Field>
 
           {/* Confirm Password */}
-          <Field className="md:col-span-2">
+          <Field className="md:col-span-1">
             <FieldLabel
               htmlFor="confirmPassword"
               className="text-gray-900 dark:text-gray-100"

@@ -3,8 +3,9 @@ export interface ITourist {
   email: string;
   name: string;
   profilePicUrl?: string | null;
-  // contactNumber: string;
-  // address: string;
+  phone: string;
+  address: string;
+  gender: 'MALE' | 'FEMALE';
   // isDeleted: boolean;
   createdAt: string;
   updatedAt: string;

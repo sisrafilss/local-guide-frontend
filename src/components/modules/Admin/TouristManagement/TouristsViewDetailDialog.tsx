@@ -9,7 +9,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { formatDateTime, getInitials } from '@/lib/formatters';
 import { ITourist } from '@/types/tourist.interface';
-import { Calendar, Mail, Phone, User } from 'lucide-react';
+import { Calendar, Mail, MapPin, Phone, User } from 'lucide-react';
 
 interface ITouristViewDialogProps {
   open: boolean;
@@ -25,6 +25,8 @@ const TouristViewDetailDialog = ({
   if (!tourist) {
     return null;
   }
+
+  console.log('TOURIST DATA', tourist);
 
   // const healthData = tourist.touristHealthData;
 
@@ -73,13 +75,13 @@ const TouristViewDetailDialog = ({
                 <h3 className="font-semibold text-lg">Contact Information</h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/50 p-4 rounded-lg">
-                {/* <div className="flex items-start gap-3">
+                <div className="flex items-start gap-3">
                   <Phone className="h-4 w-4 mt-1 text-muted-foreground" />
                   <InfoRow
                     label="Contact Number"
-                    value={tourist?.contactNumber || 'Not provided'}
+                    value={tourist?.phone || 'Not provided'}
                   />
-                </div> */}
+                </div>
                 <div className="flex items-start gap-3">
                   <Mail className="h-4 w-4 mt-1 text-muted-foreground" />
                   <InfoRow
@@ -87,13 +89,13 @@ const TouristViewDetailDialog = ({
                     value={tourist?.email || 'Not provided'}
                   />
                 </div>
-                {/* <div className="flex items-start gap-3 md:col-span-2">
+                <div className="flex items-start gap-3 md:col-span-2">
                   <MapPin className="h-4 w-4 mt-1 text-muted-foreground" />
                   <InfoRow
                     label="Address"
                     value={tourist?.address || 'Not provided'}
                   />
-                </div> */}
+                </div>
               </div>
             </div>
 
