@@ -8,62 +8,39 @@ import {
 } from '@/components/ui/dialog';
 import { Field, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { updateTourist } from '@/services/admin/touristsManagement';
-import { ITourist } from '@/types/tourist.interface';
-import { useActionState, useEffect, useRef, useState } from 'react';
-import { toast } from 'sonner';
+import { updateGuide } from '@/services/admin/guidesManagement';
+import { IGuide } from '@/types/guide.interface';
+import { useActionState, useRef } from 'react';
 
-interface ITouristFormDialogProps {
+interface IGuideFormDialogProps {
   open: boolean;
   onClose: () => void;
   onSuccess: () => void;
-  tourist?: ITourist;
+  guide?: IGuide;
 }
 
-const TouristFormDialog = ({
+const GuideFormDialog = ({
   open,
   onClose,
   onSuccess,
-  tourist,
-}: ITouristFormDialogProps) => {
+  guide,
+}: IGuideFormDialogProps) => {
   const formRef = useRef<HTMLFormElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [state, formAction, isPending] = useActionState(
-    updateTourist.bind(null, tourist?.id as string),
+    updateGuide.bind(null, guide?.id as string),
     null
   );
-
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-  // Handle success/error from server
-  useEffect(() => {
-    if (state?.success) {
-      toast.success(state.message || 'Operation successful');
-      if (formRef.current) {
-        formRef.current.reset();
-      }
-      onSuccess();
-      onClose();
-    } else if (state?.message && !state.success) {
-      toast.error(state.message);
-    }
-  }, [state, onSuccess, onClose]);
 
   const handleClose = () => {
     formRef.current?.reset();
     onClose();
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    setSelectedFile(file || null);
-  };
-
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="max-h-[90vh] flex flex-col p-0">
         <DialogHeader className="px-6 pt-6 pb-4">
-          <DialogTitle>Edit Tourist</DialogTitle>
+          <DialogTitle>Edit Guide</DialogTitle>
         </DialogHeader>
 
         <form
@@ -79,7 +56,7 @@ const TouristFormDialog = ({
                 id="name"
                 name="name"
                 placeholder="John Doe"
-                defaultValue={state?.formData?.name || tourist?.name || ''}
+                defaultValue={state?.formData?.name || guide?.name || ''}
               />
               <InputFieldError field="name" state={state} />
             </Field>
@@ -91,7 +68,7 @@ const TouristFormDialog = ({
                 name="email"
                 type="email"
                 placeholder="tourist@example.com"
-                defaultValue={state?.formData?.email || tourist?.email || ''}
+                defaultValue={state?.formData?.email || guide?.email || ''}
                 disabled
               />
               <InputFieldError field="email" state={state} />
@@ -146,4 +123,4 @@ const TouristFormDialog = ({
   );
 };
 
-export default TouristFormDialog;
+export default GuideFormDialog;
