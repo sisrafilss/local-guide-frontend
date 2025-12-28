@@ -1,6 +1,7 @@
 import GuideFilter from '@/components/modules/Admin/GuideManagement/GuideFilter';
 import GuideTable from '@/components/modules/Admin/GuideManagement/GuideTable';
 import ManagementPageHeader from '@/components/shared/ManagementPageHeader';
+import TablePagination from '@/components/shared/TablePagination';
 import { TableSkeleton } from '@/components/shared/TableSkeleton';
 import { queryStringFormatter } from '@/lib/formatters';
 import { getGuides } from '@/services/admin/guidesManagement';
@@ -31,6 +32,10 @@ const AdminGuideManagementPage = async ({
 
       <Suspense fallback={<TableSkeleton columns={10} rows={10} />}>
         <GuideTable guides={guidesResult?.data || []} />
+        <TablePagination
+          currentPage={guidesResult?.meta?.page || 1}
+          totalPages={totalPages || 1}
+        />
       </Suspense>
     </div>
   );
