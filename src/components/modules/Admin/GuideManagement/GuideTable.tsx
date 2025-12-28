@@ -7,9 +7,10 @@ import { IGuide } from '@/types/guide.interface';
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
+
+import { guideColumns } from './guideColumns';
 import GuideFormDialog from './GuideFormDialog';
 import GuideViewDetailDialog from './GuideViewDetailDialog';
-import { guideColumns } from './tuideColumns';
 
 interface GuideTableProps {
   guides: IGuide[];
