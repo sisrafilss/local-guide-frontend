@@ -7,7 +7,10 @@ import {
 import { verifyAccessToken } from '@/lib/jwtHanlders';
 import { serverFetch } from '@/lib/server-fetch';
 import { zodValidator } from '@/lib/zodValidator';
-import { resetPasswordSchema } from '@/zod/auth.validation';
+import {
+  changePasswordSchema,
+  resetPasswordSchema,
+} from '@/zod/auth.validation';
 import { parse } from 'cookie';
 import jwt from 'jsonwebtoken';
 import { revalidateTag } from 'next/cache';
@@ -249,6 +252,45 @@ export async function getNewAccessToken() {
       tokenRefreshed: false,
       success: false,
       message: error?.message || 'Something went wrong',
+    };
+  }
+}
+
+export async function changePassword(_prevState: any, formData: FormData) {
+  try {
+    const payload = {
+      currentPassword: formData.get('currentPassword'),
+      newPassword: formData.get('newPassword'),
+      confirmPassword: formData.get('confirmPassword'),
+    };
+
+    if (zodValidator(payload, changePasswordSchema).success === false) {
+      return zodValidator(payload, changePasswordSchema);
+    }
+
+    const validatedPayload = zodValidator(payload, changePasswordSchema).data;
+
+    const res = await serverFetch.post('/auth/change-password', {
+      body: JSON.stringify(validatedPayload),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const result = await res.json();
+    console.log(result);
+    return result;
+  } catch (error: any) {
+    // Re-throw NEXT_REDIRECT errors so Next.js can handle them
+
+    console.log(error);
+    return {
+      success: false,
+      message: `${
+        process.env.NODE_ENV === 'development'
+          ? error.message
+          : 'Login Failed. You might have entered incorrect email or password.'
+      }`,
     };
   }
 }
