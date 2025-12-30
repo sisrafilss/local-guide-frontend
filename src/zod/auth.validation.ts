@@ -66,7 +66,7 @@ export const resetPasswordSchema = z
     path: ['confirmPassword'],
   });
 
-export const changePasswordSchema = z
+export const changePasswordZodSchema = z
   .object({
     currentPassword: z.string().min(1, 'Current password is required'),
     newPassword: z

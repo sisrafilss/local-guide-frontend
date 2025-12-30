@@ -8,7 +8,7 @@ import { verifyAccessToken } from '@/lib/jwtHanlders';
 import { serverFetch } from '@/lib/server-fetch';
 import { zodValidator } from '@/lib/zodValidator';
 import {
-  changePasswordSchema,
+  changePasswordZodSchema,
   resetPasswordSchema,
 } from '@/zod/auth.validation';
 import { parse } from 'cookie';
@@ -264,11 +264,14 @@ export async function changePassword(_prevState: any, formData: FormData) {
       confirmPassword: formData.get('confirmPassword'),
     };
 
-    if (zodValidator(payload, changePasswordSchema).success === false) {
-      return zodValidator(payload, changePasswordSchema);
+    if (zodValidator(payload, changePasswordZodSchema).success === false) {
+      return zodValidator(payload, changePasswordZodSchema);
     }
 
-    const validatedPayload = zodValidator(payload, changePasswordSchema).data;
+    const validatedPayload = zodValidator(
+      payload,
+      changePasswordZodSchema
+    ).data;
 
     const res = await serverFetch.post('/auth/change-password', {
       body: JSON.stringify(validatedPayload),
