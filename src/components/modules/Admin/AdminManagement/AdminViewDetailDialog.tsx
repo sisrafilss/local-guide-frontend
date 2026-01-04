@@ -1,4 +1,4 @@
-import InfoRow from '@/components/shared/InoRow';
+import InfoRow from '@/components/shared/InfoRow';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Dialog,
