@@ -1,3 +1,4 @@
+import AddListingFormDialogWrapper from '@/components/modules/Guide/ListingManagement/AddListingFormDialogWrapper';
 import ListingTable from '@/components/modules/Guide/ListingManagement/ListingTable';
 import ListingFilter from '@/components/modules/Guide/ListingManagement/ListringFilter';
 import ManagementPageHeader from '@/components/shared/ManagementPageHeader';
@@ -28,7 +29,11 @@ const GuideMyListingPage = async ({
       />
 
       {/* Search, Filters */}
-      <ListingFilter />
+      <div className="flex justify-between">
+        {' '}
+        <ListingFilter />
+        <AddListingFormDialogWrapper />
+      </div>
 
       <Suspense fallback={<TableSkeleton columns={10} rows={10} />}>
         <ListingTable listings={listingResult?.data || []} />
