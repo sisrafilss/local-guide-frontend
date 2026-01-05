@@ -1,10 +1,25 @@
-import { Badge } from '@/components/ui/badge';
+import TourCard from '@/components/modules/ExploreTours/TourCard';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Clock, DollarSign, MapPin, Users } from 'lucide-react';
+import { queryStringFormatter } from '@/lib/formatters';
+import { getAllTours } from '@/services/tourist/tours';
 
-export default function ExploreToursPage() {
+export default async function ExploreToursPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const searchParamsObj = await searchParams;
+  const queryString = queryStringFormatter(searchParamsObj);
+
+  const toursResult = await getAllTours(queryString);
+
+  const totalPages = Math.ceil(
+    (toursResult?.meta?.total || 1) / (toursResult?.meta?.limit || 1)
+  );
+
+  console.log('TOURS RESULT', toursResult);
+
   return (
     <main className="pb-20">
       {/* Header */}
@@ -24,6 +39,7 @@ export default function ExploreToursPage() {
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
             <Input placeholder="Search tours..." />
             <Input placeholder="City" />
+
             <select className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
               <option value="">All Categories</option>
               <option value="FOOD">Food</option>
@@ -43,65 +59,24 @@ export default function ExploreToursPage() {
       {/* Tours Grid */}
       <section>
         <div className="mx-auto max-w-7xl px-4 py-10">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Example Cards */}
-            <TourCard />
-            <TourCard />
-            <TourCard />
-            <TourCard />
-            <TourCard />
-            <TourCard />
-          </div>
+          {toursResult?.data?.length ? (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {toursResult.data.map((tour: any) => (
+                <TourCard key={tour.id} tour={tour} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-muted-foreground">No tours found.</p>
+          )}
         </div>
       </section>
 
       {/* Load More */}
-      <section className="mt-10 text-center">
-        <Button variant="outline">Load More Tours</Button>
-      </section>
+      {totalPages > 1 && (
+        <section className="mt-10 text-center">
+          <Button variant="outline">Load More Tours</Button>
+        </section>
+      )}
     </main>
-  );
-}
-
-/* ---------------- Components ---------------- */
-
-function TourCard() {
-  return (
-    <Card className="overflow-hidden transition hover:shadow-lg">
-      {/* Image */}
-      <div className="h-48 w-full bg-muted" />
-
-      <CardContent className="space-y-4 p-5">
-        <div className="flex items-center justify-between">
-          <h3 className="line-clamp-1 text-lg font-semibold">
-            Old Dhaka Walking Tour
-          </h3>
-          <Badge variant="secondary">Custom</Badge>
-        </div>
-
-        <p className="line-clamp-2 text-sm text-muted-foreground">
-          A guided walking tour through the historic streets of Old Dhaka.
-        </p>
-
-        {/* Meta */}
-        <div className="grid grid-cols-2 gap-3 text-sm text-muted-foreground">
-          <Meta icon={MapPin} text="Dhaka" />
-          <Meta icon={Clock} text="120 min" />
-          <Meta icon={Users} text="Max 5" />
-          <Meta icon={DollarSign} text="$25" />
-        </div>
-
-        <Button className="w-full">View Details</Button>
-      </CardContent>
-    </Card>
-  );
-}
-
-function Meta({ icon: Icon, text }: { icon: any; text: string }) {
-  return (
-    <div className="flex items-center gap-2">
-      <Icon className="h-4 w-4" />
-      <span>{text}</span>
-    </div>
   );
 }
