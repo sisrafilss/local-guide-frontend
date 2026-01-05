@@ -1,3 +1,9 @@
+import BecomeGuideCTA from '@/components/modules/Home/BecomeGuideCTA';
+import FeaturedSection from '@/components/modules/Home/FeaturedSection';
+import HeroSearchBar from '@/components/modules/Home/Hero';
+import HowItWorksSection from '@/components/modules/Home/HowItWorkSection';
+import PopularCitiesSection from '@/components/modules/Home/PopularCitiesSection';
+import WhyChooseUsSection from '@/components/modules/Home/WhyChooseUs';
 import Head from 'next/head';
 
 export default function Home() {
@@ -13,9 +19,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1 className="text-4xl font-bold text-center mx-5 my-10">
-          This is the Main Homepage of The Application!
-        </h1>
+        <HeroSearchBar />
+        <FeaturedSection />
+        <BecomeGuideCTA />
+        <WhyChooseUsSection />
+        <PopularCitiesSection />
+        <HowItWorksSection />
       </main>
     </>
   );
