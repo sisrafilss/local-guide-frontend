@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import TouristBookings from '@/components/modules/Tourist/TouristBokings';
 import TablePagination from '@/components/shared/TablePagination';
 import { queryStringFormatter } from '@/lib/formatters';
