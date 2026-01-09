@@ -120,24 +120,12 @@ export const adminNavItems: NavSection[] = [
     ],
   },
   {
-    title: 'Tour Management',
+    title: 'Listing Management',
     items: [
       {
-        title: 'Appointments',
-        href: '/admin/dashboard/appointments-management',
+        title: 'Manage Listing',
+        href: '/admin/dashboard/manage-listing',
         icon: 'Calendar', // ✅ String
-        roles: ['ADMIN'],
-      },
-      {
-        title: 'Schedules',
-        href: '/admin/dashboard/schedules-management',
-        icon: 'Clock', // ✅ String
-        roles: ['ADMIN'],
-      },
-      {
-        title: 'Specialities',
-        href: '/admin/dashboard/specialities-management',
-        icon: 'Hospital', // ✅ String
         roles: ['ADMIN'],
       },
     ],
