@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import AddListingFormDialogWrapper from '@/components/modules/Guide/ListingManagement/AddListingFormDialogWrapper';
 import ListingTable from '@/components/modules/Guide/ListingManagement/ListingTable';
 import ListingFilter from '@/components/modules/Guide/ListingManagement/ListringFilter';

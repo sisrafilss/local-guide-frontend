@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import AdminFilter from '@/components/modules/Admin/AdminManagement/AdminFilter';
 import AdminTable from '@/components/modules/Admin/AdminManagement/AdminTable';
 import ManagementPageHeader from '@/components/shared/ManagementPageHeader';

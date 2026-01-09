@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import TouristFilter from '@/components/modules/Admin/TouristManagement/TouristFilter';
 import TouristsTable from '@/components/modules/Admin/TouristManagement/TouristTable';
 import ManagementPageHeader from '@/components/shared/ManagementPageHeader';

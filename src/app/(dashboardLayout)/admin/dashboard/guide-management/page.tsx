@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import GuideFilter from '@/components/modules/Admin/GuideManagement/GuideFilter';
 import GuideTable from '@/components/modules/Admin/GuideManagement/GuideTable';
 import ManagementPageHeader from '@/components/shared/ManagementPageHeader';

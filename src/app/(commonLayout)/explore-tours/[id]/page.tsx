@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { getTourbyId } from '@/services/tourist/tours';
 import { Clock, DollarSign, MapPin, Users } from 'lucide-react';
+import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -211,7 +212,9 @@ export default function TourDetailPage() {
                   </span>
                 </p>
 
-                <Button className="w-full">Book This Tour</Button>
+                <Link href="/dashboard/">
+                  <Button className="w-full">Book This Tour</Button>
+                </Link>
 
                 <p className="text-center text-xs text-muted-foreground">
                   Free cancellation up to 24 hours before the tour
