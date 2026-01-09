@@ -60,39 +60,39 @@ export const guideNavItems: NavSection[] = [
 
 export const touristNavItems: NavSection[] = [
   {
-    title: 'Appointments',
+    title: 'Booking',
     items: [
       {
-        title: 'My Appointments',
-        href: '/dashboard/my-appointments',
+        title: 'My Booking',
+        href: '/dashboard/my-booking',
         icon: 'Calendar', // ✅ String
         roles: ['TOURIST'],
       },
-      {
-        title: 'Book Appointment',
-        href: '/consultation',
-        icon: 'ClipboardList', // ✅ String
-        roles: ['TOURIST'],
-      },
+      // {
+      //   title: 'Book Appointment',
+      //   href: '/consultation',
+      //   icon: 'ClipboardList', // ✅ String
+      //   roles: ['TOURIST'],
+      // },
     ],
   },
-  {
-    title: 'Medical Records',
-    items: [
-      {
-        title: 'My Prescriptions',
-        href: '/dashboard/my-prescriptions',
-        icon: 'FileText', // ✅ String
-        roles: ['TOURIST'],
-      },
-      {
-        title: 'Health Records',
-        href: '/dashboard/health-records',
-        icon: 'Activity', // ✅ String
-        roles: ['TOURIST'],
-      },
-    ],
-  },
+  // {
+  //   title: 'Medical Records',
+  //   items: [
+  //     {
+  //       title: 'My Prescriptions',
+  //       href: '/dashboard/my-prescriptions',
+  //       icon: 'FileText', // ✅ String
+  //       roles: ['TOURIST'],
+  //     },
+  //     {
+  //       title: 'Health Records',
+  //       href: '/dashboard/health-records',
+  //       icon: 'Activity', // ✅ String
+  //       roles: ['TOURIST'],
+  //     },
+  //   ],
+  // },
 ];
 
 export const adminNavItems: NavSection[] = [

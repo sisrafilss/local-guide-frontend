@@ -1,20 +1,47 @@
+import { getDefaultDashboardRoute, UserRole } from '@/lib/auth-utils';
 import { getCookie } from '@/services/auth/tokenHandlers';
+import { jwtDecode } from 'jwt-decode';
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
 import { ModeToggle } from '../ModeToggler';
+import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '../ui/sheet';
 import LogoutButton from './LogoutButton';
 
+/* ---------------- Types ---------------- */
+type JwtPayload = {
+  role: 'TOURIST' | 'GUIDE' | 'ADMIN';
+  exp: number;
+};
+
 const PublicNavbar = async () => {
+  const accessToken = await getCookie('accessToken');
+  console.log('ACCESS TOKEN IN NAVBAR:', accessToken);
+
+  let role: JwtPayload['role'] | null = null;
+  let dashboardRoute: string | null = null;
+
+  if (accessToken) {
+    try {
+      const decoded = jwtDecode<JwtPayload>(accessToken);
+      role = decoded.role;
+      dashboardRoute = getDefaultDashboardRoute(role as UserRole);
+    } catch (error) {
+      console.error('Invalid access token', error);
+    }
+  }
+
   const navItems = [
     { href: '/explore-tours', label: 'Explore Tours' },
+
+    // ✅ Show dashboard only when logged in
+    ...(dashboardRoute ? [{ href: dashboardRoute, label: 'Dashboard' }] : []),
+
     { href: '/become-guide', label: 'Become a Guide' },
     { href: '/about', label: 'About' },
     { href: '/contact', label: 'Contact' },
   ];
-
-  const accessToken = await getCookie('accessToken');
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
@@ -38,8 +65,15 @@ const PublicNavbar = async () => {
         </nav>
 
         {/* Desktop Actions */}
-        <div className="hidden md:flex items-center space-x-2">
+        <div className="hidden md:flex items-center gap-3">
           <ModeToggle />
+
+          {role && (
+            <Badge variant="secondary" className="capitalize">
+              {role.toLowerCase()}
+            </Badge>
+          )}
+
           {accessToken ? (
             <LogoutButton />
           ) : (
@@ -75,11 +109,23 @@ const PublicNavbar = async () => {
                   </Link>
                 ))}
 
-                <div className="mt-4 flex items-center space-x-4 border-t border-border pt-4">
+                {/* Mobile Role */}
+                {role && (
+                  <Badge variant="secondary" className="w-fit capitalize">
+                    Role: {role.toLowerCase()}
+                  </Badge>
+                )}
+
+                <div className="mt-4 flex flex-col gap-3 border-t border-border pt-4">
                   <ModeToggle />
-                  <Link href="/login">
-                    <Button className="w-full">Login</Button>
-                  </Link>
+
+                  {accessToken ? (
+                    <LogoutButton />
+                  ) : (
+                    <Link href="/login">
+                      <Button className="w-full">Login</Button>
+                    </Link>
+                  )}
                 </div>
               </nav>
             </SheetContent>

@@ -1,14 +1,14 @@
-'use client';
+import SingleTour from '@/components/modules/Tours/SingleTour';
+import { bookTour } from '@/services/tourist/tours';
+import { toast } from 'sonner';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { getTourbyId } from '@/services/tourist/tours';
-import { Clock, DollarSign, MapPin, Users } from 'lucide-react';
-import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+type BookTourPayload = {
+  listingId: string;
+  touristId: string;
+  guideId: string;
+  startAt: string; // ISO string
+  totalPrice: number;
+};
 
 export type TourDetail = {
   id: string;
@@ -22,6 +22,7 @@ export type TourDetail = {
   city: string;
   images: string[];
   guide: {
+    id?: string;
     name: string;
     avatarUrl?: string;
     bio?: string;
@@ -29,222 +30,44 @@ export type TourDetail = {
 };
 
 export default function TourDetailPage() {
-  const params = useParams();
-  const id = params?.id;
-  const [tour, setTour] = useState<TourDetail | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const handleBookTour = async (payload: BookTourPayload) => {
+    console.log('RESULT', payload);
+    try {
+      // Optional: close dialog immediately for better UX
+      // setBookingOpen(false);
 
-  useEffect(() => {
-    if (!id) {
-      setError('Invalid tour ID');
-      setLoading(false);
-      return;
-    }
+      const res = await bookTour(payload);
 
-    const fetchTour = async () => {
-      try {
-        setLoading(true);
-        const res = await getTourbyId(id as string);
-
-        if (!res || !res.success || !res.data) {
-          setError(res?.message || 'Tour not found.');
-          return;
-        }
-
-        // Map API response to TourDetail
-        const mappedTour: TourDetail = {
-          id: res.data.id,
-          title: res.data.title,
-          description: res.data.description,
-          price: res.data.price,
-          durationMin: res.data.durationMin,
-          meetingPoint: res.data.meetingPoint,
-          maxGroupSize: res.data.maxGroupSize,
-          category: res.data.category,
-          city: res.data.city,
-          images: res.data.images || [],
-          guide: {
-            name: res.data.guide?.userId
-              ? `Guide ${res.data.guide.userId.slice(0, 4)}`
-              : 'Local Guide',
-            avatarUrl: undefined, // You can map avatar if available
-            bio: res.data.guide?.verificationStatus
-              ? 'Verified local guide'
-              : 'Certified local guide',
-          },
-        };
-
-        setTour(mappedTour);
-      } catch (err) {
-        console.error(err);
-        setError('Failed to load tour details.');
-      } finally {
-        setLoading(false);
+      if (!res || !res.success) {
+        toast.error(res?.message || 'Failed to book tour');
+        return;
       }
-    };
 
-    fetchTour();
-  }, [id]);
+      toast.success('Tour booked successfully 🎉');
 
-  if (loading) {
-    return (
-      <div className="flex h-[60vh] items-center justify-center">
-        <span className="animate-pulse rounded-full bg-muted px-6 py-3 text-muted-foreground">
-          Loading tour details...
-        </span>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex h-[60vh] items-center justify-center text-red-500">
-        {error}
-      </div>
-    );
-  }
-
-  if (!tour) {
-    return (
-      <div className="flex h-[60vh] items-center justify-center text-muted-foreground">
-        Tour details unavailable.
-      </div>
-    );
-  }
+      // OPTIONAL (later)
+      // router.push('/dashboard/bookings');
+    } catch (error: any) {
+      console.error(error);
+      toast.error(
+        process.env.NODE_ENV === 'development'
+          ? error.message
+          : 'Something went wrong while booking'
+      );
+    }
+  };
 
   return (
-    <main className="pb-20">
-      {/* Image Gallery */}
-      <section className="relative h-[280px] w-full bg-muted sm:h-[360px] lg:h-[420px]">
-        {tour.images.length > 0 ? (
-          <img
-            src={tour.images[0]}
-            alt={tour.title}
-            className="h-full w-full object-cover"
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-            No Images Available
-          </div>
-        )}
-      </section>
+    <>
+      <main className="pb-20">
+        <SingleTour />
+      </main>
 
-      <section className="mx-auto max-w-7xl px-4 pt-10">
-        <div className="grid gap-10 lg:grid-cols-3">
-          {/* Left Content */}
-          <div className="space-y-8 lg:col-span-2">
-            {/* Title */}
-            <div>
-              <Badge className="mb-2">{tour.category}</Badge>
-              <h1 className="text-3xl font-bold">{tour.title}</h1>
-              <p className="mt-1 flex items-center gap-2 text-muted-foreground">
-                <MapPin className="h-4 w-4" />
-                {tour.city}
-              </p>
-            </div>
-
-            {/* Meta */}
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              <Meta
-                icon={Clock}
-                label="Duration"
-                value={`${tour.durationMin} min`}
-              />
-              <Meta
-                icon={Users}
-                label="Group Size"
-                value={`Max ${tour.maxGroupSize}`}
-              />
-              <Meta icon={DollarSign} label="Price" value={`$${tour.price}`} />
-            </div>
-
-            {/* Description */}
-            <Card>
-              <CardContent className="space-y-4 p-6">
-                <h2 className="text-xl font-semibold">About This Tour</h2>
-                <p className="leading-relaxed text-muted-foreground">
-                  {tour.description}
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Itinerary */}
-            <Card>
-              <CardContent className="space-y-4 p-6">
-                <h2 className="text-xl font-semibold">Itinerary</h2>
-                <p className="text-muted-foreground">
-                  Detailed itinerary will be provided by the guide after
-                  booking.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Guide Info */}
-            {tour.guide && (
-              <Card>
-                <CardContent className="flex items-center gap-4 p-6">
-                  <Avatar className="h-14 w-14">
-                    {tour.guide.avatarUrl && (
-                      <AvatarImage src={tour.guide.avatarUrl} />
-                    )}
-                    <AvatarFallback>{tour.guide.name[0]}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-semibold">{tour.guide.name}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {tour.guide.bio}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-          </div>
-
-          {/* Right Booking Card */}
-          <div className="lg:sticky lg:top-24">
-            <Card className="border-primary/30">
-              <CardContent className="space-y-4 p-6">
-                <p className="text-2xl font-bold">
-                  ${tour.price}
-                  <span className="ml-1 text-sm font-normal text-muted-foreground">
-                    / person
-                  </span>
-                </p>
-
-                <Link href="/dashboard/">
-                  <Button className="w-full">Book This Tour</Button>
-                </Link>
-
-                <p className="text-center text-xs text-muted-foreground">
-                  Free cancellation up to 24 hours before the tour
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-    </main>
+      {/* 🔥 Booking Dialog */}
+    </>
   );
 }
 
-/* ---------------- Meta Component ---------------- */
-function Meta({
-  icon: Icon,
-  label,
-  value,
-}: {
-  icon: any;
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="flex items-center gap-3 rounded-lg border p-4">
-      <Icon className="h-5 w-5 text-muted-foreground" />
-      <div>
-        <p className="text-xs text-muted-foreground">{label}</p>
-        <p className="font-medium">{value}</p>
-      </div>
-    </div>
-  );
-}
+/*
+
+*/
