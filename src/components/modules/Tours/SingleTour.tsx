@@ -2,15 +2,15 @@
 import { TourDetail } from '@/app/(commonLayout)/explore-tours/[id]/page';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { Calendar } from '@/components/ui/calendar';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { bookTourClient } from '@/services/tourist/bookTour.client';
 import { getTourbyId } from '@/services/tourist/tours';
 import { Clock, DollarSign, MapPin, Users } from 'lucide-react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import TourBookingDialog from '../Tourist/TourBookingDialog';
 
 type BookTourPayload = {
   listingId: string;
@@ -23,41 +23,43 @@ type BookTourPayload = {
 const SingleTour = () => {
   const params = useParams();
   const id = params?.id;
+  const router = useRouter();
 
   const [tour, setTour] = useState<TourDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // 🔹 Booking dialog state
-  const [bookingOpen, setBookingOpen] = useState(false);
+  // 🔹 Booking state
+  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [time, setTime] = useState<string | null>(null);
 
   // 🔹 TODO: replace with real logged-in tourist id from auth
   const touristId = 'DUMMY_TOURIST_ID';
 
-  const handleBookTour = async (payload: BookTourPayload) => {
-    try {
-      setBookingOpen(false);
-
-      if (!payload.guideId) {
-        toast.error('Guide information missing');
-        return;
-      }
-
-      const res = await bookTourClient(payload);
-
-      if (!res?.success) {
-        toast.error(res?.message || 'Failed to book tour');
-        return;
-      }
-
-      toast.success('Tour booked successfully 🎉');
-    } catch (error: any) {
-      toast.error(
-        process.env.NODE_ENV === 'development'
-          ? error.message
-          : 'Something went wrong'
-      );
+  const handleBookTour = () => {
+    if (!date) {
+      toast.error('Please select a date');
+      return;
     }
+    if (!time) {
+      toast.error('Please select a time slot');
+      return;
+    }
+
+    if (!tour) return;
+
+    const queryParams = new URLSearchParams({
+      tourId: tour.id,
+      touristId,
+      guideId: tour.guide.id || '',
+      tourTitle: tour.title,
+      tourImage: tour.images[0] || '',
+      date: date.toISOString(),
+      time,
+      price: tour.price.toString(),
+    });
+
+    router.push(`/checkout?${queryParams.toString()}`);
   };
 
   useEffect(() => {
@@ -198,16 +200,56 @@ const SingleTour = () => {
           {/* Right */}
           <div className="lg:sticky lg:top-24">
             <Card className="border-primary/30">
-              <CardContent className="space-y-4 p-6">
-                <p className="text-2xl font-bold">
-                  ${tour.price}
-                  <span className="ml-1 text-sm text-muted-foreground">
-                    / person
-                  </span>
-                </p>
+              <CardContent className="space-y-6 p-6">
+                <div className="flex items-baseline justify-between">
+                  <p className="text-2xl font-bold">
+                    ${tour.price}
+                    <span className="ml-1 text-sm text-muted-foreground">
+                      / person
+                    </span>
+                  </p>
+                </div>
 
-                <Button className="w-full" onClick={() => setBookingOpen(true)}>
-                  Book This Tour
+                <div className="space-y-2">
+                  <p className="font-semibold text-sm">Select Date</p>
+                  <div className="flex justify-center rounded-md border p-2">
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={setDate}
+                      disabled={(date) =>
+                        date < new Date(new Date().setHours(0, 0, 0, 0))
+                      }
+                      initialFocus
+                      className="p-0"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <p className="font-semibold text-sm">Select Time</p>
+                  <div className="grid grid-cols-3 gap-2">
+                    {['09:00 AM', '11:00 AM', '02:00 PM', '04:00 PM'].map(
+                      (slot) => (
+                        <Button
+                          key={slot}
+                          variant={time === slot ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => setTime(slot)}
+                          className={cn(
+                            'text-xs',
+                            time === slot && 'border-primary'
+                          )}
+                        >
+                          {slot}
+                        </Button>
+                      )
+                    )}
+                  </div>
+                </div>
+
+                <Button className="w-full" size="lg" onClick={handleBookTour}>
+                  Confirm Booking
                 </Button>
 
                 <p className="text-center text-xs text-muted-foreground">
@@ -218,14 +260,6 @@ const SingleTour = () => {
           </div>
         </div>
       </section>
-
-      <TourBookingDialog
-        open={bookingOpen}
-        onClose={() => setBookingOpen(false)}
-        tour={tour}
-        touristId={touristId}
-        onConfirm={handleBookTour}
-      />
     </div>
   );
 };

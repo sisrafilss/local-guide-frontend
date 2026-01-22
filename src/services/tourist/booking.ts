@@ -1,5 +1,23 @@
 import { serverFetch } from '@/lib/server-fetch';
 
+export async function createBooking(data: any) {
+  try {
+    const response = await serverFetch.post('/booking', data);
+    const result = await response.json();
+
+    return result;
+  } catch (error: any) {
+    console.log(error);
+    return {
+      success: false,
+      message: `${process.env.NODE_ENV === 'development'
+          ? error.message
+          : 'Something went wrong'
+        }`,
+    };
+  }
+}
+
 export async function getAllBookings(queryString?: string) {
   try {
     const response = await serverFetch.get(
@@ -12,11 +30,10 @@ export async function getAllBookings(queryString?: string) {
     console.log(error);
     return {
       success: false,
-      message: `${
-        process.env.NODE_ENV === 'development'
+      message: `${process.env.NODE_ENV === 'development'
           ? error.message
           : 'Something went wrong'
-      }`,
+        }`,
     };
   }
 }
@@ -31,11 +48,10 @@ export async function getBookingStats() {
     console.log(error);
     return {
       success: false,
-      message: `${
-        process.env.NODE_ENV === 'development'
+      message: `${process.env.NODE_ENV === 'development'
           ? error.message
           : 'Something went wrong'
-      }`,
+        }`,
     };
   }
 }
