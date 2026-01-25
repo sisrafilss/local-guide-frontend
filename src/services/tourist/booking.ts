@@ -11,8 +11,8 @@ export async function createBooking(data: any) {
     return {
       success: false,
       message: `${process.env.NODE_ENV === 'development'
-          ? error.message
-          : 'Something went wrong'
+        ? error.message
+        : 'Something went wrong'
         }`,
     };
   }
@@ -31,8 +31,8 @@ export async function getAllBookings(queryString?: string) {
     return {
       success: false,
       message: `${process.env.NODE_ENV === 'development'
-          ? error.message
-          : 'Something went wrong'
+        ? error.message
+        : 'Something went wrong'
         }`,
     };
   }
@@ -49,8 +49,8 @@ export async function getBookingStats() {
     return {
       success: false,
       message: `${process.env.NODE_ENV === 'development'
-          ? error.message
-          : 'Something went wrong'
+        ? error.message
+        : 'Something went wrong'
         }`,
     };
   }

@@ -44,7 +44,6 @@ export async function getTourbyId(id: string) {
 
 export type BookTourPayload = {
   listingId: string;
-  touristId: string;
   guideId: string;
   startAt: string; // ISO string
   totalPrice: number;
@@ -52,14 +51,6 @@ export type BookTourPayload = {
 
 export async function bookTour(payload: BookTourPayload) {
   try {
-    const userPromise = await serverFetch.get('/auth/me');
-    const userData = await userPromise.json();
-
-    const touristId = userData?.data?.tourist.id;
-    payload.touristId = touristId;
-    console.log('TOURIST ID', touristId);
-    console.log('PAYLOAD', payload);
-
     const response = await serverFetch.post('/booking', {
       body: JSON.stringify(payload),
       headers: {
@@ -68,7 +59,6 @@ export async function bookTour(payload: BookTourPayload) {
     });
 
     const result = await response.json();
-    console.log('RESULT', result);
     return result;
   } catch (error: any) {
     console.log(error);

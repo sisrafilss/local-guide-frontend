@@ -42,26 +42,12 @@ const CheckoutContent = () => {
 
     setLoading(true);
 
-    // const bookingData = {
-    //   tourId,
-    //   touristId,
-    //   guideId,
-    //   date,
-    //   time,
-    //   price: Number(price),
-    // };
-
     const bookingData = {
       listingId: tourId,
-      touristId: touristId,
       guideId: guideId,
       startAt: new Date().toISOString(),
-
       totalPrice: Number(price),
     };
-
-    console.log({ date, time });
-    console.log('ISO', combineDateAndTimeToISO(date, time));
 
     try {
       const res = await fetch('/api/bookings', {
@@ -71,17 +57,14 @@ const CheckoutContent = () => {
       });
       const data = await res.json();
 
-      console.log('BOOKING DATA', bookingData);
-      console.log('RESPONSE:', data);
+      if (data?.success && data?.data?.paymentUrl) {
+        window.location.href = data.data?.paymentUrl;
+        return;
+      }
 
-      //   const res = await createBooking(bookingData);
+      toast.error(data?.message || 'Failed to initiate payment');
 
-      //   if (res.success && res.data?.paymentUrl) {
-      //     window.location.href = res.data.paymentUrl;
-      //   } else {
-      //     toast.error(res.message || 'Failed to initiate payment');
-      //     setLoading(false);
-      //   }
+      console.log('BOOKING DATA', data);
     } catch (error) {
       console.error(error);
       toast.error('Something went wrong. Please try again.');
@@ -94,7 +77,7 @@ const CheckoutContent = () => {
       <Card className="w-full max-w-lg shadow-lg">
         <CardHeader>
           <CardTitle className="text-2xl text-center">
-            Confirm Your Booking
+            Confirm Your Booking TTTT
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -176,40 +159,3 @@ const CheckoutPage = () => {
 };
 
 export default CheckoutPage;
-
-function combineDateAndTimeToISO(isoDate: string, time12h: string): string {
-  if (!isoDate || !time12h) {
-    throw new Error('Date and time are required');
-  }
-
-  // Extract YYYY-MM-DD
-  const date = isoDate.split('T')[0];
-
-  // Normalize time string
-  const parts = time12h.trim().split(/\s+/);
-  if (parts.length !== 2) {
-    throw new Error(`Invalid time format: ${time12h}`);
-  }
-
-  const [time, modifier] = parts;
-  let [hours, minutes] = time.split(':').map(Number);
-
-  if (Number.isNaN(hours) || Number.isNaN(minutes)) {
-    throw new Error(`Invalid time numbers: ${time12h}`);
-  }
-
-  // Convert 12h → 24h
-  if (modifier === 'PM' && hours !== 12) hours += 12;
-  if (modifier === 'AM' && hours === 12) hours = 0;
-
-  const hh = hours.toString().padStart(2, '0');
-  const mm = minutes.toString().padStart(2, '0');
-
-  const combined = new Date(`${date}T${hh}:${mm}:00Z`);
-
-  if (isNaN(combined.getTime())) {
-    throw new Error('Invalid date created');
-  }
-
-  return combined.toISOString();
-}
