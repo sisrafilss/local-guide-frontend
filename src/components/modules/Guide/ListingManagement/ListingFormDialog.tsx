@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader } from '@/components/ui/dialog';
-import { Field, FieldLabel } from '@/components/ui/field';
+import { Field, FieldDescription, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { updateListing } from '@/services/guide/listingManagement';
@@ -158,6 +158,13 @@ const ListingFormDialog = ({
                 <option value="SHOPPING">Shopping</option>
                 <option value="CUSTOM">Custom</option>
               </select>
+            </Field>
+
+            {/* Add Image */}
+            <Field>
+              <FieldLabel htmlFor="picture">Picture</FieldLabel>
+              <Input id="picture" name="photo" type="file" />
+              <FieldDescription>Select a picture to upload.</FieldDescription>
             </Field>
           </div>
 

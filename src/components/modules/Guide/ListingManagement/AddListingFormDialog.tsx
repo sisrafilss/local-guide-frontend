@@ -147,6 +147,7 @@ const AddListingFormDialog = ({
               </select>
             </Field>
 
+            {/* Add Image */}
             <Field>
               <FieldLabel htmlFor="picture">Picture</FieldLabel>
               <Input id="picture" name="photo" type="file" />

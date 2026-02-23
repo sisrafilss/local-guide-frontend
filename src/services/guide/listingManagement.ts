@@ -33,24 +33,33 @@ export async function updateListing(
   _prevState: any,
   formData: FormData
 ) {
-  const validationPayload = {
-    title: formData.get('title') as string,
-    description: formData.get('description') as string,
-    price: formData.get('price') as string,
-    durationMin: formData.get('durationMin') as string,
-    meetingPoint: formData.get('meetingPoint') as string,
-    city: formData.get('city') as string,
-    maxGroupSize: formData.get('maxGroupSize') as string,
-    category: formData.get('category') as string,
-  };
+  // const validationPayload = {
+  //   title: formData.get('title') as string,
+  //   description: formData.get('description') as string,
+  //   price: formData.get('price') as string,
+  //   durationMin: formData.get('durationMin') as string,
+  //   meetingPoint: formData.get('meetingPoint') as string,
+  //   city: formData.get('city') as string,
+  //   maxGroupSize: formData.get('maxGroupSize') as string,
+  //   category: formData.get('category') as string,
+  // };
 
-  const validation = zodValidator(validationPayload, updateListingSchema);
+  const updatedFormData = new FormData();
+
+  const updatedData: any = {};
+  formData.forEach((value, key) => {
+    if (key !== 'file' && value) {
+      updatedData[key] = value;
+    }
+  });
+
+  const validation = zodValidator(updatedData, updateListingSchema);
 
   if (!validation.success && validation.errors) {
     return {
       success: false,
       message: 'Validation failed',
-      formData: validationPayload,
+      formData: updatedData,
       errors: validation.errors,
     };
   }
@@ -59,15 +68,21 @@ export async function updateListing(
     return {
       success: false,
       message: 'Validation failed',
-      formData: validationPayload,
+      formData: updatedData,
       errors: [{ field: 'unknown', message: 'Invalid data' }],
     };
   }
 
+  updatedFormData.append('data', JSON.stringify(updatedData));
+
+  const file = formData.get('photo');
+  if (file && file instanceof File && file.size > 0) {
+    updatedFormData.append('file', file);
+  }
+
   try {
     const response = await serverFetch.patch(`/tours/${id}`, {
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(validation.data),
+      body: updatedFormData,
     });
 
     const result = await response.json();
@@ -81,7 +96,7 @@ export async function updateListing(
         process.env.NODE_ENV === 'development'
           ? error.message
           : 'Failed to update admin',
-      formData: validationPayload,
+      formData: updatedData,
     };
   }
 }
