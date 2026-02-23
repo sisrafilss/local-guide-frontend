@@ -12,6 +12,8 @@ export default async function ExploreToursPage({
   const searchParamsObj = await searchParams;
   const queryString = queryStringFormatter(searchParamsObj);
 
+  console.log('QUERY STRING', queryString);
+
   const toursResult = await getAllTours(queryString);
 
   const totalPages = Math.ceil(

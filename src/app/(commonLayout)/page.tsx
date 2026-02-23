@@ -4,9 +4,14 @@ import HeroSearchBar from '@/components/modules/Home/Hero';
 import HowItWorksSection from '@/components/modules/Home/HowItWorkSection';
 import PopularCitiesSection from '@/components/modules/Home/PopularCitiesSection';
 import WhyChooseUsSection from '@/components/modules/Home/WhyChooseUs';
+import { getAllTours } from '@/services/tourist/tours';
 import Head from 'next/head';
 
-export default function Home() {
+export default async function Home() {
+  const allTours = await getAllTours('limit=3');
+
+  console.log(allTours);
+
   return (
     <>
       <Head>
@@ -20,7 +25,7 @@ export default function Home() {
       </Head>
       <main>
         <HeroSearchBar />
-        <FeaturedSection />
+        <FeaturedSection featuredTours={allTours} />
         <BecomeGuideCTA />
         <WhyChooseUsSection />
         <PopularCitiesSection />

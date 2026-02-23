@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { MapPin, Search } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 type City = {
@@ -22,6 +23,7 @@ export default function HeroSearchBar() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<City[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const router = useRouter();
 
   const handleSearchChange = (value: string) => {
     setQuery(value);
@@ -53,6 +55,7 @@ export default function HeroSearchBar() {
 
     // 🔁 Later: call backend or navigate to results page
     console.log('Searching for:', query);
+    router.push(`/explore-tours?searchTerm=${encodeURIComponent(query)}`);
   };
 
   return (
@@ -85,7 +88,7 @@ export default function HeroSearchBar() {
           </div>
 
           {/* Dropdown */}
-          {showDropdown && results.length > 0 && (
+          {/* {showDropdown && results.length > 0 && (
             <div className="absolute z-10 mt-2 w-full rounded-xl border bg-background shadow-lg">
               {results.map((city) => (
                 <button
@@ -101,7 +104,7 @@ export default function HeroSearchBar() {
                 </button>
               ))}
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </section>

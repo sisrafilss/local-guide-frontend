@@ -2,9 +2,10 @@
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { MapPin, Star } from 'lucide-react';
+import { Card } from '@/components/ui/card';
+import { Star } from 'lucide-react';
 import Image from 'next/image';
+import TourCard from '../ExploreTours/TourCard';
 
 type City = {
   id: string;
@@ -70,7 +71,11 @@ const TOP_GUIDES: Guide[] = [
   },
 ];
 
-export default function FeaturedSection() {
+export default function FeaturedSection({
+  featuredTours,
+}: {
+  featuredTours: any;
+}) {
   return (
     <section className="w-full px-4 py-16">
       <div className="mx-auto max-w-6xl space-y-16">
@@ -78,35 +83,26 @@ export default function FeaturedSection() {
         <div>
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-2xl font-semibold text-foreground">
-              Featured Cities
+              Featured Tours
             </h2>
             <Button variant="ghost">View all</Button>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-            {FEATURED_CITIES.map((city) => (
-              <Card key={city.id} className="group overflow-hidden rounded-2xl">
-                <div className="relative h-44 w-full">
-                  <Image
-                    src={city.imageUrl}
-                    alt={city.name}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
+          <section>
+            <div className="mx-auto max-w-7xl px-4 py-10">
+              {featuredTours?.data?.length ? (
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {featuredTours.data.map((tour: any) => (
+                    <TourCard key={tour.id} tour={tour} />
+                  ))}
                 </div>
-
-                <CardContent className="space-y-1 p-4">
-                  <h3 className="text-lg font-semibold text-foreground">
-                    {city.name}
-                  </h3>
-                  <p className="flex items-center gap-1 text-sm text-muted-foreground">
-                    <MapPin className="h-4 w-4" />
-                    {city.country}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+              ) : (
+                <p className="text-center text-muted-foreground">
+                  No tours found.
+                </p>
+              )}
+            </div>
+          </section>
         </div>
 
         {/* ================= Top Rated Guides ================= */}

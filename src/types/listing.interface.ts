@@ -35,3 +35,20 @@ export type IListing = {
     };
   };
 };
+
+export type ITour = {
+  id: string;
+  title: string;
+  description: string;
+  price: string;
+  durationMin: number;
+  meetingPoint: string;
+  maxGroupSize: number;
+  category: string;
+  city: string;
+  lat: number | null;
+  lng: number | null;
+  active: boolean;
+  images: string[]; // assuming image URLs
+  guide: Object;
+};
