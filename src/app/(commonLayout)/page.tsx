@@ -10,7 +10,7 @@ import Head from 'next/head';
 export default async function Home() {
   const allTours = await getAllTours('limit=3');
 
-  console.log(allTours);
+  console.log('ALL TOURS', allTours);
 
   return (
     <>

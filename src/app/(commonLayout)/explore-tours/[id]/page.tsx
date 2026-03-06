@@ -20,7 +20,7 @@ export type TourDetail = {
   maxGroupSize: number;
   category: string;
   city: string;
-  images: string[];
+  imageURL: string;
   guide: {
     id?: string;
     name: string;

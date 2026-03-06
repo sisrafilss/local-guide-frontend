@@ -92,7 +92,7 @@ export default function FeaturedSection({
             <div className="mx-auto max-w-7xl px-4 py-10">
               {featuredTours?.data?.length ? (
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                  {featuredTours.data.map((tour: any) => (
+                  {featuredTours?.data?.map((tour: any) => (
                     <TourCard key={tour.id} tour={tour} />
                   ))}
                 </div>

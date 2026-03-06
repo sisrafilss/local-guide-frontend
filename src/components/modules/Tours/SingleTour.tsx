@@ -2,10 +2,10 @@
 import { TourDetail } from '@/app/(commonLayout)/explore-tours/[id]/page';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Calendar } from '@/components/ui/calendar';
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import { Card, CardContent } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 import { getTourbyId } from '@/services/tourist/tours';
 import { Clock, DollarSign, MapPin, Users } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
@@ -53,7 +53,7 @@ const SingleTour = () => {
       touristId,
       guideId: tour.guide.id || '',
       tourTitle: tour.title,
-      tourImage: tour.images[0] || '',
+      tourImage: tour?.imageURL,
       date: date.toISOString(),
       time,
       price: tour.price.toString(),
@@ -89,7 +89,7 @@ const SingleTour = () => {
           maxGroupSize: res.data.maxGroupSize,
           category: res.data.category,
           city: res.data.city,
-          images: res.data.images || [],
+          imageURL: res.data?.imageURL,
           guide: {
             id: res.data.guide?.id,
             name: res.data.guide?.user?.name || 'Local Guide',
@@ -132,9 +132,9 @@ const SingleTour = () => {
     <div>
       {/* Image */}
       <section className="relative h-[280px] w-full bg-muted sm:h-[360px] lg:h-[420px]">
-        {tour.images.length > 0 ? (
+        {tour.imageURL ? (
           <img
-            src={tour.images[0]}
+            src={tour.imageURL}
             alt={tour.title}
             className="h-full w-full object-cover"
           />

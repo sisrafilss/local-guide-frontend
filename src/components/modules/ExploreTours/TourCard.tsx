@@ -15,7 +15,7 @@ export type Tour = {
   maxGroupSize: number;
   category: string;
   city: string;
-  images: string[];
+  imageURL?: string;
 };
 
 function TourCard({ tour }: { tour: Tour }) {
@@ -23,13 +23,11 @@ function TourCard({ tour }: { tour: Tour }) {
     <Card className="overflow-hidden transition hover:shadow-lg">
       {/* Image */}
       <div className="relative h-48 w-full bg-muted">
-        {tour.images.length > 0 && (
-          <img
-            src={tour.images[0]}
-            alt={tour.title}
-            className="h-full w-full object-cover"
-          />
-        )}
+        <img
+          src={tour.imageURL}
+          alt={tour.title}
+          className="h-full w-full object-cover"
+        />
       </div>
 
       <CardContent className="space-y-4 p-5">

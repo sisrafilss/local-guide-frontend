@@ -22,10 +22,7 @@ export type IListing = {
   city: string;
   lat?: number | null;
   lng?: number | null;
-  images: {
-    id: string;
-    url: string;
-  }[];
+  imageURL: string;
   guide: {
     id: string;
     user: {

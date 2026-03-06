@@ -45,9 +45,9 @@ const ListingViewDetailDialog = ({
           <div className="space-y-5">
             {/* Image */}
             <div className="h-64 w-full overflow-hidden rounded-xl bg-muted">
-              {listing?.images?.length ? (
+              {listing?.imageURL ? (
                 <img
-                  src={listing?.images?.[0]?.url}
+                  src={listing?.imageURL}
                   alt={listing?.title ?? 'Listing image'}
                   className="h-full w-full object-cover"
                 />
