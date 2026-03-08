@@ -3,9 +3,18 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, BadgeCheck, Map, Users } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function BecomeGuideCTA() {
+  const { resolvedTheme } = useTheme();
+  console.log(resolvedTheme);
+  const dashboardImageSrc =
+    resolvedTheme === 'dark'
+      ? 'https://i.ibb.co.com/wN95cY2T/Screenshot-2026-03-08-212512.png'
+      : 'https://i.ibb.co.com/gZWN6gmm/Screenshot-2026-03-08-212441.png';
+
   return (
     <section className="w-full px-4 py-20">
       <div className="mx-auto max-w-6xl">
@@ -51,9 +60,14 @@ export default function BecomeGuideCTA() {
             <div className="relative hidden md:block">
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent" />
               <div className="relative flex h-full items-center justify-center rounded-2xl border bg-muted">
-                <span className="text-lg font-semibold text-muted-foreground">
-                  Guide Dashboard Preview
-                </span>
+                {/* <span className="text-lg font-semibold text-muted-foreground"> */}
+                <Image
+                  src={dashboardImageSrc}
+                  alt="Guide Dashboard Preview"
+                  fill
+                />
+                {/* Guide Dashboard Preview */}
+                {/* </span> */}
               </div>
             </div>
           </CardContent>
@@ -62,3 +76,10 @@ export default function BecomeGuideCTA() {
     </section>
   );
 }
+
+/*
+
+
+https://i.ibb.co.com/gZWN6gmm/Screenshot-2026-03-08-212441.png
+https://i.ibb.co.com/wN95cY2T/Screenshot-2026-03-08-212512.png
+*/
