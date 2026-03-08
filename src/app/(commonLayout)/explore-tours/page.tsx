@@ -3,16 +3,11 @@ import {
   ScrollStagger,
   ScrollStaggerItem,
 } from '@/components/animations/ScrollReveal';
-import TourCard from '@/components/modules/ExploreTours/TourCard';
+import TourCard, { type Tour } from '@/components/modules/ExploreTours/TourCard';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { queryStringFormatter } from '@/lib/formatters';
 import { getAllTours } from '@/services/tourist/tours';
-
-type ExploreTourCard = {
-  id: string;
-  [key: string]: unknown;
-};
 
 export default async function ExploreToursPage({
   searchParams,
@@ -25,6 +20,9 @@ export default async function ExploreToursPage({
   console.log('QUERY STRING', queryString);
 
   const toursResult = await getAllTours(queryString);
+  const tours = Array.isArray(toursResult?.data)
+    ? (toursResult.data as Tour[])
+    : [];
 
   const totalPages = Math.ceil(
     (toursResult?.meta?.total || 1) / (toursResult?.meta?.limit || 1)
@@ -76,9 +74,9 @@ export default async function ExploreToursPage({
       {/* Tours Grid */}
       <section>
         <div className="mx-auto max-w-7xl px-4 py-10">
-          {toursResult?.data?.length ? (
+          {tours.length ? (
             <ScrollStagger className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {toursResult.data.map((tour: ExploreTourCard) => (
+              {tours.map((tour) => (
                 <ScrollStaggerItem key={tour.id} variant="pop">
                   <TourCard tour={tour} />
                 </ScrollStaggerItem>
