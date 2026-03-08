@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic';
 
+import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import GuideFilter from '@/components/modules/Admin/GuideManagement/GuideFilter';
 import GuideTable from '@/components/modules/Admin/GuideManagement/GuideTable';
 import ManagementPageHeader from '@/components/shared/ManagementPageHeader';
@@ -24,21 +25,27 @@ const AdminGuideManagementPage = async ({
 
   return (
     <div className="space-y-6">
-      <ManagementPageHeader
-        title="Guide Management"
-        description="Manage guide information and details"
-      />
+      <ScrollReveal variant="fade-down" duration={0.45}>
+        <ManagementPageHeader
+          title="Guide Management"
+          description="Manage guide information and details"
+        />
+      </ScrollReveal>
 
       {/* Search, Filters */}
-      <GuideFilter />
+      <ScrollReveal variant="fade-up" duration={0.4} amount={0.1}>
+        <GuideFilter />
+      </ScrollReveal>
 
-      <Suspense fallback={<TableSkeleton columns={10} rows={10} />}>
-        <GuideTable guides={guidesResult?.data || []} />
-        <TablePagination
-          currentPage={guidesResult?.meta?.page || 1}
-          totalPages={totalPages || 1}
-        />
-      </Suspense>
+      <ScrollReveal variant="fade-up" amount={0.15}>
+        <Suspense fallback={<TableSkeleton columns={10} rows={10} />}>
+          <GuideTable guides={guidesResult?.data || []} />
+          <TablePagination
+            currentPage={guidesResult?.meta?.page || 1}
+            totalPages={totalPages || 1}
+          />
+        </Suspense>
+      </ScrollReveal>
     </div>
   );
 };

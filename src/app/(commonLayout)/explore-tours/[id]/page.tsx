@@ -1,3 +1,4 @@
+import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import SingleTour from '@/components/modules/Tours/SingleTour';
 import { bookTour } from '@/services/tourist/tours';
 import { toast } from 'sonner';
@@ -47,11 +48,13 @@ export default function TourDetailPage() {
 
       // OPTIONAL (later)
       // router.push('/dashboard/bookings');
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error';
       toast.error(
         process.env.NODE_ENV === 'development'
-          ? error.message
+          ? errorMessage
           : 'Something went wrong while booking'
       );
     }
@@ -60,7 +63,9 @@ export default function TourDetailPage() {
   return (
     <>
       <main className="pb-20">
-        <SingleTour />
+        <ScrollReveal variant="blur-up" className="w-full">
+          <SingleTour />
+        </ScrollReveal>
       </main>
 
       {/* 🔥 Booking Dialog */}

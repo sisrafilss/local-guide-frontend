@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic';
 
+import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import TouristFilter from '@/components/modules/Admin/TouristManagement/TouristFilter';
 import TouristsTable from '@/components/modules/Admin/TouristManagement/TouristTable';
 import ManagementPageHeader from '@/components/shared/ManagementPageHeader';
@@ -24,21 +25,27 @@ const AdminTouristsManagementPage = async ({
 
   return (
     <div className="space-y-6">
-      <ManagementPageHeader
-        title="Tourist Management"
-        description="Manage tourist information and details"
-      />
+      <ScrollReveal variant="fade-down" duration={0.45}>
+        <ManagementPageHeader
+          title="Tourist Management"
+          description="Manage tourist information and details"
+        />
+      </ScrollReveal>
 
       {/* Search, Filters */}
-      <TouristFilter />
+      <ScrollReveal variant="fade-up" duration={0.4} amount={0.1}>
+        <TouristFilter />
+      </ScrollReveal>
 
-      <Suspense fallback={<TableSkeleton columns={10} rows={10} />}>
-        <TouristsTable tourists={touristsResult?.data || []} />
-        <TablePagination
-          currentPage={touristsResult?.meta?.page || 1}
-          totalPages={totalPages || 1}
-        />
-      </Suspense>
+      <ScrollReveal variant="fade-up" amount={0.15}>
+        <Suspense fallback={<TableSkeleton columns={10} rows={10} />}>
+          <TouristsTable tourists={touristsResult?.data || []} />
+          <TablePagination
+            currentPage={touristsResult?.meta?.page || 1}
+            totalPages={totalPages || 1}
+          />
+        </Suspense>
+      </ScrollReveal>
     </div>
   );
 };

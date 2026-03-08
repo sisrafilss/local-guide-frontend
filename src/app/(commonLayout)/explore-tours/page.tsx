@@ -1,8 +1,18 @@
+import {
+  ScrollReveal,
+  ScrollStagger,
+  ScrollStaggerItem,
+} from '@/components/animations/ScrollReveal';
 import TourCard from '@/components/modules/ExploreTours/TourCard';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { queryStringFormatter } from '@/lib/formatters';
 import { getAllTours } from '@/services/tourist/tours';
+
+type ExploreTourCard = {
+  id: string;
+  [key: string]: unknown;
+};
 
 export default async function ExploreToursPage({
   searchParams,
@@ -26,35 +36,40 @@ export default async function ExploreToursPage({
     <main className="pb-20">
       {/* Header */}
       <section className="border-b bg-muted">
-        <div className="mx-auto max-w-7xl px-4 py-12">
+        <ScrollReveal
+          variant="fade-down"
+          className="mx-auto max-w-7xl px-4 py-12"
+        >
           <h1 className="text-3xl font-bold">Explore Tours</h1>
           <p className="mt-2 max-w-2xl text-muted-foreground">
             Discover local experiences hosted by expert guides. Browse tours by
             city, category, and interest.
           </p>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Filters */}
       <section className="sticky top-0 z-10 border-b bg-background">
         <div className="mx-auto max-w-7xl px-4 py-4">
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
-            <Input placeholder="Search tours..." />
-            <Input placeholder="City" />
+          <ScrollReveal variant="fade-up" duration={0.45} amount={0.1}>
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+              <Input placeholder="Search tours..." />
+              <Input placeholder="City" />
 
-            <select className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
-              <option value="">All Categories</option>
-              <option value="FOOD">Food</option>
-              <option value="HISTORY">History</option>
-              <option value="PHOTOGRAPHY">Photography</option>
-              <option value="ADVENTURE">Adventure</option>
-              <option value="NIGHTLIFE">Nightlife</option>
-              <option value="SHOPPING">Shopping</option>
-              <option value="CUSTOM">Custom</option>
-            </select>
+              <select className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
+                <option value="">All Categories</option>
+                <option value="FOOD">Food</option>
+                <option value="HISTORY">History</option>
+                <option value="PHOTOGRAPHY">Photography</option>
+                <option value="ADVENTURE">Adventure</option>
+                <option value="NIGHTLIFE">Nightlife</option>
+                <option value="SHOPPING">Shopping</option>
+                <option value="CUSTOM">Custom</option>
+              </select>
 
-            <Button variant="outline">Reset Filters</Button>
-          </div>
+              <Button variant="outline">Reset Filters</Button>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -62,22 +77,30 @@ export default async function ExploreToursPage({
       <section>
         <div className="mx-auto max-w-7xl px-4 py-10">
           {toursResult?.data?.length ? (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {toursResult.data.map((tour: any) => (
-                <TourCard key={tour.id} tour={tour} />
+            <ScrollStagger className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {toursResult.data.map((tour: ExploreTourCard) => (
+                <ScrollStaggerItem key={tour.id} variant="pop">
+                  <TourCard tour={tour} />
+                </ScrollStaggerItem>
               ))}
-            </div>
+            </ScrollStagger>
           ) : (
-            <p className="text-center text-muted-foreground">No tours found.</p>
+            <ScrollReveal variant="fade-up">
+              <p className="text-center text-muted-foreground">
+                No tours found.
+              </p>
+            </ScrollReveal>
           )}
         </div>
       </section>
 
       {/* Load More */}
       {totalPages > 1 && (
-        <section className="mt-10 text-center">
-          <Button variant="outline">Load More Tours</Button>
-        </section>
+        <ScrollReveal variant="zoom-in">
+          <section className="mt-10 text-center">
+            <Button variant="outline">Load More Tours</Button>
+          </section>
+        </ScrollReveal>
       )}
     </main>
   );

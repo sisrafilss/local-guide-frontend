@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic';
 
+import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import AdminFilter from '@/components/modules/Admin/AdminManagement/AdminFilter';
 import AdminTable from '@/components/modules/Admin/AdminManagement/AdminTable';
 import ManagementPageHeader from '@/components/shared/ManagementPageHeader';
@@ -25,21 +26,27 @@ const AdminManagementPage = async ({
 
   return (
     <div className="space-y-6">
-      <ManagementPageHeader
-        title="Admin Management"
-        description="Manage admin accounts and details"
-      />
+      <ScrollReveal variant="fade-down" duration={0.45}>
+        <ManagementPageHeader
+          title="Admin Management"
+          description="Manage admin accounts and details"
+        />
+      </ScrollReveal>
 
       {/* Search, Filters */}
-      <AdminFilter />
+      <ScrollReveal variant="fade-up" duration={0.4} amount={0.1}>
+        <AdminFilter />
+      </ScrollReveal>
 
-      <Suspense fallback={<TableSkeleton columns={10} rows={10} />}>
-        <AdminTable admins={adminsResult?.data || []} />
-        <TablePagination
-          currentPage={adminsResult?.meta?.page || 1}
-          totalPages={totalPages || 1}
-        />
-      </Suspense>
+      <ScrollReveal variant="fade-up" amount={0.15}>
+        <Suspense fallback={<TableSkeleton columns={10} rows={10} />}>
+          <AdminTable admins={adminsResult?.data || []} />
+          <TablePagination
+            currentPage={adminsResult?.meta?.page || 1}
+            totalPages={totalPages || 1}
+          />
+        </Suspense>
+      </ScrollReveal>
     </div>
   );
 };

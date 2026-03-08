@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic';
 
+import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import TouristBookings from '@/components/modules/Tourist/TouristBokings';
 import TablePagination from '@/components/shared/TablePagination';
 import { queryStringFormatter } from '@/lib/formatters';
@@ -22,26 +23,34 @@ const MyBookingPage = async ({
   return (
     <div className="space-y-6">
       {/* Page Header */}
-      <div>
-        <h1 className="text-2xl font-semibold">My Bookings</h1>
-        <p className="text-sm text-muted-foreground">
-          View and manage all your tour bookings
-        </p>
-      </div>
+      <ScrollReveal variant="fade-down" duration={0.45}>
+        <div>
+          <h1 className="text-2xl font-semibold">My Bookings</h1>
+          <p className="text-sm text-muted-foreground">
+            View and manage all your tour bookings
+          </p>
+        </div>
+      </ScrollReveal>
 
       {/* Booking List */}
       {bookingResult?.success ? (
-        <TouristBookings bookings={bookingResult.data} />
+        <ScrollReveal variant="fade-up" amount={0.15}>
+          <TouristBookings bookings={bookingResult.data} />
+        </ScrollReveal>
       ) : (
-        <div className="py-10 text-center text-muted-foreground">
-          Failed to load bookings.
-        </div>
+        <ScrollReveal variant="fade-up">
+          <div className="py-10 text-center text-muted-foreground">
+            Failed to load bookings.
+          </div>
+        </ScrollReveal>
       )}
 
-      <TablePagination
-        currentPage={bookingResult?.meta?.page || 1}
-        totalPages={totalPages || 1}
-      />
+      <ScrollReveal variant="fade-up" duration={0.4}>
+        <TablePagination
+          currentPage={bookingResult?.meta?.page || 1}
+          totalPages={totalPages || 1}
+        />
+      </ScrollReveal>
     </div>
   );
 };

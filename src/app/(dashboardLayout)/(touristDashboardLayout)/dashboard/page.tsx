@@ -1,3 +1,4 @@
+import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import BookingStats from '@/components/modules/Tourist/BookingStats';
 import { getUserInfo } from '@/services/auth/getUserInfo';
 import { getBookingStats } from '@/services/tourist/booking';
@@ -22,17 +23,21 @@ const TouristDashboardPage = async () => {
   return (
     <div className="p-6 space-y-6">
       {/* Page Heading */}
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">
-          Welcome to Your Dashboard
-        </h1>
-        <p className="text-gray-500 mt-1">
-          Here’s a summary of your bookings and spending.
-        </p>
-      </div>
+      <ScrollReveal variant="fade-down" duration={0.45}>
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold text-gray-800">
+            Welcome to Your Dashboard
+          </h1>
+          <p className="text-gray-500 mt-1">
+            Here’s a summary of your bookings and spending.
+          </p>
+        </div>
+      </ScrollReveal>
 
       {/* Booking Stats Component */}
-      <BookingStats stats={stats?.data} />
+      <ScrollReveal variant="fade-up" amount={0.15}>
+        <BookingStats stats={stats?.data} />
+      </ScrollReveal>
     </div>
   );
 };

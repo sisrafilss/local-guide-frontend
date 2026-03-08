@@ -1,3 +1,4 @@
+import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import RegisterForm from '@/components/RegisterForm';
 import {
   Card,
@@ -10,7 +11,7 @@ import {
 const RegisterPage = () => {
   return (
     <div className="flex min-h-screen w-full items-center justify-center p-6 md:p-10 bg-background">
-      <div className="w-full max-w-xl">
+      <ScrollReveal variant="pop" duration={0.6} className="w-full max-w-xl">
         <Card className="bg-card border border-border">
           <CardHeader>
             <CardTitle className="text-foreground">Create an account</CardTitle>
@@ -22,7 +23,7 @@ const RegisterPage = () => {
             <RegisterForm />
           </CardContent>
         </Card>
-      </div>
+      </ScrollReveal>
     </div>
   );
 };

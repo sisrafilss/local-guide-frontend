@@ -1,3 +1,4 @@
+import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import BecomeGuideCTA from '@/components/modules/Home/BecomeGuideCTA';
 import FeaturedSection from '@/components/modules/Home/FeaturedSection';
 import HeroSearchBar from '@/components/modules/Home/Hero';
@@ -24,12 +25,24 @@ export default async function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <HeroSearchBar />
-        <FeaturedSection featuredTours={allTours} />
-        <BecomeGuideCTA />
-        <WhyChooseUsSection />
-        <PopularCitiesSection />
-        <HowItWorksSection />
+        <ScrollReveal variant="blur-up" amount={0.2}>
+          <HeroSearchBar />
+        </ScrollReveal>
+        <ScrollReveal variant="fade-up" amount={0.2}>
+          <FeaturedSection featuredTours={allTours} />
+        </ScrollReveal>
+        <ScrollReveal variant="fade-left" amount={0.2}>
+          <BecomeGuideCTA />
+        </ScrollReveal>
+        <ScrollReveal variant="fade-right" amount={0.2}>
+          <WhyChooseUsSection />
+        </ScrollReveal>
+        <ScrollReveal variant="zoom-in" amount={0.2}>
+          <PopularCitiesSection />
+        </ScrollReveal>
+        <ScrollReveal variant="fade-up" amount={0.2}>
+          <HowItWorksSection />
+        </ScrollReveal>
       </main>
     </>
   );

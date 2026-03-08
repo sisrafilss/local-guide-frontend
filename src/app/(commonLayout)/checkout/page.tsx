@@ -1,4 +1,5 @@
 'use client';
+import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -58,7 +59,7 @@ const CheckoutContent = () => {
       const data = await res.json();
 
       if (data?.success && data?.data?.paymentUrl) {
-        window.location.href = data.data?.paymentUrl;
+        window.location.assign(data.data?.paymentUrl);
         return;
       }
 
@@ -74,72 +75,76 @@ const CheckoutContent = () => {
 
   return (
     <div className="container mx-auto px-4 py-10 min-h-[70vh] flex items-center justify-center">
-      <Card className="w-full max-w-lg shadow-lg">
-        <CardHeader>
-          <CardTitle className="text-2xl text-center">
-            Confirm Your Booking TTTT
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {/* Tour Preview */}
-          <div className="flex gap-4 items-center">
-            {tourImage && (
-              <img
-                src={tourImage}
-                alt={tourTitle || 'Tour'}
-                className="w-24 h-24 object-cover rounded-md"
-              />
-            )}
-            <div>
-              <h3 className="font-bold text-lg">{tourTitle || 'Tour Name'}</h3>
-              <p className="text-sm text-muted-foreground flex items-center gap-1">
-                <CreditCard className="w-3 h-3" /> Booking Reference
-              </p>
-            </div>
-          </div>
-
-          <div className="grid gap-4 border-t pt-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Calendar className="w-4 h-4" />
-                <span>Date</span>
+      <ScrollReveal variant="zoom-in" duration={0.5} className="w-full max-w-lg">
+        <Card className="w-full shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-2xl text-center">
+              Confirm Your Booking TTTT
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Tour Preview */}
+            <div className="flex gap-4 items-center">
+              {tourImage && (
+                <img
+                  src={tourImage}
+                  alt={tourTitle || 'Tour'}
+                  className="w-24 h-24 object-cover rounded-md"
+                />
+              )}
+              <div>
+                <h3 className="font-bold text-lg">
+                  {tourTitle || 'Tour Name'}
+                </h3>
+                <p className="text-sm text-muted-foreground flex items-center gap-1">
+                  <CreditCard className="w-3 h-3" /> Booking Reference
+                </p>
               </div>
-              <span className="font-medium">
-                {date ? new Date(date).toLocaleDateString() : 'N/A'}
-              </span>
             </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Clock className="w-4 h-4" />
-                <span>Time</span>
+            <div className="grid gap-4 border-t pt-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Calendar className="w-4 h-4" />
+                  <span>Date</span>
+                </div>
+                <span className="font-medium">
+                  {date ? new Date(date).toLocaleDateString() : 'N/A'}
+                </span>
               </div>
-              <span className="font-medium">{time}</span>
-            </div>
 
-            <div className="flex items-center justify-between border-t border-dashed pt-4">
-              <span className="font-bold text-lg">Total Price</span>
-              <span className="font-bold text-xl text-primary">${price}</span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Clock className="w-4 h-4" />
+                  <span>Time</span>
+                </div>
+                <span className="font-medium">{time}</span>
+              </div>
+
+              <div className="flex items-center justify-between border-t border-dashed pt-4">
+                <span className="font-bold text-lg">Total Price</span>
+                <span className="font-bold text-xl text-primary">${price}</span>
+              </div>
             </div>
-          </div>
-        </CardContent>
-        <CardFooter>
-          <Button
-            className="w-full text-lg py-6"
-            onClick={handlePayment}
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                Processing...
-              </>
-            ) : (
-              'Pay & Book Now'
-            )}
-          </Button>
-        </CardFooter>
-      </Card>
+          </CardContent>
+          <CardFooter>
+            <Button
+              className="w-full text-lg py-6"
+              onClick={handlePayment}
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                'Pay & Book Now'
+              )}
+            </Button>
+          </CardFooter>
+        </Card>
+      </ScrollReveal>
     </div>
   );
 };
