@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, BadgeCheck, Map, Users } from 'lucide-react';
+import Link from 'next/link';
 
 export default function BecomeGuideCTA() {
   return (
@@ -37,9 +38,11 @@ export default function BecomeGuideCTA() {
               </ul>
 
               <div className="pt-4">
-                <Button size="lg" className="gap-2">
-                  Become a Guide
-                  <ArrowRight className="h-4 w-4" />
+                <Button size="lg" className="gap-2" asChild>
+                  <Link href="/become-guide/apply">
+                    Become a Guide
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
                 </Button>
               </div>
             </div>

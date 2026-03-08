@@ -14,6 +14,7 @@ import {
   Smile,
   Users,
 } from 'lucide-react';
+import Link from 'next/link';
 
 export default function BecomeGuidePage() {
   return (
@@ -29,7 +30,9 @@ export default function BecomeGuidePage() {
             </p>
 
             <div className="mt-8 flex justify-center gap-4">
-              <Button size="lg">Apply Now</Button>
+              <Button size="lg" asChild>
+                <Link href="/become-guide/apply">Apply Now</Link>
+              </Button>
               <Button size="lg" variant="outline">
                 Learn More
               </Button>
@@ -191,8 +194,8 @@ export default function BecomeGuidePage() {
             income.
           </p>
 
-          <Button size="lg" className="mt-8">
-            Become a Guide
+          <Button size="lg" className="mt-8" asChild>
+            <Link href="/become-guide/apply">Become a Guide</Link>
           </Button>
         </ScrollReveal>
       </section>

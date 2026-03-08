@@ -59,7 +59,7 @@ export default function HeroSearchBar() {
   };
 
   return (
-    <section className="w-full px-4 py-20">
+    <section className="w-full overflow-x-hidden px-4 py-20">
       <div className="mx-auto max-w-3xl text-center">
         {/* Heading */}
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
@@ -71,17 +71,17 @@ export default function HeroSearchBar() {
 
         {/* Search Box */}
         <div className="relative">
-          <div className="flex items-center gap-2 rounded-2xl border bg-background p-2 shadow-sm">
-            <MapPin className="ml-2 h-5 w-5 text-muted-foreground" />
+          <div className="flex w-full flex-col items-stretch gap-2 rounded-2xl border bg-background p-2 shadow-sm sm:flex-row sm:items-center">
+            <MapPin className="ml-2 mt-2 h-5 w-5 text-muted-foreground" />
 
             <Input
               value={query}
               onChange={(e) => handleSearchChange(e.target.value)}
               placeholder="Search city or destination"
-              className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
             />
 
-            <Button onClick={handleSubmit} className="rounded-xl">
+            <Button onClick={handleSubmit} className=" sm:w-auto rounded-xl">
               <Search className="mr-2 h-4 w-4" />
               Search
             </Button>
