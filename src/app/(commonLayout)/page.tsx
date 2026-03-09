@@ -6,44 +6,51 @@ import HowItWorksSection from '@/components/modules/Home/HowItWorkSection';
 import PopularCitiesSection from '@/components/modules/Home/PopularCitiesSection';
 import WhyChooseUsSection from '@/components/modules/Home/WhyChooseUs';
 import { getAllTours } from '@/services/tourist/tours';
-import Head from 'next/head';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'LOCAL GUIDE | Authentic Experiences, Verified Experts',
+  description: 'Connect with hand-picked local guides and discover the heart of every city through authentic experiences.',
+};
 
 export default async function Home() {
   const allTours = await getAllTours('limit=3');
 
-  console.log('ALL TOURS', allTours);
-
   return (
-    <>
-      <Head>
-        <title>Local Guide - Find your local tour guide</title>
-        <meta
-          name="description"
-          content="Local Guide - Find your local tour guide"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main>
-        <ScrollReveal variant="blur-up" amount={0.2}>
-          <HeroSearchBar />
-        </ScrollReveal>
-        <ScrollReveal variant="fade-up" amount={0.2}>
+    <main className="relative overflow-hidden">
+      {/* Absolute Decorative Background Components */}
+      <div className="absolute top-0 left-0 w-full h-[150vh] pointer-events-none opacity-40">
+         <div className="absolute top-0 -left-1/4 w-[1000px] h-[1000px] bg-primary/5 blur-[150px] rounded-full animate-pulse" />
+      </div>
+
+      <ScrollReveal variant="blur-up" amount={0.1}>
+        <HeroSearchBar />
+      </ScrollReveal>
+
+      <div className="space-y-0">
+        <ScrollReveal variant="fade-up" amount={0.15}>
           <FeaturedSection featuredTours={allTours} />
         </ScrollReveal>
-        <ScrollReveal variant="fade-left" amount={0.2}>
+
+        <ScrollReveal variant="fade-up" amount={0.15}>
           <BecomeGuideCTA />
         </ScrollReveal>
-        <ScrollReveal variant="fade-right" amount={0.2}>
+
+        <ScrollReveal variant="fade-up" amount={0.15}>
           <WhyChooseUsSection />
         </ScrollReveal>
-        <ScrollReveal variant="zoom-in" amount={0.2}>
+
+        <ScrollReveal variant="fade-up" amount={0.15}>
           <PopularCitiesSection />
         </ScrollReveal>
-        <ScrollReveal variant="fade-up" amount={0.2}>
+
+        <ScrollReveal variant="fade-up" amount={0.15}>
           <HowItWorksSection />
         </ScrollReveal>
-      </main>
-    </>
+      </div>
+      
+      {/* Professional Footer Spacer Substrate */}
+      <div className="h-24 bg-background" />
+    </main>
   );
 }

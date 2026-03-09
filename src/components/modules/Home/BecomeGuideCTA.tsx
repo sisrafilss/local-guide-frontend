@@ -2,14 +2,14 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowRight, BadgeCheck, Map, Users } from 'lucide-react';
+import { ArrowRight, BadgeCheck, Map, Users, CheckCircle2, Globe, TrendingUp } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 export default function BecomeGuideCTA() {
-  const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -20,65 +20,87 @@ export default function BecomeGuideCTA() {
     return null;
   }
 
-  const dashboardImageSrc =
-    resolvedTheme === 'dark'
-      ? 'https://i.ibb.co.com/wN95cY2T/Screenshot-2026-03-08-212512.png'
-      : 'https://i.ibb.co.com/gZWN6gmm/Screenshot-2026-03-08-212441.png';
-
   return (
-    <section className="w-full px-4 py-20">
-      <div className="mx-auto max-w-6xl">
-        <Card className="overflow-hidden rounded-3xl border bg-background">
-          <CardContent className="grid gap-10 p-8 md:grid-cols-2 md:p-12">
+    <section className="w-full px-6 py-24 lg:px-12 bg-muted/30">
+      <div className="mx-auto max-w-7xl">
+        <Card className="overflow-hidden rounded-[2.5rem] border-2 border-border/40 bg-background shadow-2xl">
+          <CardContent className="grid gap-0 p-0 lg:grid-cols-5 flex-col-reverse lg:flex-row">
+            
             {/* ================= Text Content ================= */}
-            <div className="space-y-5">
-              <h2 className="text-3xl font-bold tracking-tight text-foreground">
-                Become a Local Guide
-              </h2>
+            <div className="lg:col-span-3 p-8 md:p-16 lg:p-20 space-y-10 flex flex-col justify-center">
+              <div className="space-y-4">
+                 <div className="flex items-center gap-3">
+                    <span className="h-[2px] w-8 bg-primary/60" />
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary italic leading-none">Expansion_Protocol</span>
+                 </div>
+                 <h2 className="text-4xl md:text-6xl font-black italic tracking-tighter text-foreground uppercase leading-[0.95]">
+                    Become a <br />
+                    <span className="text-primary italic">Local Guide</span>
+                 </h2>
+                 <p className="text-lg font-bold italic text-muted-foreground max-w-xl tracking-tight leading-relaxed mt-4">
+                    Share your unique local knowledge, connect with global travelers, and build your own touring business in real-time.
+                 </p>
+              </div>
 
-              <p className="text-muted-foreground">
-                Share your local knowledge, meet travelers from around the
-                world, and earn by guiding people through your city.
-              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                 {[
+                   { icon: TrendingUp, label: "Earn Rewards", sub: "Monetize your passion" },
+                   { icon: Globe, label: "Global Scope", sub: "Meet travelers worldwide" },
+                   { icon: Map, label: "City Impact", sub: "Showcase your culture" }
+                 ].map((item, i) => (
+                    <div key={i} className="space-y-3 group">
+                       <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
+                          <item.icon className="h-5 w-5" />
+                       </div>
+                       <div className="space-y-1">
+                          <p className="text-xs font-black uppercase tracking-widest italic">{item.label}</p>
+                          <p className="text-[10px] font-bold text-muted-foreground opacity-60 uppercase">{item.sub}</p>
+                       </div>
+                    </div>
+                 ))}
+              </div>
 
-              <ul className="space-y-3 text-sm text-muted-foreground">
-                <li className="flex items-center gap-2">
-                  <BadgeCheck className="h-4 w-4 text-primary" />
-                  Earn money doing what you love
-                </li>
-                <li className="flex items-center gap-2">
-                  <Users className="h-4 w-4 text-primary" />
-                  Connect with travelers globally
-                </li>
-                <li className="flex items-center gap-2">
-                  <Map className="h-4 w-4 text-primary" />
-                  Showcase your city & culture
-                </li>
-              </ul>
-
-              <div className="pt-4">
-                <Button size="lg" className="gap-2" asChild>
+              <div className="pt-8">
+                <Button size="lg" className="h-16 px-10 rounded-2xl font-black italic uppercase tracking-widest text-sm shadow-xl shadow-primary/20 hover:scale-[1.03] active:scale-95 transition-all gap-3" asChild>
                   <Link href="/become-guide/apply">
-                    Become a Guide
-                    <ArrowRight className="h-4 w-4" />
+                    Apply_Now
+                    <ArrowRight className="h-5 w-5" />
                   </Link>
                 </Button>
               </div>
             </div>
 
-            {/* ================= Visual / Accent ================= */}
-            <div className="relative hidden md:block">
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent" />
-              <div className="relative flex h-full items-center justify-center rounded-2xl border bg-muted">
-                {/* <span className="text-lg font-semibold text-muted-foreground"> */}
-                <Image
-                  src={dashboardImageSrc}
-                  alt="Guide Dashboard Preview"
-                  fill
-                />
-                {/* Guide Dashboard Preview */}
-                {/* </span> */}
+            {/* ================= Visual Content ================= */}
+            <div className="lg:col-span-2 relative min-h-[400px] lg:min-h-full overflow-hidden group">
+              <Image
+                src="/images/hero/become-guide.png"
+                alt="Become a Local Guide"
+                fill
+                className="object-cover transition-transform duration-1000 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent lg:bg-gradient-to-l" />
+              
+              <div className="absolute bottom-8 left-8 right-8 p-6 rounded-2xl bg-white/5 backdrop-blur-3xl border border-white/20 shadow-2xl">
+                 <div className="flex flex-col gap-1">
+                    <span className="text-[9px] font-black uppercase tracking-[0.4em] text-white italic opacity-40 mb-2 underline decoration-primary underline-offset-4">Guide_Verification.status</span>
+                    <div className="flex items-center justify-between">
+                       <div className="flex items-center gap-3">
+                          <div className="h-10 w-10 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
+                             <CheckCircle2 className="h-5 w-5 text-white" />
+                          </div>
+                          <div className="flex flex-col">
+                             <p className="text-xs font-black text-white italic uppercase tracking-widest">Expert_Badge</p>
+                             <p className="text-[10px] font-bold text-white/50 uppercase tracking-tighter">Verified_Professional</p>
+                          </div>
+                       </div>
+                       <BadgeCheck className="h-10 w-10 text-primary opacity-20" strokeWidth={1} />
+                    </div>
+                 </div>
               </div>
+
+              {/* Decorative Accent */}
+              <div className="absolute top-8 right-8 h-12 w-12 border-t-2 border-r-2 border-primary/40 rounded-tr-3xl" />
+              <div className="absolute bottom-8 left-8 h-12 w-12 border-b-2 border-l-2 border-primary/40 rounded-bl-3xl lg:hidden" />
             </div>
           </CardContent>
         </Card>
@@ -86,10 +108,3 @@ export default function BecomeGuideCTA() {
     </section>
   );
 }
-
-/*
-
-
-https://i.ibb.co.com/gZWN6gmm/Screenshot-2026-03-08-212441.png
-https://i.ibb.co.com/wN95cY2T/Screenshot-2026-03-08-212512.png
-*/
