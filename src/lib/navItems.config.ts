@@ -1,4 +1,3 @@
-('');
 import { NavSection } from '@/types/dashboard.interface';
 
 import { getDefaultDashboardRoute, UserRole } from './auth-utils';
@@ -108,7 +107,7 @@ export const adminNavItems: NavSection[] = [
       {
         title: 'Guide',
         href: '/admin/dashboard/guide-management',
-        icon: 'Stethoscope', // ✅ String
+        icon: 'MapPin', // ✅ String
         roles: ['ADMIN'],
       },
       {
@@ -125,7 +124,7 @@ export const adminNavItems: NavSection[] = [
       {
         title: 'Manage Listing',
         href: '/admin/dashboard/manage-listing',
-        icon: 'Calendar', // ✅ String
+        icon: 'LayoutList', // ✅ String
         roles: ['ADMIN'],
       },
     ],

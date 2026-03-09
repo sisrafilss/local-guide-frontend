@@ -5,19 +5,15 @@ import ChangePasswordForm from '@/components/modules/Auth/ChangePasswordForm';
 
 const ChangePasswordPage = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <ScrollReveal variant="pop" className="w-full max-w-md">
-        <div className="w-full space-y-6 rounded-lg border border-border bg-card p-8 shadow-lg">
-          <div className="space-y-2 text-center">
-            <h1 className="text-3xl font-bold text-foreground">
-              Change Password
-            </h1>
-            {/* <p className="text-sm text-muted-foreground">
-              
-            </p> */}
-          </div>
-          <ChangePasswordForm />
+    <div className="max-w-2xl mx-auto space-y-6 py-8">
+      <ScrollReveal variant="blur-up">
+        <div className="space-y-1 mb-6">
+          <h1 className="text-2xl font-bold tracking-tight">Security Settings</h1>
+          <p className="text-sm text-muted-foreground">
+            Manage your account security and password preferences.
+          </p>
         </div>
+        <ChangePasswordForm />
       </ScrollReveal>
     </div>
   );

@@ -6,10 +6,20 @@ import { ArrowRight, BadgeCheck, Map, Users } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export default function BecomeGuideCTA() {
   const { resolvedTheme } = useTheme();
-  console.log(resolvedTheme);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
   const dashboardImageSrc =
     resolvedTheme === 'dark'
       ? 'https://i.ibb.co.com/wN95cY2T/Screenshot-2026-03-08-212512.png'

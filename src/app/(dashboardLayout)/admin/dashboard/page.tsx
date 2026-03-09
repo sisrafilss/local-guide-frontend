@@ -1,12 +1,57 @@
-import { ScrollReveal } from '@/components/animations/ScrollReveal';
-import AdminDashboardStats from '@/components/modules/Admin/AdminStats';
+import { getAdminDashboardData } from '@/services/admin/getAdminDashboard';
 import { getUserInfo } from '@/services/auth/getUserInfo';
-import { getStats } from '@/services/getStats';
+import AdminDashboardContent from './AdminDashboardContent';
 
 export const dynamic = 'force-dynamic';
 
+interface DashboardData {
+  overview: {
+    totalUsers: number;
+    totalGuides: number;
+    totalTourists: number;
+    totalBookings: number;
+    totalListings: number;
+    verifiedGuides: number;
+    unverifiedGuides: number;
+    activeTourists: number;
+    activeListings: number;
+  };
+  monthlyStats: {
+    monthlyBookings: number;
+    lastMonthBookings: number;
+    growth: number;
+  };
+  financials: {
+    averageDailyRate: number;
+    totalRevenue: number;
+  };
+  bookingsByStatus: {
+    CONFIRMED: number;
+    PENDING: number;
+  };
+  recentBookings: Array<{
+    id: string;
+    status: string;
+    totalPrice: number;
+    startAt: string;
+    listingTitle: string;
+    listingCity: string;
+    touristName: string;
+    touristEmail: string;
+    guideName: string;
+    createdAt: string;
+  }>;
+  recentUsers: Array<{
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+    status: string;
+    createdAt: string;
+  }>;
+}
+
 const AdminDashboardPage = async () => {
-  // 1️⃣ Get logged-in user
   const user = await getUserInfo();
 
   if (!user) {
@@ -17,27 +62,17 @@ const AdminDashboardPage = async () => {
     );
   }
 
-  // 2️⃣ Fetch admin stats
-  const statsData = await getStats();
+  let dashboardData: DashboardData | null = null;
+  try {
+    const result = await getAdminDashboardData();
+    if (result.success) {
+      dashboardData = result.data;
+    }
+  } catch (error) {
+    console.error('Failed to fetch dashboard data:', error);
+  }
 
-  return (
-    <div className="p-6 space-y-6">
-      {/* Page Heading */}
-      <ScrollReveal variant="fade-down" duration={0.45}>
-        <div>
-          <h1 className="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
-          <p className="text-gray-500 mt-1">
-            Overview of all users, guides, and tourists in the system.
-          </p>
-        </div>
-      </ScrollReveal>
-
-      {/* Admin Stats Component */}
-      <ScrollReveal variant="fade-up" amount={0.15}>
-        <AdminDashboardStats data={statsData.data} />
-      </ScrollReveal>
-    </div>
-  );
+  return <AdminDashboardContent data={dashboardData} />;
 };
 
 export default AdminDashboardPage;
