@@ -35,7 +35,7 @@ const WhyChooseUsSection = () => {
         <div className="text-center space-y-4 mb-20">
            <div className="flex items-center justify-center gap-3">
               <span className="h-[2px] w-8 bg-primary/40 md:w-12" />
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic leading-none">Core_Value.prop</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic leading-none">Our Values</span>
               <span className="h-[2px] w-8 bg-primary/40 md:w-12" />
            </div>
            <h2 className="text-4xl md:text-6xl font-black italic tracking-tighter text-foreground uppercase leading-none">
@@ -66,10 +66,10 @@ const WhyChooseUsSection = () => {
                     </p>
                   </div>
 
-                  <div className="pt-4 flex items-center justify-center gap-2 opacity-10 group-hover:opacity-100 transition-opacity">
-                     <span className="text-[9px] font-black uppercase tracking-[0.3em] text-primary">Priority_Enabled</span>
-                     <Zap className="h-3 w-3 text-primary" />
-                  </div>
+                   <div className="pt-4 flex items-center justify-center gap-2 opacity-10 group-hover:opacity-100 transition-opacity">
+                      <span className="text-[9px] font-black uppercase tracking-[0.3em] text-primary">Priority</span>
+                      <Zap className="h-3 w-3 text-primary" />
+                   </div>
                 </CardContent>
                 
                 {/* Decorative Bottom Shadow Stripe */}

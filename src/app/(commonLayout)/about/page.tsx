@@ -19,7 +19,7 @@ export default function AboutPage() {
           <div className="text-center space-y-6 max-w-4xl mx-auto">
              <div className="flex items-center justify-center gap-3">
                 <span className="h-[2px] w-8 bg-primary/40 md:w-12" />
-                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic leading-none">About_Core</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic leading-none">About Us</span>
                 <span className="h-[2px] w-8 bg-primary/40 md:w-12" />
              </div>
              <h1 className="text-5xl md:text-8xl font-black italic tracking-tighter text-foreground uppercase leading-[0.9]">
@@ -39,7 +39,7 @@ export default function AboutPage() {
               <div className="space-y-8">
                  <div className="space-y-4">
                     <h2 className="text-3xl md:text-5xl font-black italic tracking-tighter text-foreground uppercase leading-none">
-                       Our <span className="text-primary italic">Mission_Protocol</span>
+                       Our <span className="text-primary italic">Mission</span>
                     </h2>
                     <p className="text-lg font-bold italic text-muted-foreground tracking-tight leading-relaxed max-w-md">
                       We believe the best way to explore a destination is through the eyes of those who call it home.
@@ -64,7 +64,7 @@ export default function AboutPage() {
                  {/* Decorative Accent */}
                  <div className="absolute top-8 right-8 flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/40 backdrop-blur-md border border-white/10 shadow-xl self-start">
                     <Sparkles className="h-3.5 w-3.5 text-primary" />
-                    <span className="text-[9px] font-black uppercase tracking-widest text-primary italic">Status_Verified</span>
+                    <span className="text-[9px] font-black uppercase tracking-widest text-primary italic">Verified</span>
                  </div>
               </div>
             </CardContent>
@@ -74,15 +74,15 @@ export default function AboutPage() {
         {/* ================= Values ================= */}
         <div className="space-y-16">
            <div className="text-center space-y-4">
-              <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic leading-none">Core_Values.log</h2>
-              <p className="text-3xl font-black italic tracking-tighter uppercase text-foreground">The Local_Guide Standard</p>
+              <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic leading-none">Our Values</h2>
+              <p className="text-3xl font-black italic tracking-tighter uppercase text-foreground">The Local Guide Standard</p>
            </div>
 
            <ScrollStagger className="grid gap-8 md:grid-cols-3">
               {[
-                { icon: Target, title: "Authentic Nodes", desc: "Discover cities through real local perspective buffers.", label: "Verified_Data" },
-                { icon: Users, title: "Community Logic", desc: "Built for local experts and world explorers alike.", label: "Social_Network" },
-                { icon: ShieldCheck, title: "Quality_Trust", desc: "Hand-picked guides and transparent review logs.", label: "Secure_Access" }
+                { icon: Target, title: "Authentic Experiences", desc: "Discover cities through real local perspectives.", label: "Verified" },
+                { icon: Users, title: "Community Driven", desc: "Built for local experts and world explorers alike.", label: "Network" },
+                { icon: ShieldCheck, title: "Quality & Trust", desc: "Hand-picked guides and transparent reviews.", label: "Secure" }
               ].map((value, idx) => (
                 <ScrollStaggerItem key={idx} variant="fade-up">
                   <Card className="group relative overflow-hidden rounded-[2.5rem] border-2 border-border/40 bg-card/40 backdrop-blur-md shadow-lg transition-all hover:shadow-2xl hover:border-primary/20 h-full">
@@ -125,7 +125,7 @@ export default function AboutPage() {
                     Join a global network of local enthusiasts and travelers committed to discovering the soul of our world.
                  </p>
                  <div className="flex items-center justify-center gap-2 text-[10px] font-black tracking-[0.4em] text-primary italic uppercase underline underline-offset-8 decoration-primary/20">
-                    Discover_The_Unseen
+                    Discover The Unseen
                  </div>
               </div>
            </div>

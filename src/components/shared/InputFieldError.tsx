@@ -1,5 +1,5 @@
 import { getInputFieldError, IInputErrorState } from '@/lib/getInputFieldError';
-import { FieldDescription } from '../ui/field';
+import { FieldError } from '../ui/field';
 
 interface InputFieldErrorProps {
   field: string;
@@ -7,11 +7,13 @@ interface InputFieldErrorProps {
 }
 
 const InputFieldError = ({ field, state }: InputFieldErrorProps) => {
-  if (getInputFieldError(field, state)) {
+  const errorMessage = getInputFieldError(field, state);
+  
+  if (errorMessage) {
     return (
-      <FieldDescription className="text-red-600">
-        {getInputFieldError(field, state)}
-      </FieldDescription>
+      <FieldError className="text-red-500 font-bold italic text-[10px] uppercase tracking-wider mt-1.5 ml-1 animate-in fade-in slide-in-from-left-2 duration-300">
+        {errorMessage}
+      </FieldError>
     );
   }
 

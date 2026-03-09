@@ -5,8 +5,8 @@ import { useActionState, useEffect } from 'react';
 import { toast } from 'sonner';
 import InputFieldError from './shared/InputFieldError';
 import { Button } from './ui/button';
-import { Field, FieldDescription, FieldGroup, FieldLabel } from './ui/field';
 import { Input } from './ui/input';
+import { User, MapPin, Mail, Phone, Lock, Sparkles, UserPlus } from 'lucide-react';
 
 const RegisterForm = () => {
   const [state, formAction, isPending] = useActionState(registerTourist, null);
@@ -17,163 +17,109 @@ const RegisterForm = () => {
     }
   }, [state]);
 
+  const inputStyles = "h-14 bg-muted/10 border-border focus:border-primary/50 text-foreground font-black italic text-sm rounded-2xl px-5 transition-all outline-none placeholder:text-muted-foreground/30";
+  const labelStyles = "text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1 flex items-center gap-2 mb-2";
+
   return (
-    <form action={formAction} className="w-full max-w-lg mx-auto">
-      <FieldGroup>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Name */}
-          <Field>
-            <FieldLabel
-              htmlFor="name"
-              className="text-gray-900 dark:text-gray-100"
-            >
-              Full Name
-            </FieldLabel>
-            <Input
-              id="name"
-              name="name"
-              type="text"
-              placeholder="John Doe"
-              className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
-            />
-            <InputFieldError field="name" state={state} />
-          </Field>
-
-          {/* Address */}
-          <Field>
-            <FieldLabel
-              htmlFor="address"
-              className="text-gray-900 dark:text-gray-100"
-            >
-              Address
-            </FieldLabel>
-            <Input
-              id="address"
-              name="address"
-              type="text"
-              placeholder="123 Main St"
-              className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
-            />
-            <InputFieldError field="address" state={state} />
-          </Field>
-
-          {/* Email */}
-          <Field>
-            <FieldLabel
-              htmlFor="email"
-              className="text-gray-900 dark:text-gray-100"
-            >
-              Email
-            </FieldLabel>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="m@example.com"
-              className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
-            />
-            <InputFieldError field="email" state={state} />
-          </Field>
-
-          {/* Phone */}
-          <Field>
-            <FieldLabel
-              htmlFor="phone"
-              className="text-gray-900 dark:text-gray-100"
-            >
-              Phone
-            </FieldLabel>
-            <Input
-              id="phone"
-              name="phone"
-              type="tel"
-              placeholder="+1234567890"
-              className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
-            />
-            <InputFieldError field="phone" state={state} />
-          </Field>
-
-          {/* Gender */}
-          <Field className="md:col-span-2">
-            <FieldLabel className="text-gray-900 dark:text-gray-100">
-              Gender
-            </FieldLabel>
-
-            <div className="flex items-center gap-6 mt-2">
-              <label className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
-                <input
-                  type="radio"
-                  name="gender"
-                  value="MALE"
-                  className="accent-blue-600"
-                />
-                Male
-              </label>
-
-              <label className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
-                <input
-                  type="radio"
-                  name="gender"
-                  value="FEMALE"
-                  className="accent-blue-600"
-                />
-                Female
-              </label>
-            </div>
-
-            <InputFieldError field="gender" state={state} />
-          </Field>
-
-          {/* Password */}
-          <Field className="md:col-span-1">
-            <FieldLabel
-              htmlFor="password"
-              className="text-gray-900 dark:text-gray-100"
-            >
-              Password
-            </FieldLabel>
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
-            />
-            <InputFieldError field="password" state={state} />
-          </Field>
-
-          {/* Confirm Password */}
-          <Field className="md:col-span-1">
-            <FieldLabel
-              htmlFor="confirmPassword"
-              className="text-gray-900 dark:text-gray-100"
-            >
-              Confirm Password
-            </FieldLabel>
-            <Input
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
-            />
-            <InputFieldError field="confirmPassword" state={state} />
-          </Field>
+    <form action={formAction} className="space-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Name */}
+        <div className="space-y-1">
+          <label className={labelStyles}>
+            <User className="h-3 w-3 text-primary/60" />
+            Full Name
+          </label>
+          <Input id="name" name="name" type="text" placeholder="John Doe" className={inputStyles} />
+          <InputFieldError field="name" state={state} />
         </div>
 
-        <FieldGroup className="mt-4">
-          <Field>
-            <Button type="submit" disabled={isPending}>
-              {isPending ? 'Creating Account...' : 'Create Account'}
-            </Button>
+        {/* Address */}
+        <div className="space-y-1">
+          <label className={labelStyles}>
+            <MapPin className="h-3 w-3 text-primary/60" />
+            Address
+          </label>
+          <Input id="address" name="address" type="text" placeholder="Dhaka, BD" className={inputStyles} />
+          <InputFieldError field="address" state={state} />
+        </div>
 
-            <FieldDescription className="px-6 text-center">
-              Already have an account?{' '}
-              <a href="/login" className="text-blue-600 hover:underline">
-                Sign in
-              </a>
-            </FieldDescription>
-          </Field>
-        </FieldGroup>
-      </FieldGroup>
+        {/* Email */}
+        <div className="space-y-1">
+          <label className={labelStyles}>
+            <Mail className="h-3 w-3 text-primary/60" />
+            Email
+          </label>
+          <Input id="email" name="email" type="email" placeholder="explorer@nodes.com" className={inputStyles} />
+          <InputFieldError field="email" state={state} />
+        </div>
+
+        {/* Phone */}
+        <div className="space-y-1">
+          <label className={labelStyles}>
+            <Phone className="h-3 w-3 text-primary/60" />
+            Phone
+          </label>
+          <Input id="phone" name="phone" type="tel" placeholder="+880..." className={inputStyles} />
+          <InputFieldError field="phone" state={state} />
+        </div>
+
+        {/* Gender Selection */}
+        <div className="md:col-span-2 space-y-3">
+          <label className={labelStyles}>
+             <Sparkles className="h-3 w-3 text-primary/60" />
+             Gender
+          </label>
+          <div className="flex gap-4">
+             {['MALE', 'FEMALE'].map((g) => (
+                <label key={g} className="flex-1 relative cursor-pointer group">
+                   <input type="radio" name="gender" value={g} className="sr-only peer" />
+                   <div className="h-14 flex items-center justify-center rounded-2xl border-2 border-border bg-muted/10 text-[10px] font-black uppercase tracking-widest text-muted-foreground transition-all peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-foreground group-hover:bg-muted/20 italic">
+                      {g}
+                   </div>
+                </label>
+             ))}
+          </div>
+          <InputFieldError field="gender" state={state} />
+        </div>
+
+        {/* Password */}
+        <div className="space-y-1">
+          <label className={labelStyles}>
+            <Lock className="h-3 w-3 text-primary/60" />
+            Password
+          </label>
+          <Input id="password" name="password" type="password" placeholder="••••••••" className={inputStyles} />
+          <InputFieldError field="password" state={state} />
+        </div>
+
+        {/* Confirm Password */}
+        <div className="space-y-1">
+          <label className={labelStyles}>
+            <Lock className="h-3 w-3 text-primary/60" />
+            Confirm Password
+          </label>
+          <Input id="confirmPassword" name="confirmPassword" type="password" placeholder="••••••••" className={inputStyles} />
+          <InputFieldError field="confirmPassword" state={state} />
+        </div>
+      </div>
+
+      <Button 
+        type="submit" 
+        disabled={isPending}
+        className="w-full h-16 rounded-[1.25rem] bg-primary text-primary-foreground font-black italic uppercase tracking-[0.2em] text-sm shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all gap-4"
+      >
+        {isPending ? (
+          <div className="flex items-center gap-3">
+            <div className="h-4 w-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+            Syncing...
+          </div>
+        ) : (
+          <>
+            Create Account
+            <UserPlus className="h-5 w-5" />
+          </>
+        )}
+      </Button>
     </form>
   );
 };

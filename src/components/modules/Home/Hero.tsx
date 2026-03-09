@@ -78,7 +78,7 @@ export default function HeroSearchBar() {
         >
           <div className="flex items-center justify-center gap-3 mb-6">
              <div className="h-[1px] w-12 bg-primary/40 md:w-20" />
-             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic leading-none">Travel_Deployment.v1</span>
+             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic leading-none">Explore the World</span>
              <div className="h-[1px] w-12 bg-primary/40 md:w-20" />
           </div>
 
@@ -107,7 +107,7 @@ export default function HeroSearchBar() {
                     <Input
                       value={query}
                       onChange={(e) => handleSearchChange(e.target.value)}
-                      placeholder="Search city or destination_node"
+                      placeholder="Search city or destination"
                       className="flex-1 h-full bg-transparent border-none text-white font-black italic text-lg placeholder:text-white/20 focus-visible:ring-0 focus-visible:ring-offset-0 px-0"
                     />
                  </div>
@@ -117,7 +117,7 @@ export default function HeroSearchBar() {
                     className="w-full md:w-48 h-14 md:h-16 rounded-2xl bg-primary text-white font-black italic uppercase tracking-widest text-sm shadow-xl shadow-primary/30 transition-all hover:scale-[1.03] active:scale-95 gap-3"
                  >
                     <Search className="h-5 w-5" />
-                    Explore_Now
+                    Explore Now
                  </Button>
               </div>
 

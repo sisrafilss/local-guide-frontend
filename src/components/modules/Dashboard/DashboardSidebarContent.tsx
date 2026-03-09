@@ -11,6 +11,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Compass, User, ShieldCheck, LayoutDashboard, ChevronRight, LogOut, Settings, Bell } from 'lucide-react';
+import LogoutButton from '@/components/shared/LogoutButton';
 
 interface DashboardSidebarContentProps {
   userInfo: UserInfo;
@@ -47,7 +48,7 @@ const DashboardSidebarContent = ({
           </div>
           <div className="flex flex-col">
             <span className="text-xl font-black italic tracking-tighter text-foreground leading-none">LOCAL GUIDE</span>
-            <span className="text-[9px] font-black tracking-[0.3em] text-muted-foreground uppercase opacity-40">Dashboard_Portal</span>
+            <span className="text-[9px] font-black tracking-[0.3em] text-muted-foreground uppercase opacity-40">Dashboard</span>
           </div>
         </Link>
       </div>
@@ -117,11 +118,16 @@ const DashboardSidebarContent = ({
             <div className="flex items-center gap-1.5 opacity-60">
                <div className={cn("h-1.5 w-1.5 rounded-full", userInfo.role === 'ADMIN' ? 'bg-primary' : (userInfo.role === 'GUIDE' ? 'bg-sky-500' : 'bg-emerald-500'))} />
                <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground italic">
-                 {userInfo.role}_Log
+                 {userInfo.role}
                </span>
             </div>
           </div>
           <ChevronRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-primary transition-colors" />
+        </div>
+        
+        {/* Secondary Actions / Logout Buffer */}
+        <div className="mt-4 px-2">
+           <LogoutButton />
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import {
   Card,
   CardContent,
@@ -91,7 +91,7 @@ interface AdminDashboardContentProps {
   data: DashboardData | null;
 }
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -99,7 +99,7 @@ const containerVariants = {
   }
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { y: 20, opacity: 0 },
   visible: {
     y: 0,
@@ -116,7 +116,7 @@ const AdminDashboardContent: React.FC<AdminDashboardContentProps> = ({ data }) =
            <div className="absolute inset-0 rounded-xl bg-primary/20 animate-pulse" />
            <div className="absolute inset-2 rounded-lg bg-primary animate-spin" />
         </div>
-        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic animate-pulse">Initializing_Buffer...</p>
+         <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic animate-pulse">Loading Admin Data...</p>
       </div>
     );
   }
@@ -139,7 +139,7 @@ const AdminDashboardContent: React.FC<AdminDashboardContentProps> = ({ data }) =
         <div className="space-y-4">
            <div className="flex items-center gap-3">
               <span className="h-[2px] w-8 bg-primary/60" />
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary italic leading-none">Command_Center.v1</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary italic leading-none">Management Overview</span>
            </div>
            <h1 className="text-4xl font-black italic tracking-tighter text-foreground uppercase leading-none">
               Admin <span className="text-primary italic">Overview</span>
@@ -147,13 +147,13 @@ const AdminDashboardContent: React.FC<AdminDashboardContentProps> = ({ data }) =
         </div>
         <div className="flex items-center gap-3 p-1.5 rounded-2xl bg-muted/20 border border-border/20">
            <div className="px-4 py-2 rounded-xl bg-background border border-border/20 shadow-sm">
-              <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 italic">Platform_Latency</span>
-              <p className="text-xs font-black text-foreground uppercase mt-1">0.4ms_Buffer</p>
+              <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 italic">Platform Latency</span>
+              <p className="text-xs font-black text-foreground uppercase mt-1">0.4ms</p>
            </div>
            <div className="h-10 w-px bg-border/20 mx-1" />
            <div className="px-4 py-2">
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500 italic">Net_Uptime</span>
-              <p className="text-xs font-black text-foreground uppercase mt-1">99.9%_Live</p>
+              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500 italic">Net Uptime</span>
+              <p className="text-xs font-black text-foreground uppercase mt-1">99.9% Live</p>
            </div>
         </div>
       </motion.div>
@@ -197,14 +197,14 @@ const AdminDashboardContent: React.FC<AdminDashboardContentProps> = ({ data }) =
             <CardHeader className="p-8 border-b border-border/20 bg-muted/5">
                <div className="flex items-center gap-3">
                   <Activity className="h-4 w-4 text-primary" />
-                  <CardTitle className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground italic">Process_Logic</CardTitle>
+                  <CardTitle className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground italic">Booking Statistics</CardTitle>
                </div>
             </CardHeader>
             <CardContent className="p-10 space-y-10">
               <div className="space-y-4">
                 <div className="flex justify-between items-end">
                    <div className="flex flex-col">
-                      <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">Confirmed_Deployment</span>
+                      <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">Confirmed Bookings</span>
                       <span className="text-2xl font-black italic tracking-tighter text-foreground uppercase">Confirmed</span>
                    </div>
                    <span className="text-3xl font-black italic tracking-tighter text-primary leading-none">{confirmedPercentage}<span className="text-lg">%</span></span>
@@ -222,7 +222,7 @@ const AdminDashboardContent: React.FC<AdminDashboardContentProps> = ({ data }) =
               <div className="space-y-4">
                 <div className="flex justify-between items-end">
                    <div className="flex flex-col">
-                      <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">Pending_Queue</span>
+                      <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">Pending Bookings</span>
                       <span className="text-2xl font-black italic tracking-tighter text-foreground uppercase">Pending</span>
                    </div>
                    <span className="text-3xl font-black italic tracking-tighter text-amber-500 leading-none">{pendingPercentage}<span className="text-lg">%</span></span>
@@ -239,12 +239,12 @@ const AdminDashboardContent: React.FC<AdminDashboardContentProps> = ({ data }) =
 
               <div className="pt-8 border-t border-border/20 grid grid-cols-2 gap-8">
                  <div className="space-y-1">
-                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 italic">Avg_Tick_Rate</p>
-                    <p className="text-xl font-black italic tracking-tighter text-foreground uppercase">{financials.averageDailyRate.toLocaleString()} <span className="text-[10px] font-bold">BDT</span></p>
+                     <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 italic">Daily Rate</p>
+                     <p className="text-xl font-black italic tracking-tighter text-foreground uppercase">{financials.averageDailyRate.toLocaleString()} <span className="text-[10px] font-bold">BDT</span></p>
                  </div>
                  <div className="space-y-1">
-                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 italic">Growth_Pulse</p>
-                    <p className="text-xl font-black italic tracking-tighter text-foreground uppercase">{monthlyStats.growth}%</p>
+                     <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 italic">Monthly Growth</p>
+                     <p className="text-xl font-black italic tracking-tighter text-foreground uppercase">{monthlyStats.growth}%</p>
                  </div>
               </div>
             </CardContent>
@@ -257,20 +257,20 @@ const AdminDashboardContent: React.FC<AdminDashboardContentProps> = ({ data }) =
             <CardHeader className="p-8 border-b border-border/20 bg-muted/5 flex flex-row items-center justify-between">
                <div className="flex items-center gap-3">
                   <Sparkles className="h-4 w-4 text-primary" />
-                  <CardTitle className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground italic">Transaction_Log.v1</CardTitle>
+                  <CardTitle className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground italic">Recent Bookings</CardTitle>
                </div>
                <Button variant="ghost" className="h-10 px-6 rounded-xl font-black italic uppercase tracking-widest text-[10px] border border-border/20 hover:bg-primary hover:text-white transition-all">
-                  Access_Full_Log
+                  View All
                </Button>
             </CardHeader>
             <CardContent className="p-0">
               <Table>
                 <TableHeader>
                   <TableRow className="hover:bg-transparent border-border/20 bg-muted/10 h-14">
-                    <TableHead className="text-[10px] font-black uppercase tracking-widest pl-8 italic">Node_Identity</TableHead>
-                    <TableHead className="text-[10px] font-black uppercase tracking-widest italic">Subject</TableHead>
-                    <TableHead className="text-[10px] font-black uppercase tracking-widest text-right italic">Value_Transfer</TableHead>
-                    <TableHead className="text-[10px] font-black uppercase tracking-widest text-right pr-8 italic">State</TableHead>
+                    <TableHead className="text-[10px] font-black uppercase tracking-widest pl-8 italic">Listing Title</TableHead>
+                    <TableHead className="text-[10px] font-black uppercase tracking-widest italic">Tourist</TableHead>
+                    <TableHead className="text-[10px] font-black uppercase tracking-widest text-right italic">Price</TableHead>
+                    <TableHead className="text-[10px] font-black uppercase tracking-widest text-right pr-8 italic">Status</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -304,7 +304,7 @@ const AdminDashboardContent: React.FC<AdminDashboardContentProps> = ({ data }) =
                             )}
                           >
                             <div className={cn("h-1 w-1 rounded-full", booking.status === 'CONFIRMED' ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]' : 'bg-amber-500 animate-pulse')} />
-                            {booking.status}_LOG
+                            {booking.status}
                           </Badge>
                         </TableCell>
                       </TableRow>
@@ -313,8 +313,8 @@ const AdminDashboardContent: React.FC<AdminDashboardContentProps> = ({ data }) =
                     <TableRow>
                       <TableCell colSpan={4} className="py-24 text-center">
                          <div className="flex flex-col items-center gap-3 opacity-20">
-                            <LayoutGrid className="h-10 w-10" />
-                            <p className="text-[10px] font-black uppercase tracking-[0.4em] italic">No_Activity_Detected</p>
+                             <LayoutGrid className="h-10 w-10" />
+                             <p className="text-[10px] font-black uppercase tracking-[0.4em] italic">No Activity</p>
                          </div>
                       </TableCell>
                     </TableRow>
@@ -333,7 +333,7 @@ const AdminDashboardContent: React.FC<AdminDashboardContentProps> = ({ data }) =
             <CardHeader className="p-8 border-b border-border/20 bg-muted/5 flex flex-row items-center justify-between">
                <div className="flex items-center gap-3">
                   <Users className="h-4 w-4 text-primary" />
-                  <CardTitle className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground italic">Subject_Registry</CardTitle>
+                  <CardTitle className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground italic">Recent Users</CardTitle>
                </div>
             </CardHeader>
             <CardContent className="p-8">
@@ -351,13 +351,13 @@ const AdminDashboardContent: React.FC<AdminDashboardContentProps> = ({ data }) =
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-black italic tracking-tighter uppercase text-foreground leading-none mb-2 truncate">{user.name}</p>
-                      <Badge variant="outline" className="text-[8px] font-black uppercase tracking-widest h-5 px-2 rounded-lg border-primary/20 bg-primary/5 text-primary italic leading-none">
-                         {user.role}_LOG
+                       <Badge variant="outline" className="text-[8px] font-black uppercase tracking-widest h-5 px-2 rounded-lg border-primary/20 bg-primary/5 text-primary italic leading-none">
+                         {user.role}
                       </Badge>
                     </div>
                     <div className="flex flex-col items-end gap-3">
                       <div className={cn("w-2 h-2 rounded-full", user.status === 'ACTIVE' ? 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)] animate-pulse' : 'bg-destructive shadow-[0_0_10px_rgba(239,68,68,0.5)]')} />
-                      <p className="text-[10px] font-black text-muted-foreground/30 uppercase italic">New_Reg</p>
+                       <p className="text-[10px] font-black text-muted-foreground/30 uppercase italic">New User</p>
                     </div>
                   </div>
                 ))}
@@ -383,7 +383,7 @@ const AdminDashboardContent: React.FC<AdminDashboardContentProps> = ({ data }) =
                       <div className="h-10 w-10 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center text-white border border-white/10 shadow-lg">
                          <ShieldAlert className="h-5 w-5" />
                       </div>
-                      <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 italic">Verification_Node.sys</span>
+                      <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 italic">Guide Verification</span>
                    </div>
                    <h2 className="text-3xl md:text-5xl font-black italic tracking-tighter text-white uppercase leading-[0.9]">
                       Guide <br />
@@ -395,15 +395,15 @@ const AdminDashboardContent: React.FC<AdminDashboardContentProps> = ({ data }) =
                 </div>
 
                 <div className="flex gap-4">
-                  <div className="flex-1 bg-white/10 p-5 rounded-[2rem] backdrop-blur-md border border-white/5 space-y-2 group/tile shadow-xl">
-                    <p className="text-[9px] font-black uppercase tracking-widest text-white/40 italic">Queue_Status</p>
+                   <div className="flex-1 bg-white/10 p-5 rounded-[2rem] backdrop-blur-md border border-white/5 space-y-2 group/tile shadow-xl">
+                    <p className="text-[9px] font-black uppercase tracking-widest text-white/40 italic">Queue Status</p>
                     <div className="flex items-end justify-between">
                        <p className="text-4xl font-black italic text-white tracking-tighter">{overview.unverifiedGuides}</p>
                        <Zap className="h-5 w-5 text-white/40 group-hover/tile:text-white transition-colors animate-pulse" />
                     </div>
                   </div>
-                  <div className="flex-1 bg-white/10 p-5 rounded-[2rem] backdrop-blur-md border border-white/5 space-y-2 group/tile shadow-xl">
-                    <p className="text-[9px] font-black uppercase tracking-widest text-white/40 italic">Total_Verified</p>
+                   <div className="flex-1 bg-white/10 p-5 rounded-[2rem] backdrop-blur-md border border-white/5 space-y-2 group/tile shadow-xl">
+                    <p className="text-[9px] font-black uppercase tracking-widest text-white/40 italic">Total Verified</p>
                     <div className="flex items-end justify-between">
                        <p className="text-4xl font-black italic text-white tracking-tighter">{overview.verifiedGuides}</p>
                        <CheckCircle2 className="h-5 w-5 text-white/40 group-hover/tile:text-white transition-colors" />
@@ -413,7 +413,7 @@ const AdminDashboardContent: React.FC<AdminDashboardContentProps> = ({ data }) =
               </div>
 
               <Button variant="secondary" className="w-full md:w-fit h-14 px-10 rounded-2xl font-black italic uppercase tracking-widest text-xs shadow-2xl transition-all hover:scale-[1.05] active:scale-95 group/btn border-none bg-white text-primary">
-                Review_Log_Access
+                Review Applications
                 <ArrowUpRight className="ml-3 h-5 w-5 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" strokeWidth={3} />
               </Button>
             </CardContent>

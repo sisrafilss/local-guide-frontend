@@ -31,7 +31,7 @@ export default function BecomeGuideCTA() {
               <div className="space-y-4">
                  <div className="flex items-center gap-3">
                     <span className="h-[2px] w-8 bg-primary/60" />
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary italic leading-none">Expansion_Protocol</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary italic leading-none">Join the community</span>
                  </div>
                  <h2 className="text-4xl md:text-6xl font-black italic tracking-tighter text-foreground uppercase leading-[0.95]">
                     Become a <br />
@@ -63,7 +63,7 @@ export default function BecomeGuideCTA() {
               <div className="pt-8">
                 <Button size="lg" className="h-16 px-10 rounded-2xl font-black italic uppercase tracking-widest text-sm shadow-xl shadow-primary/20 hover:scale-[1.03] active:scale-95 transition-all gap-3" asChild>
                   <Link href="/become-guide/apply">
-                    Apply_Now
+                    Apply Now
                     <ArrowRight className="h-5 w-5" />
                   </Link>
                 </Button>
@@ -82,15 +82,15 @@ export default function BecomeGuideCTA() {
               
               <div className="absolute bottom-8 left-8 right-8 p-6 rounded-2xl bg-white/5 backdrop-blur-3xl border border-white/20 shadow-2xl">
                  <div className="flex flex-col gap-1">
-                    <span className="text-[9px] font-black uppercase tracking-[0.4em] text-white italic opacity-40 mb-2 underline decoration-primary underline-offset-4">Guide_Verification.status</span>
+                    <span className="text-[9px] font-black uppercase tracking-[0.4em] text-white italic opacity-40 mb-2 underline decoration-primary underline-offset-4">Verified Status</span>
                     <div className="flex items-center justify-between">
                        <div className="flex items-center gap-3">
                           <div className="h-10 w-10 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
                              <CheckCircle2 className="h-5 w-5 text-white" />
                           </div>
                           <div className="flex flex-col">
-                             <p className="text-xs font-black text-white italic uppercase tracking-widest">Expert_Badge</p>
-                             <p className="text-[10px] font-bold text-white/50 uppercase tracking-tighter">Verified_Professional</p>
+                             <p className="text-xs font-black text-white italic uppercase tracking-widest">Expert Badge</p>
+                             <p className="text-[10px] font-bold text-white/50 uppercase tracking-tighter">Verified Professional</p>
                           </div>
                        </div>
                        <BadgeCheck className="h-10 w-10 text-primary opacity-20" strokeWidth={1} />

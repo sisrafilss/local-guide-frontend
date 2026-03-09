@@ -58,20 +58,20 @@ export default function FeaturedSection({
             <div className="space-y-4">
                <div className="flex items-center gap-3">
                   <span className="h-[2px] w-8 bg-primary/60" />
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary italic leading-none">Curated_Selection</span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary italic leading-none">Featured Tours</span>
                </div>
                <h2 className="text-4xl md:text-6xl font-black italic tracking-tighter text-foreground uppercase leading-[0.9]">
                   Featured <br />
                   <span className="text-primary italic">Tours</span>
                </h2>
                <p className="text-sm font-bold italic text-muted-foreground/60 max-w-md tracking-tight leading-none italic">
-                  Explore hand-picked authentic experiences from our premier local expert buffer.
+                  Explore hand-picked authentic experiences from our premier local experts.
                </p>
             </div>
             <Link href="/explore-tours" passHref>
                <Button variant="ghost" className="h-16 px-8 rounded-2xl group border border-border/10 bg-muted/20 hover:bg-primary transition-all active:scale-95">
                   <div className="flex items-center gap-4 text-sm font-black italic tracking-widest uppercase group-hover:text-white">
-                     View_All_Tours
+                     View All Tours
                      <div className="h-8 w-8 rounded-xl bg-white/10 flex items-center justify-center group-hover:bg-black/20 transition-all">
                         <ArrowRight className="h-4 w-4" />
                      </div>
@@ -90,7 +90,7 @@ export default function FeaturedSection({
                  <div className="h-12 w-12 rounded-2xl bg-muted flex items-center justify-center mx-auto opacity-40">
                     <LayoutGrid className="h-6 w-6" />
                  </div>
-                 <p className="text-xs font-black uppercase tracking-widest text-muted-foreground italic opacity-50">Local_Buffer.empty</p>
+                 <p className="text-xs font-black uppercase tracking-widest text-muted-foreground italic opacity-50">No tours found</p>
               </div>
             )}
           </div>
@@ -102,7 +102,7 @@ export default function FeaturedSection({
             <div className="space-y-4">
                <div className="flex items-center gap-3">
                   <span className="h-[2px] w-8 bg-primary/60" />
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary italic leading-none">Expert_Network</span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary italic leading-none">Popular Destinations</span>
                </div>
                <h2 className="text-4xl md:text-6xl font-black italic tracking-tighter text-foreground uppercase leading-[0.9]">
                   Top-Rated <br />
@@ -159,13 +159,13 @@ export default function FeaturedSection({
                         <div className="h-8 w-px bg-border/40" />
                         <div className="flex flex-col items-center">
                            <span className="text-xs font-black italic tracking-tighter">{guide.reviews}</span>
-                           <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest mt-1 opacity-50">Log_Buffer</span>
+                           <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest mt-1 opacity-50">Reviews</span>
                         </div>
                       </div>
                     </div>
                     
                     <Button variant="outline" className="w-full h-12 rounded-xl group/btn border-border/40 bg-muted/20 hover:bg-primary hover:text-white hover:border-primary transition-all active:scale-95 text-[10px] font-black uppercase tracking-widest italic gap-2">
-                       Connect_Subject
+                       Connect
                        <ShieldCheck className="h-4 w-4 opacity-40 group-hover/btn:opacity-100 transition-opacity" />
                     </Button>
                   </div>

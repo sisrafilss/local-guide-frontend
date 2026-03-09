@@ -11,6 +11,7 @@ import { UserInfo } from '@/types/user.interface';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Compass, Sparkles, ChevronRight, LayoutGrid } from 'lucide-react';
+import LogoutButton from '@/components/shared/LogoutButton';
 
 interface DashboardMobileSidebarContentProps {
   userInfo: UserInfo;
@@ -47,7 +48,7 @@ const DashboardMobileSidebar = ({
           </div>
           <div className="flex flex-col">
             <span className="text-lg font-black italic tracking-tighter text-foreground leading-none">LOCAL GUIDE</span>
-            <span className="text-[8px] font-black tracking-[0.3em] text-muted-foreground uppercase opacity-40 italic">Mob_Buffer</span>
+            <span className="text-[8px] font-black tracking-[0.3em] text-muted-foreground uppercase opacity-40 italic">Mobile</span>
           </div>
         </Link>
       </div>
@@ -115,10 +116,15 @@ const DashboardMobileSidebar = ({
             <div className="flex items-center gap-1.5 opacity-60">
                <div className={cn("h-1.5 w-1.5 rounded-full", userInfo.role === 'ADMIN' ? 'bg-primary' : (userInfo.role === 'GUIDE' ? 'bg-sky-500' : 'bg-emerald-500'))} />
                <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground italic">
-                 {userInfo.role}_Log
+                 {userInfo.role}
                </span>
             </div>
           </div>
+        </div>
+        
+        {/* Mobile Logout Action */}
+        <div className="mt-4 px-2">
+           <LogoutButton />
         </div>
       </div>
     </div>

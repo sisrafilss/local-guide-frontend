@@ -18,14 +18,15 @@ const PopularCitiesSection = () => {
           <div className="space-y-4">
              <div className="flex items-center gap-3">
                 <span className="h-[2px] w-8 bg-primary/60" />
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary italic leading-none">Global_Nodes</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary italic leading-none">Popular Destinations</span>
+                <span className="h-[2px] w-8 bg-primary/40 md:w-12" />
              </div>
              <h2 className="text-4xl md:text-6xl font-black italic tracking-tighter text-foreground uppercase leading-[0.9]">
                 Popular <br />
                 <span className="text-primary italic">Destinations</span>
              </h2>
              <p className="text-sm font-bold italic text-muted-foreground/60 max-w-md tracking-tight leading-none italic">
-                Explore our most active city buffers and connect with verified local experts.
+                Explore our most active cities and connect with verified local experts.
              </p>
           </div>
         </div>
@@ -49,16 +50,16 @@ const PopularCitiesSection = () => {
                            <div className="h-6 w-6 rounded-lg bg-primary/20 backdrop-blur-md flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
                               <MapPin className="h-3 w-3" />
                            </div>
-                           <span className="text-[10px] font-black uppercase tracking-widest text-primary italic underline underline-offset-4 decoration-primary/40">Active_Node</span>
+                           <span className="text-[10px] font-black uppercase tracking-widest text-primary italic underline underline-offset-4 decoration-primary/40">Active</span>
                         </div>
                         <h3 className="text-3xl font-black italic tracking-tighter text-white uppercase group-hover:translate-x-1 transition-transform">{city.name}</h3>
                         <p className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] italic">
-                          {city.tours} Verified Layers
+                          {city.tours} Verified Tours
                         </p>
                      </div>
                      
                      <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-white/60 italic group-hover:text-white transition-colors">Access_City</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-white/60 italic group-hover:text-white transition-colors">Explore City</span>
                         <div className="h-10 w-10 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-white transition-all group-hover:bg-primary group-hover:border-primary">
                            <ArrowUpRight className="h-4 w-4" />
                         </div>
@@ -68,7 +69,7 @@ const PopularCitiesSection = () => {
                   {/* Interactive Status Indicator */}
                   <div className="absolute top-6 left-6 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10">
                      <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-                     <span className="text-[8px] font-black uppercase tracking-widest text-white italic">Live_Deployment</span>
+                     <span className="text-[8px] font-black uppercase tracking-widest text-white italic">Available Now</span>
                   </div>
                </Card>
             </Link>

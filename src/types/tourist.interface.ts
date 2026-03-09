@@ -20,10 +20,15 @@ export interface Booking {
   status: BookingStatus;
   startAt: string;
   endAt: string | null;
-  totalPrice: string;
+  totalPrice: number;
   pax: number;
   notes: string | null;
   createdAt: string;
+  paymentStatus?: string;
+  touristName?: string;
+  listingTitle?: string;
+  listingCity?: string;
+  guideName?: string;
 
   listing: {
     id: string;
@@ -32,6 +37,15 @@ export interface Booking {
   };
 
   guide: {
+    id: string;
+    user: {
+      id: string;
+      name: string;
+      profilePicUrl: string | null;
+    };
+  };
+
+  tourist?: {
     id: string;
     user: {
       id: string;

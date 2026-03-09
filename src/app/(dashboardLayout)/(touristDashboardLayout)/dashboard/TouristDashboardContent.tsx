@@ -201,9 +201,9 @@ const TouristDashboardContent: React.FC<TouristDashboardContentProps> = ({ data 
                            <div className="flex flex-col items-end">
                               <span className="font-black text-xs text-foreground italic">৳ {booking.totalPrice.toLocaleString()}</span>
                               <Badge 
-                                variant="ghost" 
+                                variant="outline" 
                                 className={cn(
-                                  "p-0 text-[8px] font-black uppercase tracking-[0.2em] h-auto shadow-none mt-0.5",
+                                  "p-0 text-[8px] font-black uppercase tracking-[0.2em] h-auto shadow-none mt-0.5 border-transparent",
                                   booking.paymentStatus === 'PAID' ? "text-emerald-500/80" : "text-amber-500/80"
                                 )}
                               >

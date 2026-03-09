@@ -38,7 +38,7 @@ export default function BecomeGuidePage() {
           <div className="mx-auto max-w-5xl text-center space-y-8">
              <div className="flex items-center justify-center gap-3">
                 <span className="h-[2px] w-8 bg-primary/40 md:w-12" />
-                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic leading-none">Access_Portal.apply</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic leading-none">Join the community</span>
                 <span className="h-[2px] w-8 bg-primary/40 md:w-12" />
              </div>
              
@@ -54,12 +54,12 @@ export default function BecomeGuidePage() {
              <div className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-6">
                <Button size="lg" className="h-16 px-10 rounded-2xl font-black italic uppercase tracking-widest text-sm shadow-xl shadow-primary/30 group relative overflow-hidden transition-all hover:scale-[1.03] active:scale-95" asChild>
                  <Link href="/become-guide/apply">
-                   Apply_Now_Protocol
+                   Apply Now
                    <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
                  </Link>
                </Button>
                <Button size="lg" variant="ghost" className="h-16 px-10 rounded-2xl font-black italic uppercase tracking-widest text-xs gap-3 border border-border/20 text-muted-foreground/60 hover:text-foreground transition-all">
-                  Documentation_Log
+                  Learn More
                </Button>
              </div>
           </div>
@@ -71,16 +71,16 @@ export default function BecomeGuidePage() {
         <div className="mx-auto max-w-7xl">
           <ScrollReveal variant="fade-up">
             <div className="text-center space-y-4 mb-20">
-               <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic leading-none">Guide_Incentive.log</h2>
+               <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic leading-none">Why Become a Guide</h2>
                <p className="text-3xl font-black italic tracking-tighter uppercase text-foreground">Strategic Advantages</p>
             </div>
           </ScrollReveal>
 
           <ScrollStagger className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { icon: Briefcase, title: "Earn on Your Schedule", desc: "Create tours, set your price, and guide when it suits you.", label: "Monetized_Log" },
-              { icon: Globe, title: "Global Scope", desc: "Connect with travelers from different cultures.", label: "Network_Buffer" },
-              { icon: MapPin, title: "City Alpha", desc: "Share hidden gems and authentic local experiences.", label: "Verified_Nodes" }
+              { icon: Briefcase, title: "Earn on Your Schedule", desc: "Create tours, set your price, and guide when it suits you.", label: "Build your business" },
+              { icon: Globe, title: "Global Scope", desc: "Connect with travelers from different cultures.", label: "Global community" },
+              { icon: MapPin, title: "City Authority", desc: "Share hidden gems and authentic local experiences.", label: "Local expertise" }
             ].map((item, idx) => (
               <ScrollStaggerItem key={idx} variant="fade-up">
                 <InfoCard {...item} />
@@ -95,17 +95,17 @@ export default function BecomeGuidePage() {
         <div className="mx-auto max-w-7xl">
           <ScrollReveal variant="fade-up">
             <div className="text-center space-y-4 mb-20">
-               <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic leading-none">Subject_Requirement.v1</h2>
-               <p className="text-3xl font-black italic tracking-tighter uppercase text-foreground">Who Can Deploy?</p>
+               <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic leading-none">Who Can Apply</h2>
+               <p className="text-3xl font-black italic tracking-tighter uppercase text-foreground">Who Can Join?</p>
             </div>
           </ScrollReveal>
 
           <ScrollStagger className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { icon: BadgeCheck, title: "Local Experts", desc: "You know your city well and love sharing stories." },
-              { icon: Smile, title: "Friendly Logic", desc: "You enjoy meeting and guiding groups." },
-              { icon: CalendarCheck, title: "Reliability_Node", desc: "You respect time and project commitments." },
-              { icon: Zap, title: "No Cap_In", desc: "First-time guides are welcome to apply." }
+              { icon: Smile, title: "Friendly Guides", desc: "You enjoy meeting and guiding groups." },
+              { icon: CalendarCheck, title: "Reliability", desc: "You respect time and project commitments." },
+              { icon: Zap, title: "Open to all", desc: "First-time guides are welcome to apply." }
             ].map((item, idx) => (
               <ScrollStaggerItem key={idx} variant="pop">
                 <StatusCard {...item} />
@@ -120,8 +120,8 @@ export default function BecomeGuidePage() {
         <div className="mx-auto max-w-7xl">
           <ScrollReveal variant="fade-up">
             <div className="text-center space-y-4 mb-24">
-               <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic leading-none">Operational_Protocol</h2>
-               <p className="text-4xl md:text-6xl font-black italic tracking-tighter uppercase text-foreground">Deployment <span className="text-primary italic">Process</span></p>
+               <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic leading-none">Process</h2>
+               <p className="text-4xl md:text-6xl font-black italic tracking-tighter uppercase text-foreground">Guide <span className="text-primary italic">Process</span></p>
             </div>
           </ScrollReveal>
 
@@ -130,8 +130,8 @@ export default function BecomeGuidePage() {
             <div className="hidden md:block absolute top-[60px] left-[15%] right-[15%] h-px border-t-2 border-dashed border-border/20 z-0" />
             
             {[
-              { step: "01", title: "Apply as a Guide", desc: "Fill out a simple application with your technical details." },
-              { step: "02", title: "Create Listings", desc: "Add tours with price, duration, and metadata description." },
+              { step: "01", title: "Apply as a Guide", desc: "Fill out a simple application with your details." },
+              { step: "02", title: "Create Listings", desc: "Add tours with price, duration, and description." },
               { step: "03", title: "Start Guiding", desc: "Accept bookings and host hand-picked city experiences." }
             ].map((step, idx) => (
               <ScrollStaggerItem key={idx} variant="fade-up" className="z-10">
@@ -147,15 +147,15 @@ export default function BecomeGuidePage() {
         <div className="mx-auto max-w-7xl">
           <ScrollReveal variant="fade-up">
              <div className="text-center space-y-4 mb-20">
-                <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic leading-none">Guide_Perks.buffer</h2>
+                <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic leading-none">Benefits</h2>
                 <p className="text-3xl font-black italic tracking-tighter uppercase text-foreground">Protocol Benefits</p>
              </div>
           </ScrollReveal>
 
           <ScrollStagger className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              "No upfront Fees_Node", "Full Price_Logic Control", "Flexible Protocol Schedule", 
-              "Secure Payment_Gate", "Admin_Layer Support", "Personal_Brand Growth"
+              "No upfront fees", "Full price control", "Flexible schedule", 
+              "Secure payments", "Full support", "Personal brand growth"
             ].map((benefit, idx) => (
               <ScrollStaggerItem key={idx} variant="pop">
                 <Benefit text={benefit} />

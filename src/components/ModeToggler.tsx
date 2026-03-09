@@ -25,13 +25,13 @@ export function ModeToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="p-1.5 rounded-2xl bg-background/80 backdrop-blur-3xl border border-border/40 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-300">
         <DropdownMenuItem onClick={() => setTheme('light')} className="rounded-xl font-bold italic text-xs uppercase tracking-widest px-4 py-2 hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer">
-          Light_Node
+          Light
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('dark')} className="rounded-xl font-bold italic text-xs uppercase tracking-widest px-4 py-2 hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer">
-          Dark_Node
+          Dark
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('system')} className="rounded-xl font-bold italic text-xs uppercase tracking-widest px-4 py-2 hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer">
-          System_Buffer
+          System
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

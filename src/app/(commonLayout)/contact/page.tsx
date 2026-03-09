@@ -37,7 +37,7 @@ export default function ContactPage() {
           <div className="text-center space-y-6 max-w-4xl mx-auto">
              <div className="flex items-center justify-center gap-3">
                 <span className="h-[2px] w-8 bg-primary/40 md:w-12" />
-                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic leading-none">Contact_Logic</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic leading-none">Contact Us</span>
                 <span className="h-[2px] w-8 bg-primary/40 md:w-12" />
              </div>
              <h1 className="text-5xl md:text-8xl font-black italic tracking-tighter text-foreground uppercase leading-[0.9]">
@@ -45,7 +45,7 @@ export default function ContactPage() {
                 <span className="text-primary italic animate-in fade-in slide-in-from-right-12 duration-1000">Touch today?</span>
              </h1>
              <p className="mx-auto max-w-2xl text-lg font-bold italic text-muted-foreground/60 tracking-tight leading-relaxed">
-               Have questions, feedback, or partnership ideas? Our expert buffer is ready to respond in real-time.
+               Have questions, feedback, or partnership ideas? Our expert team is ready to respond in real-time.
              </p>
           </div>
         </ScrollReveal>
@@ -55,9 +55,9 @@ export default function ContactPage() {
           <div className="lg:col-span-2 space-y-8 flex flex-col justify-center">
             <ScrollStagger className="space-y-6">
               {[
-                { icon: Mail, label: "Electronic_Mail", val: "support@localguide.com" },
-                { icon: Phone, label: "Voice_Channel", val: "+880 1XXX-XXXXXX" },
-                { icon: MapPin, label: "Base_Deployment", val: "Dhaka, Bangladesh" }
+                { icon: Mail, label: "Email", val: "support@localguide.com" },
+                { icon: Phone, label: "Phone", val: "+880 1XXX-XXXXXX" },
+                { icon: MapPin, label: "Location", val: "Dhaka, Bangladesh" }
               ].map((info, i) => (
                 <ScrollStaggerItem key={i} variant="fade-right">
                   <div className="flex items-start gap-4 p-5 rounded-[2rem] bg-muted/20 border-2 border-border/40 hover:bg-muted/40 transition-all group overflow-hidden relative">
@@ -80,11 +80,11 @@ export default function ContactPage() {
                <div className="relative z-10 space-y-4">
                   <div className="flex items-center gap-3">
                      <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-                     <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600 italic">Support_Status.live</span>
+                     <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600 italic">Support Status: Active</span>
                   </div>
-                  <h3 className="text-xl font-black italic tracking-tighter text-foreground uppercase">Real-Time_Logic</h3>
+                  <h3 className="text-xl font-black italic tracking-tighter text-foreground uppercase">Fast Response</h3>
                   <p className="text-xs font-bold italic text-muted-foreground/60 leading-relaxed uppercase tracking-tight max-w-[200px]">
-                    Average response protocol within 24 hours of initialization.
+                    Average response within 24 hours.
                   </p>
                </div>
             </div>
@@ -99,9 +99,9 @@ export default function ContactPage() {
                 <CardContent className="p-10 space-y-10">
                   <div className="space-y-2">
                      <h2 className="text-3xl font-black italic tracking-tighter text-foreground uppercase leading-none">
-                        Transmitter_Portal
+                        Send a Message
                      </h2>
-                     <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.3em] opacity-40">Message_Initialization_Log.v1</p>
+                     <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.3em] opacity-40">Fill out the form below</p>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -109,7 +109,7 @@ export default function ContactPage() {
                        <div className="space-y-2.5">
                           <label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground ml-4 flex items-center gap-2">
                              <UserCircle2 className="h-3 w-3 text-primary/60" />
-                             Subject_Identity
+                             Your Name
                           </label>
                           <Input 
                             placeholder="Your name" 
@@ -120,7 +120,7 @@ export default function ContactPage() {
                        <div className="space-y-2.5">
                           <label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground ml-4 flex items-center gap-2">
                              <Mail className="h-3 w-3 text-primary/60" />
-                             Contact_Email
+                             Email Address
                           </label>
                           <Input 
                             type="email" 
@@ -134,7 +134,7 @@ export default function ContactPage() {
                     <div className="space-y-2.5">
                        <label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground ml-4 flex items-center gap-2">
                           <MessageSquare className="h-3 w-3 text-primary/60" />
-                          Message_Payload
+                          Your Message
                        </label>
                        <Textarea 
                          placeholder="Enter your message details here..." 
@@ -154,12 +154,12 @@ export default function ContactPage() {
                             {isSubmitting ? (
                               <>
                                 <div className="h-4 w-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-                                Protocol_Active
+                                Sending...
                               </>
                             ) : (
                               <>
                                 <Send className="h-4 w-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                                Initialize_Transmission
+                                Send Message
                               </>
                             )}
                          </div>
@@ -167,7 +167,7 @@ export default function ContactPage() {
                        
                        <div className="flex items-center gap-3">
                           <ShieldCheck className="h-5 w-5 text-emerald-500/40" />
-                          <span className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/40 italic">Data_Encrypted_Link</span>
+                          <span className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/40 italic">Secure Connection</span>
                        </div>
                     </div>
                   </form>

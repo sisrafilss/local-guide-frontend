@@ -31,7 +31,7 @@ const HowItWorksSection = () => {
         <div className="text-center space-y-4 mb-24">
            <div className="flex items-center justify-center gap-3">
               <span className="h-[2px] w-8 bg-primary/40 md:w-12" />
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic leading-none">Operational_Logic</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic leading-none">The Process</span>
               <span className="h-[2px] w-8 bg-primary/40 md:w-12" />
            </div>
            <h2 className="text-4xl md:text-6xl font-black italic tracking-tighter text-foreground uppercase leading-none">
@@ -80,10 +80,10 @@ const HowItWorksSection = () => {
                 </div>
 
                 {/* Technical Micro-Label */}
-                <div className="mt-8 flex items-center gap-2 opacity-10 group-hover:opacity-100 transition-all group-hover:scale-110">
-                   <Sparkles className="h-3.5 w-3.5 text-primary" strokeWidth={3} />
-                   <span className="text-[9px] font-black uppercase tracking-[0.3em] text-primary">Process_Optimization</span>
-                </div>
+                 <div className="mt-8 flex items-center gap-2 opacity-10 group-hover:opacity-100 transition-all group-hover:scale-110">
+                    <Sparkles className="h-3.5 w-3.5 text-primary" strokeWidth={3} />
+                    <span className="text-[9px] font-black uppercase tracking-[0.3em] text-primary">Simple & Secure</span>
+                 </div>
               </motion.div>
             );
           })}

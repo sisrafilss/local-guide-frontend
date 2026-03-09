@@ -5,6 +5,7 @@ function PublicFooter() {
   const quickLinks = [
     { label: 'Home', href: '/' },
     { label: 'Explore Tours', href: '/explore-tours' },
+    { label: 'AI Summarizer', href: '/summarizer' },
     { label: 'Become a Guide', href: '/become-guide' },
     { label: 'About', href: '/about' },
     { label: 'Contact', href: '/contact' },
@@ -39,7 +40,7 @@ function PublicFooter() {
               </div>
               <div className="flex flex-col">
                 <span className="text-xl font-black italic tracking-tighter text-foreground leading-none">LOCAL GUIDE</span>
-                <span className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase opacity-60">Authentic_Buffer</span>
+                <span className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase opacity-60">Verified Experts</span>
               </div>
             </Link>
             
@@ -58,7 +59,7 @@ function PublicFooter() {
 
           {/* Nav Categories */}
           <div className="col-span-1 space-y-8">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary/60 italic leading-none">Navigation_Quick</h3>
+            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary/60 italic leading-none">Navigation</h3>
             <ul className="space-y-4">
               {quickLinks.map((item) => (
                 <li key={item.href}>
@@ -75,7 +76,7 @@ function PublicFooter() {
           </div>
 
           <div className="col-span-1 space-y-8">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary/60 italic leading-none">User_Gate</h3>
+            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary/60 italic leading-none">Account</h3>
             <ul className="space-y-4">
               {accountLinks.map((item) => (
                 <li key={item.href}>
@@ -93,14 +94,14 @@ function PublicFooter() {
 
           {/* Contact Column */}
           <div className="lg:col-span-2 space-y-8">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary/60 italic leading-none">Local_Channel</h3>
+            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary/60 italic leading-none">Contact Us</h3>
             <div className="space-y-6">
                <div className="flex items-start gap-4 p-4 rounded-3xl bg-muted/30 border border-border/20 shadow-inner group hover:bg-muted/50 transition-all">
                   <div className="h-10 w-10 rounded-2xl bg-background flex items-center justify-center border border-border/40 shadow-sm text-primary transition-transform group-hover:rotate-12">
                      <Mail className="h-4 w-4" />
                   </div>
                   <div className="flex flex-col">
-                     <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest leading-none mb-1">Electronic_Mail</span>
+                     <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest leading-none mb-1">Email</span>
                      <span className="text-xs font-black italic text-foreground uppercase tracking-tight">support@localguide.com</span>
                   </div>
                </div>
@@ -110,7 +111,7 @@ function PublicFooter() {
                      <Phone className="h-4 w-4" />
                   </div>
                   <div className="flex flex-col">
-                     <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest leading-none mb-1">Voice_Frequency</span>
+                     <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest leading-none mb-1">Phone</span>
                      <span className="text-xs font-black italic text-foreground uppercase tracking-tight">+1 (123) 456-7890</span>
                   </div>
                </div>
@@ -120,7 +121,7 @@ function PublicFooter() {
                      <MapPin className="h-4 w-4" />
                   </div>
                   <div className="flex flex-col">
-                     <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest leading-none mb-1">Base_Deployment</span>
+                     <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest leading-none mb-1">Location</span>
                      <span className="text-xs font-black italic text-foreground uppercase tracking-tight">Dhaka, Bangladesh</span>
                   </div>
                </div>
@@ -131,13 +132,13 @@ function PublicFooter() {
         {/* Footer Bottom */}
         <div className="mt-24 pt-12 border-t border-border/40 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground opacity-60">
-             &copy; {new Date().getFullYear()} LOCAL_GUIDE.BUFFER_RESERVED.
+             &copy; {new Date().getFullYear()} LOCAL_GUIDE. ALL RIGHTS RESERVED.
           </div>
           
           <div className="flex items-center gap-8">
-             <Link href="#" className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors">Privacy_Protocol</Link>
-             <Link href="#" className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors">Terms_of_Init</Link>
-             <Link href="#" className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors">Compliance_Log</Link>
+             <Link href="#" className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
+             <Link href="#" className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors">Terms of Use</Link>
+             <Link href="#" className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors">Compliance</Link>
           </div>
         </div>
       </div>

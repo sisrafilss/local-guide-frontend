@@ -48,7 +48,7 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
                {userInfo.name.split(' ')[0]}
              </span>
              <div className="flex items-center gap-1 opacity-40">
-                <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground italic leading-none">{userInfo.role}_Node</span>
+                <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground italic leading-none">{userInfo.role}</span>
              </div>
           </div>
           <ChevronDown className="h-3.5 w-3.5 text-muted-foreground transition-transform group-data-[state=open]:rotate-180" />
@@ -74,7 +74,7 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
                   (userInfo.role === 'GUIDE' ? 'bg-sky-500/10 border-sky-500/20 text-sky-600' : 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600')
                )}>
                   <ShieldCheck className="h-2.5 w-2.5" />
-                  <span className="text-[8px] font-black uppercase tracking-widest italic">{userInfo.role}_Deployment</span>
+                  <span className="text-[8px] font-black uppercase tracking-widest italic">{userInfo.role}</span>
                </div>
             </div>
             {/* Background Texture Decor */}
@@ -90,7 +90,7 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
                <div className="h-7 w-7 rounded-lg bg-primary/10 flex items-center justify-center text-primary mr-3 group-hover:bg-primary group-hover:text-white transition-all">
                   <UserCircle2 className="h-4 w-4" />
                </div>
-               <span>Profile_Data</span>
+               <span>Profile</span>
                <ExternalLink className="ml-auto h-3 w-3 opacity-20 group-hover:opacity-100 transition-opacity" />
              </Link>
            </DropdownMenuItem>
@@ -100,7 +100,7 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
                <div className="h-7 w-7 rounded-lg bg-primary/10 flex items-center justify-center text-primary mr-3 group-hover:bg-primary group-hover:text-white transition-all">
                   <Settings className="h-4 w-4" />
                </div>
-               <span>Change_Key</span>
+               <span>Change Password</span>
                <ExternalLink className="ml-auto h-3 w-3 opacity-20 group-hover:opacity-100 transition-opacity" />
              </Link>
            </DropdownMenuItem>
@@ -118,7 +118,7 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
                    <div className="h-7 w-7 rounded-lg bg-destructive/10 flex items-center justify-center text-destructive group-hover:bg-white group-hover:text-destructive transition-all">
                       <LogOut className="h-4 w-4" />
                    </div>
-                   <span className="font-black italic text-[11px] uppercase tracking-widest text-destructive group-hover:text-white transition-colors">Sign_Out_Now</span>
+                   <span className="font-black italic text-[11px] uppercase tracking-widest text-destructive group-hover:text-white transition-colors">Logout</span>
                 </div>
                 <Zap className="h-3 w-3 text-destructive group-hover:text-white group-hover:animate-pulse transition-all opacity-40 group-hover:opacity-100" />
              </div>
