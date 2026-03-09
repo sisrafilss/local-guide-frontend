@@ -34,6 +34,7 @@ const PublicNavbar = async () => {
 
   const navItems = [
     { href: '/explore-tours', label: 'Explore Tours' },
+    { href: '/summarizer', label: 'AI Summarizer' },
 
     // ✅ Show dashboard only when logged in
     ...(dashboardRoute ? [{ href: dashboardRoute, label: 'Dashboard' }] : []),
