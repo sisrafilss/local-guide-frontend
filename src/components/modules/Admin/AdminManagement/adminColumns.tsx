@@ -7,7 +7,7 @@ import { IAdmin } from '@/types/admin.interface';
 
 export const adminColumns: Column<IAdmin>[] = [
   {
-    header: 'Admins',
+    header: 'Admin',
     accessor: (admin) => (
       <UserInfoCell
         name={admin.name}
@@ -17,32 +17,14 @@ export const adminColumns: Column<IAdmin>[] = [
     ),
     sortKey: 'name',
   },
-  // {
-  //   header: 'Contact',
-  //   accessor: (tourist) => (
-  //     <div className="flex flex-col">
-  //       <span className="text-sm">{tourist.contactNumber}</span>
-  //     </div>
-  //   ),
-  // },
-  // {
-  //   header: 'Address',
-  //   accessor: (tourist) => (
-  //     <span className="text-sm">{tourist.address || 'N/A'}</span>
-  //   ),
-  // },
-  // {
-  //   header: 'Gender',
-  //   accessor: (tourist) => (
-  //     <span className="text-sm capitalize">
-  //       {tourist.touristHealthData?.gender?.toLowerCase() || 'N/A'}
-  //     </span>
-  //   ),
-  // },
-  // {
-  //   header: 'Status',
-  //   accessor: (tourist) => <StatusBadgeCell isDeleted={tourist.isDeleted} />,
-  // },
+  {
+    header: 'Contact Info',
+    accessor: (admin) => (
+      <div className="flex flex-col gap-0.5">
+        <span className="text-xs font-bold text-foreground/80">{admin.contactNumber || 'No Phone'}</span>
+      </div>
+    ),
+  },
   {
     header: 'Joined',
     accessor: (admin) => <DateCell date={admin.createdAt} />,

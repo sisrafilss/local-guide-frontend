@@ -8,10 +8,14 @@ import {
   Loader2,
   MoreHorizontal,
   Trash,
+  Inbox,
+  SearchX,
+  Plus
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useTransition } from "react";
 import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -102,7 +106,7 @@ function ManagementTable<T>({
   };
   return (
     <>
-      <div className="rounded-lg border relative">
+      <div className="rounded-xl border border-border/60 relative overflow-hidden bg-card/50 backdrop-blur-sm shadow-sm transition-all hover:shadow-md">
         {/* Refreshing Overlay */}
         {isRefreshing && (
           <div className="absolute inset-0 bg-background/50 backdrop-blur-[2px] flex items-center justify-center z-10 rounded-lg">
@@ -139,53 +143,84 @@ function ManagementTable<T>({
 
           <TableBody>
             {data.length === 0 ? (
-              <TableRow>
+              <TableRow className="hover:bg-transparent">
                 <TableCell
                   colSpan={columns.length + (hasActions ? 1 : 0)}
-                  className="text-center py-8 text-muted-foreground"
+                  className="text-center py-20"
                 >
-                  {emptyMessage}
+                  <div className="flex flex-col items-center justify-center space-y-3 animate-in fade-in zoom-in duration-300">
+                    <div className="p-4 rounded-full bg-muted/50 text-muted-foreground/30 ring-1 ring-border/50">
+                      <Inbox className="h-10 w-10" strokeWidth={1} />
+                    </div>
+                    <div className="space-y-1">
+                      <h3 className="text-lg font-bold tracking-tight">{emptyMessage}</h3>
+                      <p className="text-sm text-muted-foreground font-medium">Try adjusting your filters or adding a new record.</p>
+                    </div>
+                  </div>
                 </TableCell>
               </TableRow>
             ) : (
-              data?.map((item) => (
-                <TableRow key={getRowKey(item)}>
+              data?.map((item, index) => (
+                <TableRow 
+                  key={getRowKey(item)} 
+                  className="group transition-colors hover:bg-muted/40 data-[state=selected]:bg-muted animate-in fade-in slide-in-from-bottom-2 duration-300"
+                  style={{ animationDelay: `${index * 30}ms` }}
+                >
                   {columns.map((col, idx) => (
-                    <TableCell key={idx} className={col.className}>
-                      {typeof col.accessor === "function"
-                        ? col.accessor(item)
-                        : String(item[col.accessor])}
+                    <TableCell key={idx} className={cn("py-4", col.className)}>
+                      {typeof col.accessor === "function" ? (
+                        <div className="flex items-center font-medium">
+                          {col.accessor(item)}
+                        </div>
+                      ) : (
+                        <span className="font-medium text-foreground/80 group-hover:text-foreground transition-colors">
+                          {String(item[col.accessor])}
+                        </span>
+                      )}
                     </TableCell>
                   ))}
                   {hasActions && (
-                    <TableCell>
+                    <TableCell className="py-4">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon">
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="h-8 w-8 hover:bg-primary/10 hover:text-primary rounded-lg transition-all"
+                          >
                             <MoreHorizontal className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
+                        <DropdownMenuContent align="end" className="w-[160px] p-1.5 rounded-xl border-border/40 shadow-xl">
                           {onView && (
-                            <DropdownMenuItem onClick={() => onView(item)}>
-                              <Eye className="mr-2 h-4 w-4" />
-                              View
+                            <DropdownMenuItem 
+                              onClick={() => onView(item)}
+                              className="rounded-lg h-9 font-medium"
+                            >
+                              <Eye className="mr-3 h-4 w-4 text-primary/70" />
+                              View Details
                             </DropdownMenuItem>
                           )}
                           {onEdit && (
-                            <DropdownMenuItem onClick={() => onEdit(item)}>
-                              <Edit className="mr-2 h-4 w-4" />
-                              Edit
+                            <DropdownMenuItem 
+                              onClick={() => onEdit(item)}
+                              className="rounded-lg h-9 font-medium"
+                            >
+                              <Edit className="mr-3 h-4 w-4 text-sky-600/70" />
+                              Edit Record
                             </DropdownMenuItem>
                           )}
                           {onDelete && (
-                            <DropdownMenuItem
-                              onClick={() => onDelete(item)}
-                              className="text-destructive"
-                            >
-                              <Trash className="mr-2 h-4 w-4" />
-                              Delete
-                            </DropdownMenuItem>
+                            <>
+                              <div className="h-px bg-border/40 my-1" />
+                              <DropdownMenuItem
+                                onClick={() => onDelete(item)}
+                                className="text-destructive focus:bg-destructive/5 focus:text-destructive rounded-lg h-9 font-medium"
+                              >
+                                <Trash className="mr-3 h-4 w-4 opacity-70" />
+                                Remove Item
+                              </DropdownMenuItem>
+                            </>
                           )}
                         </DropdownMenuContent>
                       </DropdownMenu>

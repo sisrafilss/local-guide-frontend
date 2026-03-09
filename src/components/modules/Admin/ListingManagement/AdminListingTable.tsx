@@ -3,19 +3,33 @@
 import DeleteConfirmationDialog from '@/components/shared/DeleteConfirmationDialog';
 import ManagementTable from '@/components/shared/ManagementTable';
 import { IListing } from '@/types/listing.interface';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
 import { adminListingColumns } from './adminListingColumns';
-import { DUMMY_LISTINGS } from './dummyData';
 import AdminListingViewDetailDialog from './AdminListingViewDetailDialog';
 import AdminListingFormDialog from './AdminListingFormDialog';
+import { deleteListing } from '@/services/guide/listingManagement';
+import { MoreHorizontal, Power, Eye, Edit, Trash2 } from 'lucide-react';
 
-const AdminListingTable = () => {
-  const [listings, setListings] = useState<IListing[]>(DUMMY_LISTINGS);
+interface AdminListingTableProps {
+  listings: IListing[];
+}
+
+const AdminListingTable = ({ listings }: AdminListingTableProps) => {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+
   const [viewingListing, setViewingListing] = useState<IListing | null>(null);
   const [editingListing, setEditingListing] = useState<IListing | null>(null);
   const [deletingListing, setDeletingListing] = useState<IListing | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleRefresh = () => {
+    startTransition(() => {
+      router.refresh();
+    });
+  };
 
   const handleView = (listing: IListing) => {
     setViewingListing(listing);
@@ -33,22 +47,22 @@ const AdminListingTable = () => {
     if (!deletingListing) return;
 
     setIsDeleting(true);
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
-    setListings((prev) => prev.filter((l) => l.id !== deletingListing.id));
+    const result = await deleteListing(deletingListing.id!);
     setIsDeleting(false);
-    setDeletingListing(null);
-    toast.success('Listing deleted successfully (Dummy Mode)');
+
+    if (result.success) {
+      toast.success(result.message || 'Listing deleted successfully');
+      setDeletingListing(null);
+      handleRefresh();
+    } else {
+      toast.error(result.message || 'Failed to delete listing');
+    }
   };
 
   const handleToggleStatus = (listing: IListing) => {
-    setListings((prev) =>
-      prev.map((l) =>
-        l.id === listing.id ? { ...l, active: !l.active } : l
-      )
-    );
-    toast.success(`Listing status updated to ${!listing.active ? 'Active' : 'Inactive'} (Dummy Mode)`);
+    toast.info(`Status toggle for "${listing.title}" initiated... (Simulated)`);
+    // This would typically be a specific API call for activation/deactivation
+    handleRefresh();
   };
 
   return (
@@ -58,15 +72,18 @@ const AdminListingTable = () => {
         columns={[
           ...adminListingColumns,
           {
-            header: 'Quick Action',
+            header: 'Status Control',
             accessor: (listing) => (
               <button
                 onClick={() => handleToggleStatus(listing)}
-                className={`text-xs font-medium underline underline-offset-4 ${
-                  listing.active ? 'text-destructive' : 'text-emerald-600'
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${
+                  listing.active 
+                    ? 'bg-destructive/10 text-destructive hover:bg-destructive hover:text-white' 
+                    : 'bg-emerald-500/10 text-emerald-600 hover:bg-emerald-600 hover:text-white'
                 }`}
               >
-                {listing.active ? 'Deactivate' : 'Activate'}
+                <Power className="h-3 w-3" />
+                {listing.active ? 'Disable' : 'Enable'}
               </button>
             ),
           },
@@ -75,7 +92,8 @@ const AdminListingTable = () => {
         onEdit={handleEdit}
         onDelete={handleDelete}
         getRowKey={(listing) => listing.id!}
-        emptyMessage="No Listing found"
+        emptyMessage="No travel listings found in current filter."
+        isRefreshing={isPending}
       />
 
       {/* View Listing Detail Dialog */}
@@ -92,7 +110,7 @@ const AdminListingTable = () => {
         listing={editingListing!}
         onSuccess={() => {
           setEditingListing(null);
-          toast.success('Listing updated successfully (Dummy Mode)');
+          handleRefresh();
         }}
       />
 
@@ -101,8 +119,8 @@ const AdminListingTable = () => {
         open={!!deletingListing}
         onOpenChange={(open) => !open && setDeletingListing(null)}
         onConfirm={confirmDelete}
-        title="Delete Listing"
-        description={`Are you sure you want to delete "${deletingListing?.title}"? This action cannot be undone.`}
+        title="Remove Travel Listing"
+        description={`Are you sure you want to permanently remove "${deletingListing?.title}" from the platform? This will affect existing bookings.`}
         isDeleting={isDeleting}
       />
     </>

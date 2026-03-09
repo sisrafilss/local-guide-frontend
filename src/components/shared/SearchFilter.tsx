@@ -4,6 +4,7 @@ import { Search } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 import { Input } from '../ui/input';
+import { cn } from '@/lib/utils';
 
 interface SearchFilterProps {
   placeholder?: string;
@@ -44,14 +45,22 @@ const SearchFilter = ({
   }, [debouncedValue, paramName, router]);
 
   return (
-    <div className="relative">
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+    <div className="relative group/search">
+      <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center">
+        {isPending ? (
+          <div className="h-4 w-4 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+        ) : (
+          <Search className={cn(
+            "h-4 w-4 transition-colors duration-200",
+            value ? "text-primary" : "text-muted-foreground/60 group-focus-within/search:text-primary"
+          )} />
+        )}
+      </div>
       <Input
         placeholder={placeholder}
-        className="pl-10"
+        className="pl-10 h-10 bg-muted/30 border-border/40 focus-visible:ring-primary/40 focus-visible:bg-background transition-all font-medium rounded-lg"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        disabled={isPending}
       />
     </div>
   );

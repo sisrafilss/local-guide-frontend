@@ -5,7 +5,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { changePassword } from '@/services/auth/auth.service';
-import { useActionState, useEffect } from 'react';
+import { useActionState, useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { 
   KeyRound, 
@@ -15,16 +16,32 @@ import {
   Eye, 
   EyeOff,
   CheckCircle2,
-  AlertTriangle
+  AlertTriangle,
+  Info,
+  Check,
+  X
 } from 'lucide-react';
 import InputFieldError from '@/components/shared/InputFieldError';
+import { cn } from '@/lib/utils';
 
 const ChangePasswordForm = () => {
   const [state, formAction, isPending] = useActionState(changePassword, null);
+  const [showCurrent, setShowCurrent] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [newPass, setNewPass] = useState('');
+
+  const requirements = [
+    { label: '8+ characters', check: (val: string) => val.length >= 8 },
+    { label: 'One uppercase letter', check: (val: string) => /[A-Z]/.test(val) },
+    { label: 'One number', check: (val: string) => /[0-9]/.test(val) },
+    { label: 'One special character', check: (val: string) => /[^A-Za-z0-9]/.test(val) },
+  ];
 
   useEffect(() => {
     if (state?.success) {
-      toast.success('Password updated successfully');
+      toast.success('Your security has been updated successfully.');
+      setNewPass('');
     }
 
     if (state && !state.success && state.message) {
@@ -32,134 +49,224 @@ const ChangePasswordForm = () => {
     }
   }, [state]);
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 10 },
+    show: { opacity: 1, y: 0 }
+  };
+
   return (
-    <div className="w-full">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-        {/* Form Column */}
-        <div className="md:col-span-12">
-          <Card className="shadow-sm border-border/50 bg-card/50">
-            <CardHeader className="pb-4">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                  <Lock className="h-5 w-5" />
+    <motion.div 
+      className="w-full"
+      variants={container}
+      initial="hidden"
+      animate="show"
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Main Form Area */}
+        <div className="lg:col-span-12">
+          <Card className="border-border/60 shadow-xl shadow-primary/5 bg-card/80 backdrop-blur-sm overflow-hidden border-t-4 border-t-primary">
+            <CardHeader className="space-y-1 pb-8 border-b bg-muted/20">
+              <div className="flex items-center gap-4">
+                <div className="p-3 rounded-2xl bg-primary/10 text-primary ring-4 ring-primary/5">
+                  <Lock className="h-6 w-6" />
                 </div>
                 <div>
-                  <CardTitle className="text-xl font-bold">Change Password</CardTitle>
-                  <CardDescription>Enter your current and new password below.</CardDescription>
+                  <CardTitle className="text-2xl font-bold tracking-tight">Access Security</CardTitle>
+                  <CardDescription className="text-sm font-medium">Manage your authentication credentials.</CardDescription>
                 </div>
               </div>
             </CardHeader>
-            <CardContent>
-              <form action={formAction} className="space-y-6">
-                <div className="space-y-5">
-                  {/* Current Password */}
-                  <div className="space-y-2">
-                    <Label 
-                      htmlFor="currentPassword" 
-                      className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2"
-                    >
-                      <KeyRound className="h-3.5 w-3.5" />
-                      Current Password
-                    </Label>
-                    <div className="relative group">
-                      <Input
-                        id="currentPassword"
-                        name="currentPassword"
-                        type="password"
-                        placeholder="Enter current password"
-                        autoComplete="current-password"
-                        className="bg-muted/30 focus-visible:ring-primary/50 font-medium pl-10"
-                      />
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground opacity-50 group-focus-within:opacity-100 transition-opacity" />
+            <CardContent className="pt-8">
+              <form action={formAction} className="space-y-8">
+                <div className="grid grid-cols-1 gap-y-6 md:gap-x-12">
+                  <motion.div variants={item} className="space-y-6">
+                    {/* Current Password */}
+                    <div className="space-y-2.5">
+                      <Label 
+                        htmlFor="currentPassword" 
+                        className="text-[11px] font-bold uppercase tracking-[0.1em] text-muted-foreground/80 flex items-center gap-2"
+                      >
+                        <KeyRound className="h-3.5 w-3.5 text-primary/60" />
+                        Verify Identity
+                      </Label>
+                      <div className="relative group">
+                        <Input
+                          id="currentPassword"
+                          name="currentPassword"
+                          type={showCurrent ? "text" : "password"}
+                          placeholder="Current password"
+                          autoComplete="current-password"
+                          className="h-11 bg-muted/50 border-border/40 focus-visible:ring-primary/40 focus-visible:bg-background pl-10 pr-12 transition-all font-medium"
+                        />
+                        <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50 group-focus-within:text-primary transition-colors" />
+                        <button 
+                          type="button"
+                          onClick={() => setShowCurrent(!showCurrent)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 hover:bg-muted rounded-md text-muted-foreground/50 hover:text-foreground transition-colors"
+                        >
+                          {showCurrent ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        </button>
+                      </div>
+                      <InputFieldError field="currentPassword" state={state} />
                     </div>
-                    <InputFieldError field="currentPassword" state={state} />
-                  </div>
 
-                  {/* New Password */}
-                  <div className="space-y-2">
-                    <Label 
-                      htmlFor="newPassword" 
-                      className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2"
-                    >
-                      <ShieldCheck className="h-3.5 w-3.5" />
-                      New Password
-                    </Label>
-                    <div className="relative group">
-                      <Input
-                        id="newPassword"
-                        name="newPassword"
-                        type="password"
-                        placeholder="Create a strong password"
-                        autoComplete="new-password"
-                        className="bg-muted/30 focus-visible:ring-primary/50 font-medium pl-10"
-                      />
-                      <ShieldCheck className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground opacity-50 group-focus-within:opacity-100 transition-opacity" />
-                    </div>
-                    <InputFieldError field="newPassword" state={state} />
-                  </div>
+                    <Separator className="bg-border/40" />
 
-                  {/* Confirm Password */}
-                  <div className="space-y-2">
-                    <Label 
-                      htmlFor="confirmPassword" 
-                      className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2"
-                    >
-                      <CheckCircle2 className="h-3.5 w-3.5" />
-                      Confirm New Password
-                    </Label>
-                    <div className="relative group">
-                      <Input
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        type="password"
-                        placeholder="Repeat your new password"
-                        autoComplete="new-password"
-                        className="bg-muted/30 focus-visible:ring-primary/50 font-medium pl-10"
-                      />
-                      <CheckCircle2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground opacity-50 group-focus-within:opacity-100 transition-opacity" />
+                    {/* New Password Section */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                      <div className="space-y-6">
+                        <div className="space-y-2.5">
+                          <Label 
+                            htmlFor="newPassword" 
+                            className="text-[11px] font-bold uppercase tracking-[0.1em] text-muted-foreground/80 flex items-center gap-2"
+                          >
+                            <ShieldCheck className="h-3.5 w-3.5 text-primary/60" />
+                            Secure New Password
+                          </Label>
+                          <div className="relative group">
+                            <Input
+                              id="newPassword"
+                              name="newPassword"
+                              type={showNew ? "text" : "password"}
+                              value={newPass}
+                              onChange={(e) => setNewPass(e.target.value)}
+                              placeholder="New password"
+                              autoComplete="new-password"
+                              className="h-11 bg-muted/50 border-border/40 focus-visible:ring-primary/40 focus-visible:bg-background pl-10 pr-12 transition-all font-medium"
+                            />
+                            <ShieldCheck className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50 group-focus-within:text-primary transition-colors" />
+                            <button 
+                              type="button"
+                              onClick={() => setShowNew(!showNew)}
+                              className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 hover:bg-muted rounded-md text-muted-foreground/50 hover:text-foreground transition-colors"
+                            >
+                              {showNew ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            </button>
+                          </div>
+                          <InputFieldError field="newPassword" state={state} />
+                        </div>
+
+                        <div className="space-y-2.5">
+                          <Label 
+                            htmlFor="confirmPassword" 
+                            className="text-[11px] font-bold uppercase tracking-[0.1em] text-muted-foreground/80 flex items-center gap-2"
+                          >
+                            <CheckCircle2 className="h-3.5 w-3.5 text-primary/60" />
+                            Confirm Authentication
+                          </Label>
+                          <div className="relative group">
+                            <Input
+                              id="confirmPassword"
+                              name="confirmPassword"
+                              type={showConfirm ? "text" : "password"}
+                              placeholder="Repeat new password"
+                              autoComplete="new-password"
+                              className="h-11 bg-muted/50 border-border/40 focus-visible:ring-primary/40 focus-visible:bg-background pl-10 pr-12 transition-all font-medium"
+                            />
+                            <CheckCircle2 className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50 group-focus-within:text-primary transition-colors" />
+                            <button 
+                              type="button"
+                              onClick={() => setShowConfirm(!showConfirm)}
+                              className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 hover:bg-muted rounded-md text-muted-foreground/50 hover:text-foreground transition-colors"
+                            >
+                              {showConfirm ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            </button>
+                          </div>
+                          <InputFieldError field="confirmPassword" state={state} />
+                        </div>
+                      </div>
+
+                      {/* Password Requirements Column */}
+                      <Card className="bg-muted/30 border-dashed border-border/60 shadow-none h-full flex flex-col justify-center">
+                        <CardHeader className="pb-3 pt-4 px-4">
+                          <CardTitle className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/70 flex items-center gap-2">
+                            <Info className="h-3 w-3" />
+                            Strength Requirements
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent className="px-4 pb-4 space-y-2">
+                          {requirements.map((req, idx) => {
+                            const isMet = req.check(newPass);
+                            return (
+                              <div key={idx} className="flex items-center gap-2.5">
+                                <div className={cn(
+                                  "h-4 w-4 rounded-full flex items-center justify-center transition-all duration-300 shrink-0",
+                                  isMet ? "bg-emerald-500/20 text-emerald-600 scale-110" : "bg-muted text-muted-foreground/40"
+                                )}>
+                                  {isMet ? <Check className="h-2.5 w-2.5" strokeWidth={4} /> : <X className="h-2.5 w-2.5" strokeWidth={3} />}
+                                </div>
+                                <span className={cn(
+                                  "text-[11px] font-bold tracking-tight transition-colors duration-300",
+                                  isMet ? "text-emerald-700 dark:text-emerald-400" : "text-muted-foreground/60"
+                                )}>
+                                  {req.label}
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </CardContent>
+                      </Card>
                     </div>
-                    <InputFieldError field="confirmPassword" state={state} />
-                  </div>
+                  </motion.div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/10 flex gap-3">
-                  <AlertCircle className="h-5 w-5 text-amber-500 shrink-0" />
-                  <div className="space-y-1">
-                    <p className="text-xs font-bold text-amber-600 uppercase">Requirements</p>
-                    <p className="text-[11px] text-amber-600/80 leading-relaxed font-medium">
-                      Minimum 8 characters, including an uppercase letter, a number, and a special character.
-                    </p>
-                  </div>
-                </div>
-
-                <Button 
-                  type="submit" 
-                  className="w-full font-bold h-11 shadow-sm" 
-                  disabled={isPending}
-                >
-                  {isPending ? (
-                    <div className="flex items-center gap-2">
-                      <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      Updating Security...
-                    </div>
-                  ) : (
-                    'Update Password'
-                  )}
-                </Button>
+                <motion.div variants={item} className="pt-4">
+                  <Button 
+                    type="submit" 
+                    className="w-full font-black h-12 shadow-lg shadow-primary/20 rounded-xl relative overflow-hidden group/btn" 
+                    disabled={isPending}
+                  >
+                    <AnimatePresence mode="wait">
+                      {isPending ? (
+                        <motion.div 
+                          key="pending"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          className="flex items-center gap-3"
+                        >
+                          <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          Upgrading Security...
+                        </motion.div>
+                      ) : (
+                        <motion.div 
+                          key="idle"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          className="flex items-center gap-2"
+                        >
+                          <ShieldCheck className="h-5 w-5 group-hover/btn:scale-110 transition-transform" />
+                          Update Password
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </Button>
+                </motion.div>
               </form>
             </CardContent>
-            <CardFooter className="bg-muted/30 border-t py-4">
-               <div className="flex items-start gap-2">
-                <AlertTriangle className="h-3.5 w-3.5 text-muted-foreground mt-0.5" />
-                <p className="text-[10px] text-muted-foreground font-medium italic">
-                  For your protection, changing your password will terminate all other active sessions and log you out.
+            <CardFooter className="bg-muted/40 border-t border-border/40 py-5 px-8">
+               <div className="flex items-start gap-3">
+                <div className="p-1.5 rounded-full bg-amber-500/10 text-amber-600">
+                  <AlertTriangle className="h-4 w-4" />
+                </div>
+                <p className="text-[11px] leading-relaxed text-muted-foreground font-semibold italic">
+                  Critical Security Note: Changing your password will immediately invalidate all other sessions on all devices for your protection.
                 </p>
               </div>
             </CardFooter>
           </Card>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

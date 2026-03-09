@@ -17,32 +17,23 @@ export const touristsColumns: Column<ITourist>[] = [
     ),
     sortKey: 'name',
   },
-  // {
-  //   header: 'Contact',
-  //   accessor: (tourist) => (
-  //     <div className="flex flex-col">
-  //       <span className="text-sm">{tourist.contactNumber}</span>
-  //     </div>
-  //   ),
-  // },
-  // {
-  //   header: 'Address',
-  //   accessor: (tourist) => (
-  //     <span className="text-sm">{tourist.address || 'N/A'}</span>
-  //   ),
-  // },
-  // {
-  //   header: 'Gender',
-  //   accessor: (tourist) => (
-  //     <span className="text-sm capitalize">
-  //       {tourist.touristHealthData?.gender?.toLowerCase() || 'N/A'}
-  //     </span>
-  //   ),
-  // },
-  // {
-  //   header: 'Status',
-  //   accessor: (tourist) => <StatusBadgeCell isDeleted={tourist.isDeleted} />,
-  // },
+  {
+    header: 'Contact Info',
+    accessor: (tourist) => (
+      <div className="flex flex-col gap-0.5">
+        <span className="text-xs font-bold text-foreground/80">{tourist.phone || 'No Phone'}</span>
+        <span className="text-[10px] text-muted-foreground truncate max-w-[150px]">{tourist.address || 'No Address'}</span>
+      </div>
+    ),
+  },
+  {
+    header: 'Gender',
+    accessor: (tourist) => (
+      <span className="text-xs font-black uppercase tracking-[0.1em] text-muted-foreground/80">
+        {tourist.gender?.toLowerCase() || 'N/A'}
+      </span>
+    ),
+  },
   {
     header: 'Joined',
     accessor: (tourist) => <DateCell date={tourist.createdAt} />,
