@@ -1,45 +1,31 @@
-import { ScrollReveal } from '@/components/animations/ScrollReveal';
-import BookingStats from '@/components/modules/Tourist/BookingStats';
 import { getUserInfo } from '@/services/auth/getUserInfo';
-import { getBookingStats } from '@/services/tourist/booking';
+import { getTouristDashboard } from '@/services/tourist/getTouristDashboard';
+import TouristDashboardContent from './TouristDashboardContent';
 
 export const dynamic = 'force-dynamic';
 
 const TouristDashboardPage = async () => {
-  // 1️⃣ Get logged-in user
   const user = await getUserInfo();
 
   if (!user) {
     return (
-      <p className="text-center mt-10 text-red-500">
-        You must be logged in to view your dashboard.
-      </p>
+      <div className="flex h-[80vh] items-center justify-center p-6 text-center">
+        <p className="text-destructive font-bold uppercase tracking-widest text-xs">Auth Required. Buffer Restricted.</p>
+      </div>
     );
   }
 
-  // 2️⃣ Fetch booking stats
-  const stats = await getBookingStats();
+  let dashboardData = null;
+  try {
+    const result = await getTouristDashboard();
+    if (result.success) {
+      dashboardData = result.data;
+    }
+  } catch (error) {
+    console.error('Failed to fetch tourist dashboard data:', error);
+  }
 
-  return (
-    <div className="p-6 space-y-6">
-      {/* Page Heading */}
-      <ScrollReveal variant="fade-down" duration={0.45}>
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-800">
-            Welcome to Your Dashboard
-          </h1>
-          <p className="text-gray-500 mt-1">
-            Here’s a summary of your bookings and spending.
-          </p>
-        </div>
-      </ScrollReveal>
-
-      {/* Booking Stats Component */}
-      <ScrollReveal variant="fade-up" amount={0.15}>
-        <BookingStats stats={stats?.data} />
-      </ScrollReveal>
-    </div>
-  );
+  return <TouristDashboardContent data={dashboardData} />;
 };
 
 export default TouristDashboardPage;

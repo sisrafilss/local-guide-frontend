@@ -1,43 +1,31 @@
-import { ScrollReveal } from '@/components/animations/ScrollReveal';
-import GuideDashboardStats from '@/components/modules/Guide/ListingManagement/GuideDashboardStat';
-import { getStats } from '@/services/getStats';
-import { userInfo } from 'os';
+import { getUserInfo } from '@/services/auth/getUserInfo';
+import { getGuideDashboard } from '@/services/guide/getGuideDashboard';
+import GuideDashboardContent from './GuideDashboardContent';
 
 export const dynamic = 'force-dynamic';
 
 const GuideDashboardPage = async () => {
-  // 1️⃣ Get logged-in guide
-  const user = await userInfo();
+  const user = await getUserInfo();
 
   if (!user) {
     return (
-      <p className="text-center mt-10 text-red-500">
-        You must be logged in to view the guide dashboard.
-      </p>
+      <div className="flex h-[80vh] items-center justify-center p-6 text-center">
+        <p className="text-destructive font-medium">You must be logged in to view the guide dashboard.</p>
+      </div>
     );
   }
 
-  // 2️⃣ Fetch guide stats
-  const statsData = await getStats();
+  let dashboardData = null;
+  try {
+    const result = await getGuideDashboard();
+    if (result.success) {
+      dashboardData = result.data;
+    }
+  } catch (error) {
+    console.error('Failed to fetch guide dashboard data:', error);
+  }
 
-  return (
-    <div className="p-6 space-y-6">
-      {/* Page Heading */}
-      <ScrollReveal variant="fade-down" duration={0.45}>
-        <div>
-          <h1 className="text-3xl font-bold text-gray-800">Guide Dashboard</h1>
-          <p className="text-gray-500 mt-1">
-            Overview of your bookings and recent activities.
-          </p>
-        </div>
-      </ScrollReveal>
-
-      {/* Stats Component */}
-      <ScrollReveal variant="fade-up" amount={0.15}>
-        <GuideDashboardStats data={statsData.data} />
-      </ScrollReveal>
-    </div>
-  );
+  return <GuideDashboardContent data={dashboardData} />;
 };
 
 export default GuideDashboardPage;
