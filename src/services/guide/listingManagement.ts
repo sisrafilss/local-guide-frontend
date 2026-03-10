@@ -10,7 +10,7 @@ import {
 export const getListing = async (queryString: string) => {
   try {
     const response = await serverFetch.get(
-      `/tours${queryString ? `?${queryString}` : ''}`
+      `/tours/my-tours${queryString ? `?${queryString}` : ''}`
     );
 
     const result = await response.json();
