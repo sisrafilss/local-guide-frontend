@@ -41,9 +41,9 @@ const WhyChooseUsSection = () => {
            <h2 className="text-4xl md:text-6xl font-black italic tracking-tighter text-foreground uppercase leading-none">
               Why <span className="text-primary italic">Choose Us</span>
            </h2>
-           <p className="max-w-xl mx-auto text-sm font-bold italic text-muted-foreground/60 tracking-tight italic">
-              Delivering high-integrity travel experiences powered by exclusive local data.
-           </p>
+<p className="max-w-xl mx-auto text-sm font-bold italic text-muted-foreground tracking-tight italic">
+               Delivering high-integrity travel experiences powered by exclusive local data.
+            </p>
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
@@ -61,7 +61,7 @@ const WhyChooseUsSection = () => {
                     <h3 className="text-xl font-black italic tracking-tighter text-foreground uppercase group-hover:text-primary transition-colors italic">
                        {item.title}
                     </h3>
-                    <p className="text-xs font-bold italic text-muted-foreground/80 leading-relaxed tracking-tight opacity-70">
+                    <p className="text-xs font-bold italic text-muted-foreground leading-relaxed tracking-tight">
                       {item.description}
                     </p>
                   </div>

@@ -54,20 +54,20 @@ const PublicNavbar = async () => {
           </div>
           <div className="flex flex-col whitespace-nowrap">
             <span className="text-xl font-black italic tracking-tighter text-foreground leading-none">LOCAL GUIDE</span>
-            <span className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase opacity-60">Your Local Expert</span>
+            <span className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase opacity-80">Your Local Expert</span>
           </div>
         </Link>
 
         {/* Desktop Nav - Centered */}
         <nav className="hidden lg:flex items-center space-x-6 xl:space-x-12">
           {/* Section 01: Experience Nodes */}
-          <div className="flex items-center space-x-4 xl:space-x-8">
+          <div className="flex items-center space-x-3 xl:space-x-6">
             {mainNav.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
                 className={cn(
-                  "group relative text-[9px] xl:text-[10px] font-black uppercase tracking-[0.2em] xl:tracking-[0.3em] text-muted-foreground/80 transition-all hover:text-foreground italic",
+                  "group relative text-[9px] xl:text-[10px] font-black uppercase tracking-[0.2em] xl:tracking-[0.3em] text-muted-foreground transition-all hover:text-foreground italic",
                   link.href === '/summarizer' && "hidden xl:inline-block"
                 )}
               >
@@ -80,7 +80,7 @@ const PublicNavbar = async () => {
           <div className="h-4 w-px bg-border/40" />
 
           {/* Section 02: Join & Support */}
-          <div className="flex items-center space-x-4 xl:space-x-8">
+          <div className="flex items-center space-x-3 xl:space-x-6">
              <Link
                 href={ctaNav.href}
                 className="group relative text-[9px] xl:text-[10px] font-black uppercase tracking-[0.2em] xl:tracking-[0.3em] text-primary transition-all hover:scale-105 active:scale-95 italic whitespace-nowrap"
@@ -92,7 +92,7 @@ const PublicNavbar = async () => {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="group relative text-[9px] xl:text-[10px] font-black uppercase tracking-[0.2em] xl:tracking-[0.3em] text-muted-foreground/40 transition-all hover:text-foreground italic whitespace-nowrap"
+                  className="group relative text-[9px] xl:text-[10px] font-black uppercase tracking-[0.2em] xl:tracking-[0.3em] text-muted-foreground/70 transition-all hover:text-foreground italic whitespace-nowrap"
                 >
                   {link.label}
                 </Link>
@@ -101,28 +101,28 @@ const PublicNavbar = async () => {
         </nav>
 
         {/* Desktop Actions */}
-        <div className="hidden lg:flex items-center gap-6">
-          <div className="flex items-center gap-3 px-6 border-x border-border/40 ml-4">
+        <div className="hidden lg:flex items-center gap-2 xl:gap-4">
+          <div className="flex items-center gap-2 px-3 xl:px-4 border-r border-border/40">
              <ModeToggle />
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 xl:gap-3">
             {role && (
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/5 border border-primary/10">
+                <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-primary/5 border border-primary/10">
                    <div className="h-4 w-4 rounded-full bg-primary/20 flex items-center justify-center">
                      <span className="text-[9px] font-black">{role.charAt(0)}</span>
                    </div>
-                   <span className="text-[10px] font-black uppercase tracking-widest text-primary italic pr-1">{role}</span>
+                   <span className="text-[10px] font-black uppercase tracking-widest text-primary italic">{role}</span>
                 </div>
             )}
 
             {accessToken ? (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1 xl:gap-2">
                 {dashboardRoute && (
                     <Link href={dashboardRoute}>
-                      <Button variant="ghost" size="sm" className="font-black italic uppercase tracking-widest text-[10px] gap-2 hover:bg-primary/10 transition-colors">
+                      <Button variant="ghost" size="sm" className="font-black italic uppercase tracking-widest text-[9px] xl:text-[10px] gap-1.5 xl:gap-2 hover:bg-primary/10 transition-colors px-2 xl:px-3">
                         <LayoutDashboard className="h-3.5 w-3.5" />
-                        Dashboard
+                        <span className="hidden xl:inline">Dashboard</span>
                       </Button>
                     </Link>
                 )}
