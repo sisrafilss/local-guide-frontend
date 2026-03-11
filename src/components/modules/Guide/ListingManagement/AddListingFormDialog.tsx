@@ -160,9 +160,9 @@ const AddListingFormDialog = ({
             {/* Visual File Upload */}
             <div className="space-y-3 pt-2">
                <Label htmlFor="picture" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Picture</Label>
-               <div className="p-8 rounded-3xl border-2 border-dashed border-border/40 bg-muted/20 hover:bg-muted/30 transition-all cursor-pointer group/upload relative overflow-hidden">
-                  <Input id="picture" name="photo" type="file" className="absolute inset-0 opacity-0 cursor-pointer z-10" required />
-                  <div className="flex flex-col items-center justify-center gap-3 relative z-0">
+               <label htmlFor="picture" className="p-8 rounded-3xl border-2 border-dashed border-border/40 bg-muted/20 hover:bg-muted/30 transition-all cursor-pointer group/upload relative overflow-hidden block">
+                  <Input id="picture" name="photo" type="file" accept="image/*" className="hidden" required />
+                  <div className="flex flex-col items-center justify-center gap-3">
                      <div className="p-4 rounded-2xl bg-background border shadow-sm transition-transform group-hover/upload:scale-110">
                         <ImageIcon className="h-6 w-6 text-primary" />
                      </div>
@@ -171,7 +171,7 @@ const AddListingFormDialog = ({
                         <p className="text-[10px] font-bold uppercase text-muted-foreground/60 mt-0.5">Recommended resolution: 1200x800px</p>
                      </div>
                   </div>
-               </div>
+               </label>
             </div>
           </div>
 

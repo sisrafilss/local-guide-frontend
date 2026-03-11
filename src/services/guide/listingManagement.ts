@@ -107,7 +107,7 @@ export async function createListing(_prevState: any, formData: FormData) {
 
     const data: any = {};
     formData.forEach((value, key) => {
-      if (key !== 'file' && value) {
+      if (key !== 'photo' && key !== 'file' && value) {
         data[key] = value;
       }
     });
