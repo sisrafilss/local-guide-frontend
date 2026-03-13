@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 
 import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import TouristBookingTable from '@/components/modules/Tourist/TouristBookingTable';
+import BookingFilters from '@/components/modules/Tourist/BookingFilters';
 import ManagementPageHeader from '@/components/shared/ManagementPageHeader';
 import TablePagination from '@/components/shared/TablePagination';
 import { TableSkeleton } from '@/components/shared/TableSkeleton';
@@ -32,8 +33,12 @@ const MyBookingPage = async ({
         />
       </ScrollReveal>
 
-      {bookingResult?.success ? (
-        <ScrollReveal variant="fade-up" amount={0.15}>
+      <ScrollReveal variant="fade-up" amount={0.15}>
+        <div className="flex justify-end mb-4">
+          <BookingFilters />
+        </div>
+
+        {bookingResult?.success ? (
           <Suspense fallback={<TableSkeleton columns={5} rows={10} />}>
             <div className="space-y-6 mt-8">
                <TouristBookingTable bookings={bookingResult.data || []} />
@@ -46,9 +51,7 @@ const MyBookingPage = async ({
                </div>
             </div>
           </Suspense>
-        </ScrollReveal>
-      ) : (
-        <ScrollReveal variant="fade-up">
+        ) : (
           <div className="py-20 flex flex-col items-center justify-center space-y-4 rounded-3xl bg-muted/10 border border-dashed border-border/40">
              <div className="p-3 rounded-full bg-destructive/10 text-destructive">
                 <span className="text-xl font-bold">!</span>
@@ -58,8 +61,8 @@ const MyBookingPage = async ({
                 <p className="text-xs text-muted-foreground mt-1">Failed to load bookings from the server.</p>
              </div>
           </div>
-        </ScrollReveal>
-      )}
+        )}
+      </ScrollReveal>
     </div>
   );
 };
