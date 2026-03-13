@@ -89,12 +89,17 @@ const CheckoutContent = () => {
     try {
       const res = await fetch('/api/bookings', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+        },
         body: JSON.stringify(bookingData),
+        cache: 'no-store',
       });
       const data = await res.json();
 
       if (data?.success && data?.data?.paymentUrl) {
+        await new Promise(resolve => setTimeout(resolve, 500));
         window.location.assign(data.data?.paymentUrl);
         return;
       }

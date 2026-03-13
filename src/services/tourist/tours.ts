@@ -55,7 +55,9 @@ export async function bookTour(payload: BookTourPayload) {
       body: JSON.stringify(payload),
       headers: {
         'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
       },
+      cache: 'no-store',
     });
 
     const result = await response.json();
