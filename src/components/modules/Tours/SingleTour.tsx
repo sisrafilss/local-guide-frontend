@@ -7,18 +7,11 @@ import { Calendar } from '@/components/ui/calendar';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { getTourbyId } from '@/services/tourist/tours';
+import { checkAuthStatus } from '@/services/auth/checkAuth.client';
 import { Clock, DollarSign, MapPin, Users } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-
-type BookTourPayload = {
-  listingId: string;
-  touristId: string;
-  guideId: string;
-  startAt: string; // ISO string
-  totalPrice: number;
-};
 
 const SingleTour = () => {
   const params = useParams();
@@ -28,15 +21,13 @@ const SingleTour = () => {
   const [tour, setTour] = useState<TourDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [checkingAuth, setCheckingAuth] = useState(false);
 
   // 🔹 Booking state
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [time, setTime] = useState<string | null>(null);
 
-  // 🔹 TODO: replace with real logged-in tourist id from auth
-  const touristId = 'DUMMY_TOURIST_ID';
-
-  const handleBookTour = () => {
+  const handleBookTour = async () => {
     if (!date) {
       toast.error('Please select a date');
       return;
@@ -48,18 +39,44 @@ const SingleTour = () => {
 
     if (!tour) return;
 
-    const queryParams = new URLSearchParams({
-      tourId: tour.id,
-      touristId,
-      guideId: tour.guide.id || '',
-      tourTitle: tour.title,
-      tourImage: tour?.imageURL,
-      date: date.toISOString(),
-      time,
-      price: tour.price.toString(),
-    });
+    setCheckingAuth(true);
+    
+    try {
+      const authStatus = await checkAuthStatus();
+      
+      if (!authStatus.isLoggedIn) {
+        const queryParams = new URLSearchParams({
+          tourId: tour.id,
+          guideId: tour.guide.id || '',
+          tourTitle: tour.title,
+          tourImage: tour?.imageURL || '',
+          date: date.toISOString(),
+          time,
+          price: tour.price.toString(),
+        });
+        
+        const checkoutUrl = `/checkout?${queryParams.toString()}`;
+        router.push(`/login?redirect=${encodeURIComponent(checkoutUrl)}`);
+        return;
+      }
 
-    router.push(`/checkout?${queryParams.toString()}`);
+      const queryParams = new URLSearchParams({
+        tourId: tour.id,
+        touristId: authStatus.userId || '',
+        guideId: tour.guide.id || '',
+        tourTitle: tour.title,
+        tourImage: tour?.imageURL,
+        date: date.toISOString(),
+        time,
+        price: tour.price.toString(),
+      });
+
+      router.push(`/checkout?${queryParams.toString()}`);
+    } catch (error) {
+      toast.error('Something went wrong. Please try again.');
+    } finally {
+      setCheckingAuth(false);
+    }
   };
 
   useEffect(() => {

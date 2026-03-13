@@ -3,7 +3,13 @@ import RegisterForm from '@/components/RegisterForm';
 import { Compass } from 'lucide-react';
 import Link from 'next/link';
 
-const RegisterPage = () => {
+const RegisterPage = async ({
+  searchParams,
+}: {
+  searchParams?: Promise<{ redirect?: string }>;
+}) => {
+  const params = (await searchParams) || {};
+  
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-background px-6 py-12 md:py-24 transition-colors duration-500">
       {/* Dynamic Background Elements */}
@@ -34,13 +40,13 @@ const RegisterPage = () => {
           </div>
 
           <div className="relative group">
-            <RegisterForm />
+            <RegisterForm redirect={params.redirect} />
           </div>
 
           <div className="pt-2 text-center">
             <p className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest italic">
               Already have an account?{' '}
-            <Link href="/login" className="text-primary hover:text-foreground transition-colors underline underline-offset-4 decoration-primary/40">
+            <Link href={params.redirect ? `/login?redirect=${params.redirect}` : "/login"} className="text-primary hover:text-foreground transition-colors underline underline-offset-4 decoration-primary/40">
               Sign in
             </Link>
             </p>

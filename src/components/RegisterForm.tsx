@@ -8,7 +8,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { User, MapPin, Mail, Phone, Lock, Sparkles, UserPlus } from 'lucide-react';
 
-const RegisterForm = () => {
+const RegisterForm = ({ redirect }: { redirect?: string }) => {
   const [state, formAction, isPending] = useActionState(registerTourist, null);
 
   useEffect(() => {
@@ -22,6 +22,8 @@ const RegisterForm = () => {
 
   return (
     <form action={formAction} className="space-y-8">
+      {redirect && <input type="hidden" name="redirect" value={redirect} />}
+      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Name */}
         <div className="space-y-1">

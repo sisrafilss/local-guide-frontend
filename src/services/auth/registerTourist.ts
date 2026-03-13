@@ -58,7 +58,16 @@ export const registerTourist = async (
     console.log('USER CREATION RESULT', result);
 
     if (result.success) {
-      await loginUser(_currentState, formData);
+      const loginFormData = new FormData();
+      loginFormData.append('email', validatedPayload.email);
+      loginFormData.append('password', validatedPayload.password);
+      
+      const redirect = formData.get('redirect');
+      if (redirect) {
+        loginFormData.append('redirect', redirect.toString());
+      }
+      
+      await loginUser(_currentState, loginFormData);
     }
 
     return result;
